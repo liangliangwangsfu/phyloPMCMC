@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Random;
 
 import nuts.math.Sampling;
+import pty.smc.PartialCoalescentState;
 import fig.basic.Option;
 import fig.basic.Pair;
 

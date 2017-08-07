@@ -12,8 +12,6 @@ import pty.smc.LazyParticleFilter.LazyParticleKernel;
 import pty.smc.LazyParticleFilter.ParticleFilterOptions;
 import pty.smc.ParticleFilter.StoreProcessor;
 import pty.smc.models.CTMC;
-import ev.ex.NJPState2;
-import ev.ex.NJStateNonclockKernel;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
 import fig.basic.ListUtils;
@@ -52,7 +50,6 @@ public class PMMH4GTRIGamma
 	private boolean saveTreesFromPMCMC=false;
 	private boolean processTree=false;
 	private boolean isPMMH4Clock=true;
-	private boolean useNJinfo=false;  
 	private boolean fixParameters=false;
 
 	public PMMH4GTRIGamma(Dataset dataset0,ParticleFilterOptions options,TreeDistancesProcessor tdp,boolean useTopologyProcessor,
@@ -77,8 +74,7 @@ public class PMMH4GTRIGamma
 		this.a_subsRates=a_subsRates;
 		this.nCategories=nCategories;
 		this.processTree=processTree;
-		this.isPMMH4Clock=isPMMH4Clock;
-		this.useNJinfo=useNJinfo; 
+		this.isPMMH4Clock=isPMMH4Clock; 
 	}
 
 	public void setFixParameters(boolean fixParameters)
@@ -212,7 +208,7 @@ public class PMMH4GTRIGamma
 		{
 			CTMC ctmc = new CTMC.GTRIGammaCTMC(proposedstatFreqs,proposedsubsRates,4,dataset.nSites(),proposedAlpha,nCategories,proposedPInv);
 			PartialCoalescentState init = PartialCoalescentState.initFastState(dataset,ctmc,isPMMH4Clock); 
-			LazyParticleKernel kernel = (isPMMH4Clock?new PriorPriorKernel(init):(useNJinfo?new NJStateNonclockKernel(NJPState2.init(init)):new NCPriorPriorKernel(init)));			
+			LazyParticleKernel kernel = (isPMMH4Clock?new PriorPriorKernel(init):new NCPriorPriorKernel(init));			
 			LazyParticleFilter<PartialCoalescentState> pf = new LazyParticleFilter<PartialCoalescentState>(kernel, options);					
 			double zHat=	pf.sample(pro);			
 			// compute accept/reject

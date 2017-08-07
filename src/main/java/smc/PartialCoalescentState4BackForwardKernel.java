@@ -1,10 +1,10 @@
 package smc;
 
 import pty.io.Dataset;
+import pty.smc.PartialCoalescentState;
 import pty.smc.models.CTMC;
 
-public class PartialCoalescentState4BackForwardKernel extends
-		PartialCoalescentState {
+public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentState {
 	private PartialCoalescentState4BackForwardKernel parent = null;
 	private double deltaOld = 0;
 

@@ -2,7 +2,6 @@ package phyloPMCMC;
 
 import static nuts.util.CollUtils.list;
 import static nuts.util.CollUtils.map;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
 import nuts.io.IO;
 import nuts.math.Sampling;
 import nuts.util.Arbre;
@@ -21,14 +19,14 @@ import pty.RootedTree;
 import pty.io.Dataset;
 import pty.io.TreeEvaluator;
 import pty.mcmc.UnrootedTreeState;
-import pty.smc.BackForwardKernel0;
 import pty.smc.LazyParticleFilter.ParticleFilterOptions;
 import pty.smc.PartialCoalescentState;
-import pty.smc.PartialCoalescentState4BackForwardKernel;
 import pty.smc.ParticleFilter;
 import pty.smc.ParticleFilter.StoreProcessor;
 import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
+import smc.BackForwardKernel0;
+import smc.PartialCoalescentState4BackForwardKernel;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
 import fig.basic.ListUtils;
@@ -222,7 +220,7 @@ public class ParticleGibbs4GTRIGammaBF {
 			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
 					init0, null, 0);
 
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel0(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = (ParticleKernel<PartialCoalescentState4BackForwardKernel>) new BackForwardKernel0(
 					init);
 
 			ParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new ParticleFilter<PartialCoalescentState4BackForwardKernel>();

@@ -272,10 +272,10 @@ public class InteractingParticleGibbs4GTRIGamma {
 				"acceptPrsubsRates",
 				acceptPrsubsRates,
 				// "maskSparsity", currentSparsity,
-				"rfDist",
-				(previousSample == null ? 0
-						: new TreeEvaluator.RobinsonFouldsMetric().score(
-								currentSample, previousSample)),
+//				"rfDist",
+//				(previousSample == null ? 0
+//						: new TreeEvaluator.RobinsonFouldsMetric().score(
+//								currentSample, previousSample)),
 				"statFreqs1",
 				statFreqs[0], "statFreqs2", statFreqs[1], "statFreqs3",
 				statFreqs[2], "statFreqs4", statFreqs[3], "subsRates1",
