@@ -968,7 +968,7 @@ public class PMCMCExperiments implements Runnable {
 																	// instance.nThousandIters
 																	// * 1000);
 				// options.nThreads = instance.nThreads;
-				options.nThreads = 1; // TODO: solve the problems of using
+				options.nThreads = instance.nThreads; // TODO: solve the problems of using
 										// multiple threads in pmmh.
 				options.resampleLastRound = true;
 				options.parallelizeFinalParticleProcessing = true;
@@ -1009,8 +1009,6 @@ public class PMCMCExperiments implements Runnable {
 					dataRepeatN = nCategories + 1;
 				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
-				// CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-				// dataset.nSites(), alpha, nCategories, pInv);
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 				TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
 				final int nMCMC = (int) iterScale;
@@ -1034,8 +1032,10 @@ public class PMCMCExperiments implements Runnable {
 				while (i < nPGS) {
 					i++;
 					System.out.println(i);
-					if (i > nPGSburnin)
+					if (i > nPGSburnin) {
+						System.out.println("process ");
 						pg.setProcessTree(true);
+					}
 					pg.next(instance.mainRand);
 				}
 				if (instance.saveTreesFromPMCMC) {

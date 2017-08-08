@@ -4,6 +4,7 @@ import java.util.Random;
 
 import nuts.math.Sampling;
 import pty.smc.PartialCoalescentState;
+import pty.smc.ParticleKernel;
 import fig.basic.Option;
 import fig.basic.Pair;
 
