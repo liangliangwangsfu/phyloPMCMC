@@ -220,7 +220,7 @@ public class ParticleGibbs4GTRIGammaBF {
 			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
 					init0, null, 0);
 
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = (ParticleKernel<PartialCoalescentState4BackForwardKernel>) new BackForwardKernel0(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel0(
 					init);
 
 			ParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new ParticleFilter<PartialCoalescentState4BackForwardKernel>();
@@ -430,11 +430,16 @@ public class ParticleGibbs4GTRIGammaBF {
 			double currentHeight=sortHeightMap.get(currentArbre);
 			double currentDelta=currentHeight-previousHeight;
 			previousHeight=currentHeight;
-			PartialCoalescentState4BackForwardKernel coalesceResult = (PartialCoalescentState4BackForwardKernel) current
-					.coalesce(current.indexOf(first), current.indexOf(second),
-							currentDelta, 0, 0, currentArbre.getContents());
-			coalesceResult.setDeltaOld(currentDelta);
-			coalesceResult.setParent(current);
+//			PartialCoalescentState4BackForwardKernel coalesceResult = (PartialCoalescentState4BackForwardKernel) current
+//					.coalesce(current.indexOf(first), current.indexOf(second),
+//							currentDelta, 0, 0, currentArbre.getContents());
+//			coalesceResult.setDeltaOld(currentDelta);
+//			coalesceResult.setParent(current);
+			
+			PartialCoalescentState4BackForwardKernel coalesceResult = new PartialCoalescentState4BackForwardKernel(current
+			.coalesce(current.indexOf(first), current.indexOf(second),
+					currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta);
+			
 			// PartialCoalescentState4BackForwardKernel;
 			double logWeight = coalesceResult.logLikelihoodRatio();// coalesceResult.logLikelihood()-current.logLikelihood();
 			current=coalesceResult;

@@ -37,6 +37,7 @@ import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
 import pty.smc.test.TestBrownianModel.KernelType;
 import smc.BackForwardKernel;
+//import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
 import ev.ex.PhyloSamplerMain;
 import ev.poi.processors.TreeDistancesProcessor;
@@ -1023,7 +1024,7 @@ public class PMCMCExperiments implements Runnable {
 				if (nPMMH == 0)
 					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
-				ParticleGibbs4GTRIGamma pg = new ParticleGibbs4GTRIGamma(dataset, options, tdp,
+				ParticleGibbs4GTRIGammaBF pg = new ParticleGibbs4GTRIGammaBF(dataset, options, tdp,
 						instance.useTopologyProcessor, trTopo, initTree, subsRates, statFreqs, alpha, pInv,
 						instance.a_alpha, instance.a_pInv, instance.a_statFreqs, instance.a_subsRates, nCategories,
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
