@@ -126,9 +126,6 @@ public class BackForwardKernel0 implements
 			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,delta1);
 		}
 
-		
-		
-
 		// 4- the weight update is simply equal to the ratio of the new
 		// likelihood score to the old one
 		if (isPeek)
@@ -156,9 +153,6 @@ public class BackForwardKernel0 implements
 	public Pair<PartialCoalescentState4BackForwardKernel, Double> next(
 			Random rand, PartialCoalescentState4BackForwardKernel current) {
 		return (Pair) _next(rand, current, false);
-
 	}
-
-
 
 }

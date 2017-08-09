@@ -1,4 +1,4 @@
-package phyloPMCMC;
+package scratch;
 
 import java.util.*;
 

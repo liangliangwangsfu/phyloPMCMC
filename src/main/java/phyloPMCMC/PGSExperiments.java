@@ -34,6 +34,10 @@ import pty.smc.ParticleFilter;
 import pty.smc.ParticleFilter.ResamplingStrategy;
 import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
+import scratch.PMMH4GTRIGamma;
+import scratch.PMMHNC;
+import scratch.ParticleGibbs4GTRIGamma;
+import scratch.ParticleGibbs4GTRIGammaBF;
 import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
 import ev.ex.PhyloSamplerMain;
@@ -55,7 +59,7 @@ public class PGSExperiments implements Runnable {
 	@Option
 	public double nThousandIters = 10;
 	@Option
-	public ArrayList<InferenceMethod> methods = list(Arrays.asList(InferenceMethod.PMMHNC, InferenceMethod.SMC4K2P));
+	public ArrayList<InferenceMethod> methods = list(Arrays.asList(InferenceMethod.SMC4K2P));
 	@Option
 	public ArrayList<Double> iterScalings = list(Arrays.asList(1.0));
 	@Option
@@ -168,96 +172,96 @@ public class PGSExperiments implements Runnable {
 			UnrootedTree goldut = (generator.useGutellData || !useDataGenerator)
 					? (refTree == null ? null
 							: UnrootedTree.fromRooted(RootedTree.Util.fromNewickString(IO.f2s(refTree))))
-					: UnrootedTree.fromRooted(RootedTree.Util
-							.fromNewickString(IO.f2s(new File(f.getAbsolutePath().replaceAll("[.]msf$", ".newick")))));
+							: UnrootedTree.fromRooted(RootedTree.Util
+									.fromNewickString(IO.f2s(new File(f.getAbsolutePath().replaceAll("[.]msf$", ".newick")))));
 
-			File computedRefTrees = new File(Execution.getFile("computed-ref-trees"));
-			// ReportProgress.progressBlock(methods.size());
-			for (int i = 0; i < methods.size(); i++) {
-				InferenceMethod m = methods.get(i);
-				final double iterScale = iterScalings.get(i);
-				LogInfo.track("Current method:" + m + " with iterScale=" + iterScale + " (i.e. "
-						+ (iterScale * nThousandIters * 1000.0) + " iterations)");
+					File computedRefTrees = new File(Execution.getFile("computed-ref-trees"));
+					// ReportProgress.progressBlock(methods.size());
+					for (int i = 0; i < methods.size(); i++) {
+						InferenceMethod m = methods.get(i);
+						final double iterScale = iterScalings.get(i);
+						LogInfo.track("Current method:" + m + " with iterScale=" + iterScale + " (i.e. "
+								+ (iterScale * nThousandIters * 1000.0) + " iterations)");
 
-				DescriptiveStatisticsMap<String> stats = new DescriptiveStatisticsMap<String>();
-				// ReportProgress.progressBlock(repPerDataPt);
-				for (int j = 0; j < repPerDataPt; j++) {
-					String treeNameCurrentRep = treeName;
-					if (m == InferenceMethod.PMMHNC)
-						treeNameCurrentRep = treeNameCurrentRep + ".Rep" + j;
+						DescriptiveStatisticsMap<String> stats = new DescriptiveStatisticsMap<String>();
+						// ReportProgress.progressBlock(repPerDataPt);
+						for (int j = 0; j < repPerDataPt; j++) {
+							String treeNameCurrentRep = treeName;
+//							if (m == InferenceMethod.PMMHNC)
+//								treeNameCurrentRep = treeNameCurrentRep + ".Rep" + j;
 
-					LogInfo.track("Repeat " + (j + 1) + "/" + repPerDataPt);
-					// LogInfo.forceSilent = true;
-					long time = System.currentTimeMillis();
-					TreeDistancesProcessor processor = m.doIt(this, iterScale, goldut, treeNameCurrentRep);
-					time = System.currentTimeMillis() - time;
-					LogInfo.forceSilent = false;
-					UnrootedTree inferred = processor.getConsensus();
-					IO.writeToDisk(new File(output, "consensus_" + treeName.replaceAll("[.]msf$", ".newick")),
-							inferred.toNewick());
-					{
-						// evaluate the likelihood of the inferred tree
-						Dataset dataset = DatasetUtils.fromAlignment(this.data, sequenceType);
-						CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
-						UnrootedTreeState ncs = UnrootedTreeState.initFastState(inferred, dataset, ctmc);
-						out.println(CSV.body(m, iterScale, j, "ConsensusLogLL", ncs.logLikelihood(), treeName, time));
+							LogInfo.track("Repeat " + (j + 1) + "/" + repPerDataPt);
+							// LogInfo.forceSilent = true;
+							long time = System.currentTimeMillis();
+							TreeDistancesProcessor processor = m.doIt(this, iterScale, goldut, treeNameCurrentRep);
+							time = System.currentTimeMillis() - time;
+							LogInfo.forceSilent = false;
+							UnrootedTree inferred = processor.getConsensus();
+							IO.writeToDisk(new File(output, "consensus_" + treeName.replaceAll("[.]msf$", ".newick")),
+									inferred.toNewick());
+							{
+								// evaluate the likelihood of the inferred tree
+								Dataset dataset = DatasetUtils.fromAlignment(this.data, sequenceType);
+								CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
+								UnrootedTreeState ncs = UnrootedTreeState.initFastState(inferred, dataset, ctmc);
+								out.println(CSV.body(m, iterScale, j, "ConsensusLogLL", ncs.logLikelihood(), treeName, time));
+							}
+							{
+								// best log likelihood, when available
+								double bestLogLL = processor.getBestLogLikelihood();
+								out.println(CSV.body(m, iterScale, j, "BestSampledLogLL", bestLogLL, treeName, time));
+							}
+							if (goldut == null) {
+								LogInfo.logsForce("Computing gold tree using " + refMethod);
+								goldut = refMethod.doIt(this, refIterScaling, goldut, treeName).getConsensus();
+								computedRefTrees.mkdir();
+								File current = new File(computedRefTrees,
+										"computedRefTree_" + f.getName().replaceAll("[.]msf", "") + ".newick");
+								IO.writeToDisk(current, goldut.toNewick());
+							}
+							for (TreeMetric tm : TreeEvaluator.coreTreeMetrics) {
+								final double value = tm.score(inferred, goldut);
+								stats.addValue(tm.toString(), value);
+
+								out.println(CSV.body(m, iterScale, j, tm, value, treeName, time));
+							}
+							// if(m==InferenceMethod.PMMHNC){
+							// List<Map<String,String>> pmmcRe = IO.iCSVMap(new
+							// File(output, treeNameCurrentRep+".csv"));
+							// Set<String> colNames=pmmcRe.get(0).keySet();
+							// colNames.remove("rfDist");
+							// colNames.remove("treeSize");
+							// colNames.remove("Iter");
+							// for(String colName:colNames)
+							// {
+							// DescriptiveStatisticsMap<String> statsMap=new
+							// DescriptiveStatisticsMap<String>();
+							// for(int k=0;k<pmmcRe.size();k++)
+							// {
+							// double value =
+							// Double.parseDouble(pmmcRe.get(k).get(colName));
+							// statsMap.addValue(colName, value);
+							// }
+							// out.println(CSV.body(m, iterScale, j, "pmmc_"+colName,
+							// statsMap.median(colName), treeName, time));
+							// }
+							// }
+
+							LogInfo.end_track();
+							// ReportProgress.divisionCompleted();
+						}
+						LogInfo.track("Score for current block of repeats (Method=" + m + ",IterScale=" + iterScale
+								+ ",TreeName=" + treeName + ")");
+						for (TreeMetric tm : TreeEvaluator.coreTreeMetrics)
+							LogInfo.logsForce("Current " + tm + ":" + stats.median(tm.toString()));
+						LogInfo.end_track();
+						out.flush();
+						LogInfo.end_track();
+						// ReportProgress.divisionCompleted();
 					}
-					{
-						// best log likelihood, when available
-						double bestLogLL = processor.getBestLogLikelihood();
-						out.println(CSV.body(m, iterScale, j, "BestSampledLogLL", bestLogLL, treeName, time));
-					}
-					if (goldut == null) {
-						LogInfo.logsForce("Computing gold tree using " + refMethod);
-						goldut = refMethod.doIt(this, refIterScaling, goldut, treeName).getConsensus();
-						computedRefTrees.mkdir();
-						File current = new File(computedRefTrees,
-								"computedRefTree_" + f.getName().replaceAll("[.]msf", "") + ".newick");
-						IO.writeToDisk(current, goldut.toNewick());
-					}
-					for (TreeMetric tm : TreeEvaluator.coreTreeMetrics) {
-						final double value = tm.score(inferred, goldut);
-						stats.addValue(tm.toString(), value);
-
-						out.println(CSV.body(m, iterScale, j, tm, value, treeName, time));
-					}
-					// if(m==InferenceMethod.PMMHNC){
-					// List<Map<String,String>> pmmcRe = IO.iCSVMap(new
-					// File(output, treeNameCurrentRep+".csv"));
-					// Set<String> colNames=pmmcRe.get(0).keySet();
-					// colNames.remove("rfDist");
-					// colNames.remove("treeSize");
-					// colNames.remove("Iter");
-					// for(String colName:colNames)
-					// {
-					// DescriptiveStatisticsMap<String> statsMap=new
-					// DescriptiveStatisticsMap<String>();
-					// for(int k=0;k<pmmcRe.size();k++)
-					// {
-					// double value =
-					// Double.parseDouble(pmmcRe.get(k).get(colName));
-					// statsMap.addValue(colName, value);
-					// }
-					// out.println(CSV.body(m, iterScale, j, "pmmc_"+colName,
-					// statsMap.median(colName), treeName, time));
-					// }
-					// }
-
 					LogInfo.end_track();
-					// ReportProgress.divisionCompleted();
-				}
-				LogInfo.track("Score for current block of repeats (Method=" + m + ",IterScale=" + iterScale
-						+ ",TreeName=" + treeName + ")");
-				for (TreeMetric tm : TreeEvaluator.coreTreeMetrics)
-					LogInfo.logsForce("Current " + tm + ":" + stats.median(tm.toString()));
-				LogInfo.end_track();
-				out.flush();
-				LogInfo.end_track();
-				// ReportProgress.divisionCompleted();
-			}
-			LogInfo.end_track();
 
-			// ReportProgress.divisionCompleted();
+					// ReportProgress.divisionCompleted();
 		}
 
 		out.close();
@@ -336,73 +340,6 @@ public class PGSExperiments implements Runnable {
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 				final double zHat = lpf.sample(tdp);
 				LogInfo.logsForce("Norm:" + zHat);
-				return tdp;
-			}
-		},
-		  PMMHSMC2 {			  
-		@Override public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut, String treeName) {
-			  ParticleFilterOptions options = new ParticleFilterOptions();
-			  options.nParticles = instance.nParticlesEachStep; //generator.nTaxa*(generator.nTaxa-1)*20; 
-			  //(int) (iterScale *instance.nThousandIters * 1000); 
-			  options.nThreads = instance.nThreads;
-			  options.resampleLastRound = true; 
-			  options.parallelizeFinalParticleProcessing= true; 
-			  options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
-			  options.maxNUniqueParticles = instance.maxNUniqueParticles; 
-			  options.rand =instance.mainRand; options.verbose = instance.verbose; // options.maxNGrow =0;			  
-			  Dataset dataset = DatasetUtils.fromAlignment(instance.data,instance.sequenceType); 
-			  CTMC ctmc =CTMC.SimpleCTMC.dnaCTMC(dataset.nSites()); 
-			  PartialCoalescentState init =PartialCoalescentState.initFastState(dataset, ctmc); 
-			  LazyParticleKernel pk2 = new PriorPriorKernel(init); 
-			  LazyParticleFilter<PartialCoalescentState> lpf =new LazyParticleFilter<PartialCoalescentState>(pk2, options);
-			  TreeDistancesProcessor tdp = new TreeDistancesProcessor(); 
-			  double initTrans2tranv=Math.exp(Math.log(2.0)+instance.mainRand.nextGaussian()*0.1); 
-			  PMMHSMC2 pmmh =new PMMHSMC2(dataset, options, tdp, initTrans2tranv);
-			  pmmh.a=instance.parameter_a; // final double requested = (iterScale *instance.nThousandIters * 1000); // pc.N = 1+ (int) Math.pow(requested,instance.pmcmcSMCExpMix); 
-			  // final int nMCMC = 1 + (int) Math.pow(requested,1.0 - instance.pmcmcSMCExpMix); 
-			  final int nMCMC=(int) iterScale;
-			  System.out.println("# particles: "+ options.nParticles +"; nMCMC:"+ nMCMC);
-			  //int i=0; // 
-			  for (int i = 0; i < nMCMC; i++) while(!pmmh.stop && i<nMCMC) {
-			  System.out.println(i);	  
-			  i++; 
-			  pmmh.next(instance.mainRand);
-			  }
-		return tdp;
-		}
-	},
-		PMMHNC {
-
-			@Override
-			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
-					String treeName) {
-				ParticleFilter<PartialCoalescentState> pc = new ParticleFilter<PartialCoalescentState>();
-				// pc.N = (int) (iterScale * instance.nThousandIters * 1000);
-				pc.N = instance.nParticlesEachStep; // generator.nTaxa*(generator.nTaxa-1)*100;
-				pc.nThreads = instance.nThreads;
-				pc.resampleLastRound = false;
-				pc.resamplingStrategy = ResamplingStrategy.ALWAYS;
-				pc.rand = instance.mainRand;
-				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
-				double initTrans2tranv = Math.exp(Math.log(2.0) + instance.mainRand.nextGaussian() * 0.1);
-				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
-				PMMHNC pmmhnc = new PMMHNC(dataset, pc, tdp, initTrans2tranv);
-				// pmmhnc.goldut=goldut;
-				// pmmhnc.out=treeName;
-				pmmhnc.a = instance.parameter_a;
-				// final double requested = (iterScale * instance.nThousandIters
-				// * 1000);
-				// pc.N = 1+ (int) Math.pow(requested, instance.pmcmcSMCExpMix);
-				// final int nMCMC = 1 + (int) Math.pow(requested, 1.0 -
-				// instance.pmcmcSMCExpMix);
-				final int nMCMC = (int) (iterScale * instance.nThousandIters * 1000);
-				System.out.println("# particles: " + pc.N + "; nMCMC:" + nMCMC);
-				int i = 0;
-				// for (int i = 0; i < nMCMC; i++)
-				while (!pmmhnc.stop && i < nMCMC) {
-					i++;
-					pmmhnc.next(instance.mainRand);
-				}
 				return tdp;
 			}
 		},
@@ -486,21 +423,21 @@ public class PGSExperiments implements Runnable {
 				options.verbose = instance.verbose;
 				// options.maxNGrow = 0;
 				double[] subsRates = instance.generator.subsRates; // six
-																	// parameters
-																	// of
-																	// substitutions:rAC,rAG,rAT,rCG,rGT,rCT
+				// parameters
+				// of
+				// substitutions:rAC,rAG,rAT,rCG,rGT,rCT
 				double[] statFreqs = instance.generator.stationaryDistribution; // stationary
-																				// state
-																				// frequencies.
-																				// pi_A,
-																				// pi_C,
-																				// pi_G,
-																				// pi_T
+				// state
+				// frequencies.
+				// pi_A,
+				// pi_C,
+				// pi_G,
+				// pi_T
 				double alpha = instance.generator.alpha; // shape parameter in
-															// the Gamma
-															// distribution
+				// the Gamma
+				// distribution
 				double pInv = instance.generator.pInv; // the proportion of
-														// invariant sites
+				// invariant sites
 				int nCategories = 4;
 				int dataRepeatN = nCategories;
 				if (pInv > 0)
@@ -529,49 +466,6 @@ public class PGSExperiments implements Runnable {
 				return tdp;
 			}
 		},
-		/*
-		 * SMC4GTRIGammaSigmaTheta {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) {
-		 * ParticleFilterOptions options = new ParticleFilterOptions(); //
-		 * ParticleFilter<PartialCoalescentState> pc = new
-		 * ParticleFilter<PartialCoalescentState>(); options.nParticles = (int)
-		 * (iterScale * instance.nThousandIters * 1000); options.nThreads =
-		 * instance.nThreads; options.resampleLastRound = true;
-		 * options.parallelizeFinalParticleProcessing = true;
-		 * options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
-		 * options.maxNUniqueParticles = instance.maxNUniqueParticles; //options.rand =
-		 * instance.mainRand; options.verbose = instance.verbose; // options.maxNGrow =
-		 * 0; // double[] subsRates=new double[]{0.26,0.18,0.17,0.15,0.11,0.13}; // six
-		 * parameters of substitutions:rAC,rAG,rAT,rCG,rGT,rCT // double[] statFreqs=new
-		 * double[]{0.3,0.2,0.2,0.3}; // stationary state frequencies. pi_A, pi_C, pi_G,
-		 * pi_T
-		 * 
-		 * double[] subsRates=instance.generator.subsRates; double[]
-		 * statFreqs=instance.generator.stationaryDistribution; double
-		 * alpha=instance.generator.alpha; // shape parameter in the Gamma distribution
-		 * double pInv=generator.alpha; // the proportion of invariant sites int
-		 * nCategories=4; int dataRepeatN=nCategories;
-		 * if(pInv>0)dataRepeatN=nCategories+1; MSAPoset align =
-		 * MSAPoset.parseAlnOrMsfFormats(instance.data); Dataset dataset =
-		 * DatasetUtils.fromAlignment(align, instance.sequenceType,dataRepeatN); CTMC
-		 * ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(),
-		 * alpha, nCategories, pInv); PartialCoalescentState init =
-		 * PartialCoalescentState.initFastState(dataset, ctmc, true);
-		 * TreeDistancesProcessor tdp=null; int M=5; double [] logLikes=new double[M];
-		 * double mu=0; //mean for(int i=0;i<M;i++) { System.out.println(i);
-		 * options.rand = new Random(instance.mainRand.nextLong()); LazyParticleKernel
-		 * pk2 = new PriorPriorKernel(init); LazyParticleFilter<PartialCoalescentState>
-		 * lpf = new LazyParticleFilter<PartialCoalescentState>(pk2, options); tdp = new
-		 * TreeDistancesProcessor(); final double zHat = lpf.sample(tdp); //
-		 * LogInfo.logsForce("Norm:" + zHat); logLikes[i]=zHat; mu+=logLikes[i]; }
-		 * mu=mu/M; // LogInfo.logsForce("Norm:" + zHat); double sigma2=0; for(int
-		 * i=0;i<M;i++){ sigma2+=Math.pow(logLikes[i]-mu, 2);
-		 * LogInfo.logsForce(logLikes[i]+","); } sigma2=sigma2/M;
-		 * LogInfo.logsForce("Sample variance is "+sigma2);
-		 * LogInfo.logsForce("Sample SD is "+Math.sqrt(sigma2)); return tdp; } },
-		 */
 		SMCNonClock4GTRIGamma {
 			@Override
 			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
@@ -592,10 +486,10 @@ public class PGSExperiments implements Runnable {
 				double[] statFreqs = instance.generator.stationaryDistribution;
 
 				double alpha = instance.generator.alpha; // shape parameter in
-															// the Gamma
-															// distribution
+				// the Gamma
+				// distribution
 				double pInv = instance.generator.pInv; // the proportion of
-														// invariant sites
+				// invariant sites
 				int nCategories = 4;
 				int dataRepeatN = nCategories;
 				if (pInv > 0)
@@ -625,155 +519,7 @@ public class PGSExperiments implements Runnable {
 				return tdp;
 			}
 		},
-		// SMCNonClock4GTRIGammaSamples {
-		// @Override
-		// public TreeDistancesProcessor doIt(PMCMCExperiments instance, double
-		// iterScale, UnrootedTree goldut, String treeName)
-		// {
-		// ParticleFilterOptions options = new ParticleFilterOptions();
-		// // ParticleFilter<PartialCoalescentState> pc = new
-		// ParticleFilter<PartialCoalescentState>();
-		// options.nParticles = (int) (iterScale * instance.nThousandIters *
-		// 1000);
-		// options.nThreads = instance.nThreads;
-		// options.resampleLastRound = true;
-		// options.parallelizeFinalParticleProcessing = true;
-		// options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
-		// options.maxNUniqueParticles = instance.maxNUniqueParticles;
-		// options.rand = instance.mainRand;
-		// options.verbose = instance.verbose;
-		// // options.maxNGrow = 0;
-		// File output=new File(Execution.getFile("results"));
-		// String nameOfAllTrees="allTrees.trees";
-		// double[] subsRates=instance.generator.subsRates;
-		// double[] statFreqs=instance.generator.stationaryDistribution;
-		//
-		// double alpha=instance.generator.alpha; // shape parameter in the
-		// Gamma distribution
-		// double pInv=instance.generator.pInv; // the proportion of invariant
-		// sites
-		// int nCategories=4;
-		// int dataRepeatN=nCategories;
-		// if(pInv>0)dataRepeatN=nCategories+1;
-		// MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
-		// Dataset dataset = DatasetUtils.fromAlignment(align,
-		// instance.sequenceType,dataRepeatN);
-		// CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-		// dataset.nSites(), alpha, nCategories, pInv);
-		// PartialCoalescentState init =
-		// PartialCoalescentState.initFastState(dataset, ctmc, false);
-		// LazyParticleKernel pk2 = new NCPriorPriorKernel(init);
-		// LazyParticleFilter<PartialCoalescentState> lpf = new
-		// LazyParticleFilter<PartialCoalescentState>(pk2, options);
-		//
-		// StoreProcessor<PartialCoalescentState> pro = new
-		// StoreProcessor<PartialCoalescentState>();
-		// TreeDistancesProcessor tdp = new TreeDistancesProcessor();
-		// final double zHat = lpf.sample(pro,tdp);
-		// // LogInfo.logsForce("Norm:" + zHat);
-		// //int nSamples=Math.max(options.nParticles, 10000);
-		// int nSamples=options.nParticles;
-		// for(int i=0;i<nSamples;i++)
-		// {
-		// PartialCoalescentState sampled = pro.sample(instance.mainRand);
-		// //TODO: there is a problem here when the nThread >1
-		// RootedTree currentSample = sampled.getFullCoalescentState();
-		//
-		// String stringOfTree=RootedTree.Util.toNewick(currentSample);
-		// String cmdStr="echo -n 'TREE tree_" + i +"=' >>"+nameOfAllTrees;
-		// IO.call("bash -s",cmdStr,output);
-		// cmdStr="echo '" +stringOfTree +
-		// "' | sed 's/internal_[0-9]*_[0-9]*//g'"+ " | sed 's/leaf_//g'"+
-		// " >> "+nameOfAllTrees;
-		// // LogInfo.logs(cmdStr);
-		// // String msg0=
-		// IO.call("bash -s",cmdStr,output);
-		// }
-		// return tdp;
-		// }
-		// },
-		/*
-		 * SMCNonClock4GTRIGammaSigmaTheta {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) {
-		 * ParticleFilterOptions options = new ParticleFilterOptions(); //
-		 * ParticleFilter<PartialCoalescentState> pc = new
-		 * ParticleFilter<PartialCoalescentState>(); options.nParticles = (int)
-		 * (iterScale * instance.nThousandIters * 1000); options.nThreads =
-		 * instance.nThreads; options.resampleLastRound = true;
-		 * options.parallelizeFinalParticleProcessing = true;
-		 * options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
-		 * options.maxNUniqueParticles = instance.maxNUniqueParticles; //options.rand =
-		 * instance.mainRand; options.verbose = instance.verbose; // options.maxNGrow =
-		 * 0; double[] subsRates=instance.generator.subsRates; double[]
-		 * statFreqs=instance.generator.stationaryDistribution;
-		 * 
-		 * double alpha=instance.generator.alpha; // shape parameter in the Gamma
-		 * distribution double pInv=instance.generator.pInv; // the proportion of
-		 * invariant sites int nCategories=4; int dataRepeatN=nCategories;
-		 * if(pInv>0)dataRepeatN=nCategories+1; MSAPoset align =
-		 * MSAPoset.parseAlnOrMsfFormats(instance.data); Dataset dataset =
-		 * DatasetUtils.fromAlignment(align, instance.sequenceType,dataRepeatN); CTMC
-		 * ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(),
-		 * alpha, nCategories, pInv); PartialCoalescentState init =
-		 * PartialCoalescentState.initFastState(dataset, ctmc, false);
-		 * LazyParticleKernel pk2 = new NCPriorPriorKernel(init); TreeDistancesProcessor
-		 * tdp=null; int M=5; double [] logLikes=new double[M]; double mu=0; //mean
-		 * for(int i=0;i<M;i++) { System.out.println(i); options.rand = new
-		 * Random(instance.mainRand.nextLong()); //new Random(instance.mainRand)
-		 * LazyParticleFilter<PartialCoalescentState> lpf = new
-		 * LazyParticleFilter<PartialCoalescentState>(pk2, options); tdp = new
-		 * TreeDistancesProcessor(); final double zHat = lpf.sample(tdp);
-		 * logLikes[i]=zHat; mu+=logLikes[i]; } mu=mu/M; // LogInfo.logsForce("Norm:" +
-		 * zHat); double sigma2=0; for(int i=0;i<M;i++){
-		 * sigma2+=Math.pow(logLikes[i]-mu, 2); LogInfo.logsForce(logLikes[i]+","); }
-		 * sigma2=sigma2/M; LogInfo.logsForce("Sample variance is "+sigma2);
-		 * LogInfo.logsForce("Sample SD is "+Math.sqrt(sigma2)); return tdp; } },
-		 * SMC_NJ_NonClock4GTRIGamma {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) {
-		 * ParticleFilterOptions options = new ParticleFilterOptions(); //
-		 * ParticleFilter<PartialCoalescentState> pc = new
-		 * ParticleFilter<PartialCoalescentState>(); options.nParticles = (int)
-		 * (iterScale * instance.nThousandIters * 1000); options.nThreads =
-		 * instance.nThreads; options.resampleLastRound = true;
-		 * options.parallelizeFinalParticleProcessing = true;
-		 * options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
-		 * options.maxNUniqueParticles = instance.maxNUniqueParticles; options.rand =
-		 * instance.mainRand; options.verbose = instance.verbose; // options.maxNGrow =
-		 * 0; double[] subsRates=instance.generator.subsRates; double[]
-		 * statFreqs=instance.generator.stationaryDistribution; double
-		 * alpha=instance.generator.alpha; // shape parameter in the Gamma distribution
-		 * double pInv=instance.generator.alpha; // the proportion of invariant sites //
-		 * int nCategories=4; // int dataRepeatN=nCategories; //
-		 * if(pInv>0)dataRepeatN=nCategories+1; // MSAPoset align =
-		 * MSAPoset.parseAlnOrMsfFormats(instance.data); // Dataset dataset =
-		 * DatasetUtils.fromAlignment(align, instance.sequenceType,dataRepeatN); // CTMC
-		 * ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(),
-		 * alpha, nCategories, pInv); //
-		 * 
-		 * Dataset dataset = DatasetUtils.fromAlignment(instance.data,
-		 * instance.sequenceType); CTMC ctmc =
-		 * CTMC.SimpleCTMC.dnaCTMC(dataset.nSites()); PartialCoalescentState init =
-		 * PartialCoalescentState.initFastState(instance.resampleRoot, dataset, ctmc,
-		 * false);
-		 * 
-		 * 
-		 * //PartialCoalescentState init = PartialCoalescentState.initFastState(dataset,
-		 * ctmc, false); NJPState2 initNJP = NJPState2.init(init); // LazyParticleKernel
-		 * pk2 = new NCPriorPriorKernel(init);
-		 * 
-		 * // LazyParticleKernel pk2 =new LazyNJStateNonclockKernel(initNJP);
-		 * 
-		 * LazyParticleKernel pk2 =new NJStateNonclockKernel(initNJP);
-		 * LazyParticleFilter<PartialCoalescentState> lpf = new
-		 * LazyParticleFilter<PartialCoalescentState>(pk2, options);
-		 * TreeDistancesProcessor tdp = new TreeDistancesProcessor(); final double zHat
-		 * = lpf.sample(tdp); // LogInfo.logsForce("Norm:" + zHat); return tdp; } },
-		 */
-		PGS4K2P {
+		PGS4K2PBF {
 
 			@Override
 			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
@@ -781,8 +527,8 @@ public class PGSExperiments implements Runnable {
 				ParticleFilterOptions options = new ParticleFilterOptions();
 				options.nParticles = instance.nParticlesEachStep; 
 				options.nThreads = instance.nThreads;
-			//	options.nThreads = 1; // TODO: solve the problems of using
-										// multiple threads in pmmh.
+				//	options.nThreads = 1; // TODO: solve the problems of using
+				// multiple threads in pmmh.
 				options.resampleLastRound = true;
 				options.parallelizeFinalParticleProcessing = true;
 				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
@@ -835,6 +581,69 @@ public class PGSExperiments implements Runnable {
 				return tdp;
 			}
 		},
+		PGS4K2P {
+
+			@Override
+			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
+					String treeName) {
+				ParticleFilterOptions options = new ParticleFilterOptions();
+				options.nParticles = instance.nParticlesEachStep; 
+				options.nThreads = instance.nThreads;
+				//	options.nThreads = 1; // TODO: solve the problems of using
+				// multiple threads in pmmh.
+				options.resampleLastRound = true;
+				options.parallelizeFinalParticleProcessing = true;
+				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
+				options.maxNUniqueParticles = instance.maxNUniqueParticles;
+				options.rand = instance.mainRand;
+				options.verbose = instance.verbose;
+				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); 
+				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
+				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType);
+				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
+				TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
+				final int nMCMC = (int) iterScale;
+				final int nPMMH = 0;
+				final int nPGS = nMCMC - nPMMH;
+				String resultFolder = Execution.getFile("results");
+				File output = new File(resultFolder);
+				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
+				RootedTree initTree = null;
+				if (nPMMH == 0)
+					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+				options.nThreads = instance.nThreads;
+				PGS4K2PBF pg = new PGS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
+						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
+
+				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
+				pg.setNameOfAllTrees(instance.nameOfAllTrees);
+				int i = 0;
+				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
+				while (i < nPGS) {
+					i++;
+					System.out.println(i);
+					if (i > nPGSburnin)
+						pg.setProcessTree(true);
+					pg.next(instance.mainRand);
+				}
+				if (instance.saveTreesFromPMCMC) {
+					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
+					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
+					String msg0 = IO.call("bash -s", RcmdStr, output);
+					LogInfo.logs(msg0);
+				}
+
+				if (instance.useTopologyProcessor) {
+					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
+					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
+					for (UnrootedTree urt : urtCounter.keySet()) {
+						LogInfo.logsForce(urt);
+						LogInfo.logsForce(urtCounter.getCount(urt));
+					}
+				}
+				return tdp;
+			}
+		},
 		PGS4GTRIGammaBF {
 
 			@Override
@@ -842,14 +651,14 @@ public class PGSExperiments implements Runnable {
 					String treeName) {
 				ParticleFilterOptions options = new ParticleFilterOptions();
 				options.nParticles = instance.nParticlesEachStep; // generator.nTaxa*(generator.nTaxa-1)*20;
-																	// //(int)
-																	// (iterScale
-																	// *
-																	// instance.nThousandIters
-																	// * 1000);
+				// //(int)
+				// (iterScale
+				// *
+				// instance.nThousandIters
+				// * 1000);
 				// options.nThreads = instance.nThreads;
 				options.nThreads = 1; // TODO: solve the problems of using
-										// multiple threads in pmmh.
+				// multiple threads in pmmh.
 				options.resampleLastRound = true;
 				options.parallelizeFinalParticleProcessing = true;
 				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
@@ -857,18 +666,17 @@ public class PGSExperiments implements Runnable {
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
 				// six parameters of substitutions:rAC,rAG,rAT,rCG,rGT,rCT
-				double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
-				// double[] subsRates=new
-				// double[]{0.26,0.18,0.17,0.15,0.11,0.13};
+				//double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
+				double[] subsRates=new double[]{0.26,0.18,0.17,0.15,0.11,0.13};
 				// stationary state frequencies. pi_A, pi_C, pi_G, pi_T
-				double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
-				// double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
-				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
-																					// parameter
-																					// in
-																					// the
-																					// Gamma
-																					// distribution
+				//double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
+				double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
+				double alpha = 0.5; //Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
+				// parameter
+				// in
+				// the
+				// Gamma
+				// distribution
 				if (instance.betterStartVal) {
 					double[] subsRatesTmp = new double[subsRates.length];
 					for (int i = 0; i < subsRates.length; i++)
@@ -903,7 +711,7 @@ public class PGSExperiments implements Runnable {
 				if (nPMMH == 0)
 					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
-				ParticleGibbs4GTRIGamma pg = new ParticleGibbs4GTRIGamma(dataset, options, tdp,
+				ParticleGibbs4GTRIGammaBF pg = new ParticleGibbs4GTRIGammaBF(dataset, options, tdp,
 						instance.useTopologyProcessor, trTopo, initTree, subsRates, statFreqs, alpha, pInv,
 						instance.a_alpha, instance.a_pInv, instance.a_statFreqs, instance.a_subsRates, nCategories,
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);

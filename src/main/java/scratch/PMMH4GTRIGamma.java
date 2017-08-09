@@ -1,4 +1,4 @@
-package phyloPMCMC;
+package scratch;
 import java.io.File;
 import java.util.*;
 import pty.RootedTree;
