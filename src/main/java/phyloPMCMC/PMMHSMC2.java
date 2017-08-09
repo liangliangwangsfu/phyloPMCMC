@@ -32,20 +32,17 @@ import nuts.util.CollUtils;
 public class PMMHSMC2
 {
 	private final Dataset dataset;
-	//private final LazyParticleFilter<PartialCoalescentState> pf;
 	ParticleFilterOptions options=null;
-	//private ParticleKernel<PartialCoalescentState> kernel=null;
 	private final TreeDistancesProcessor tdp;
 	private double previousLogLLEstimate = Double.NEGATIVE_INFINITY;
 	private RootedTree currentSample = null;
 	private double trans2tranv;
 	public double a=1.2;
-	public static OutputManager outMan = new OutputManager();
-	//	private double nonclockTreeRate;	
-	public boolean stop=false;
-	private int tryCountBeforAccept=0;	
+	public static OutputManager outMan = new OutputManager();	
+	public boolean stop=false;	
 	private int iter=0;
 	public double priorRate=2.0; 
+	private int tryCountBeforAccept=0;
 
 
 	public PMMHSMC2(Dataset dataset0, ParticleFilterOptions options,  TreeDistancesProcessor tdp, double trans2tranv0)
@@ -53,21 +50,10 @@ public class PMMHSMC2
 		this.options=options;
 		this.trans2tranv=trans2tranv0;
 		this.dataset=dataset0;
-//		this.pf = pf;
 		this.tdp = tdp;
-		//		this.nonclockTreeRate=nonclockTreeRate;
 	}
 
 	
-//	public PMMHSMC2(Dataset dataset0, LazyParticleFilter<PartialCoalescentState> pf,  TreeDistancesProcessor tdp, double trans2tranv0)
-//	{
-//		this.trans2tranv=trans2tranv0;
-//		this.dataset=dataset0;
-////		this.pf = pf;
-//		this.tdp = tdp;
-//		//		this.nonclockTreeRate=nonclockTreeRate;
-//	}
-
 	public void next(Random rand)
 	{
 		iter++;
@@ -88,34 +74,21 @@ public class PMMHSMC2
 //			if(tryCountBeforAccept>10) stop=true;
 
 			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);  
-			PartialCoalescentState init = PartialCoalescentState.initFastState(dataset, ctmc, true);  // is clock	          					
-//			kernel = new PriorPriorKernel(init);			
+			PartialCoalescentState init = PartialCoalescentState.initFastState(dataset, ctmc, true);  // is clock	          								
 			LazyParticleKernel kernel = new PriorPriorKernel(init);
 			LazyParticleFilter<PartialCoalescentState> pf = new LazyParticleFilter<PartialCoalescentState>(kernel, options);		    		
-
-			//			kernel.nonclockTreeRate=nonclockTreeRate;			
-//			if(tryCountBeforAccept>5 && pf.N<10000)
-//			{
-//				pf.N=pf.N+500;
-//				tryCountBeforAccept=0;
-//			}
 			double zHat=pf.sample(pro);
 			
 			// compute accept/reject
 			double marginalLoglike=zHat+init.logLikelihood();
 			final double logRatio =marginalLoglike  - previousLogLLEstimate+ trans2tranv*(1-scale)/priorRate + Math.log(scale);
-//			System.out.println("zHat"+zHat+"init.logLikelihood()"+init.logLikelihood() +"logRatio is"+logRatio);
-			//			System.out.println("log(scale) "+Math.log(scale)+" proposed MarginalLike "+pf.estimateNormalizer()+" Currentlog MarginalLike: "+previousLogLLEstimate+"; log Ratio: "+logRatio);
 			acceptPr = Math.min(1, Math.exp(logRatio));
-//			System.out.println("acceptPr "+acceptPr);
-			//System.out.println(pf.N+" "+acceptPr+": "+marginalLoglike  +" -"+ previousLogLLEstimate+(0.5*trans2tranv*(1-scale)+Math.log(scale)));
 			if (currentSample != null &&  Double.isInfinite(acceptPr))
 				throw new RuntimeException();
 		
 			final boolean accept = Sampling.sampleBern(acceptPr, rand);
 			if (accept)
 			{
-//				tryCountBeforAccept=0;
 				// sample from sample
 				PartialCoalescentState sampled = pro.sample(rand);				
 				currentSample = sampled.getFullCoalescentState();
@@ -129,8 +102,6 @@ public class PMMHSMC2
 		{
 			// total fail!
 		}
-
-		//		System.out.println(currentSample.topology());
 		// update tdp
 		tdp.process(currentSample);
 		// log some stats

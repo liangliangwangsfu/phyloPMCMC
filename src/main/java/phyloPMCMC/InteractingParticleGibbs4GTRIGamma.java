@@ -20,7 +20,6 @@ import nuts.math.Sampling;
 import nuts.util.Arbre;
 import pty.RootedTree;
 import pty.io.Dataset;
-import pty.io.TreeEvaluator;
 import pty.mcmc.UnrootedTreeState;
 import pty.smc.LazyParticleFilter.LazyParticleKernel;
 import pty.smc.LazyParticleFilter.ParticleFilterOptions;
