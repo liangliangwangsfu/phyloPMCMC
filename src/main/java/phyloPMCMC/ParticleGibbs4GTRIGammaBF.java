@@ -196,20 +196,23 @@ public class ParticleGibbs4GTRIGammaBF {
 		iter++;
 		RootedTree previousSample = currentSample;
 		// pInv: Sliding window 
-		double proposedPInv=0; 
-		if(pInv>0)proposedPInv=proposePInv(rand, 0, 1);
-		double acceptpInv=MHpInv(proposedPInv,rand);
-		// proposals:
-		// alpha: multiplier				    
-		double[] propAlpha=proposeAlpha(rand, 0.05, 50);
-		double scale=propAlpha[0];
-		double proposedAlpha=propAlpha[1];
-		double acceptPralpha=MHalpha(proposedAlpha,scale,rand); 
-		// rates of substitutions
-		double[] proposedsubsRates=proposeFromDirichlet(rand,a_subsRates,subsRates);   
-		double acceptPrsubsRates=MHsubsRates(proposedsubsRates,a_subsRates,rand);
-		double[] proposedstatFreqs=proposeFromDirichlet(rand,a_statFreqs,statFreqs);
-		double acceptPrstatFreqs=MHstatFreqs(proposedstatFreqs,a_statFreqs,rand);
+//		double proposedPInv=0; 
+//		if(pInv>0)proposedPInv=proposePInv(rand, 0, 1);
+//		double acceptpInv=MHpInv(proposedPInv,rand);
+//		// proposals:
+//		// alpha: multiplier				    
+//		double[] propAlpha=proposeAlpha(rand, 0.05, 50);
+//		double scale=propAlpha[0];
+//		double proposedAlpha=propAlpha[1];
+//		double acceptPralpha=MHalpha(proposedAlpha,scale,rand); 
+//		// rates of substitutions
+//		double[] proposedsubsRates=proposeFromDirichlet(rand,a_subsRates,subsRates);   
+//		double acceptPrsubsRates=MHsubsRates(proposedsubsRates,a_subsRates,rand);
+//		double[] proposedstatFreqs=proposeFromDirichlet(rand,a_statFreqs,statFreqs);
+//		double acceptPrstatFreqs=MHstatFreqs(proposedstatFreqs,a_statFreqs,rand);
+//		
+		
+		
 		// sample from PF
 		StoreProcessor<PartialCoalescentState4BackForwardKernel> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel>();
 		if((iter % sampleTreeEveryNIter) == 0)
@@ -220,12 +223,13 @@ public class ParticleGibbs4GTRIGammaBF {
 			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
 					init0, null, 0);
 
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = (ParticleKernel<PartialCoalescentState4BackForwardKernel>) new BackForwardKernel0(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel0(
 					init);
 
 			ParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new ParticleFilter<PartialCoalescentState4BackForwardKernel>();
-			pf.nThreads = 1;
+			pf.nThreads = 4;
 			pf.resampleLastRound = false;
+			pf.N=options.nParticles;
 			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = restoreSequence(
 					kernel, currentSample, isGS4Clock);
 			List<PartialCoalescentState4BackForwardKernel> path = list();
@@ -259,10 +263,10 @@ public class ParticleGibbs4GTRIGammaBF {
 		outMan.write("PGS",
 				"Iter", iter,
 				"treeSize", tSize,
-				"acceptPralpha", acceptPralpha,		
-				"acceptpInv", acceptpInv,		
-				"acceptPrstatFreqs", acceptPrstatFreqs,
-				"acceptPrsubsRates", acceptPrsubsRates,
+//				"acceptPralpha", acceptPralpha,		
+//				"acceptpInv", acceptpInv,		
+//				"acceptPrstatFreqs", acceptPrstatFreqs,
+//				"acceptPrsubsRates", acceptPrsubsRates,
 				//        "maskSparsity", currentSparsity,
 				"rfDist", (previousSample == null ? 0 : new TreeEvaluator.RobinsonFouldsMetric().score(currentSample, previousSample)),
 				"statFreqs1", statFreqs[0],
@@ -430,11 +434,16 @@ public class ParticleGibbs4GTRIGammaBF {
 			double currentHeight=sortHeightMap.get(currentArbre);
 			double currentDelta=currentHeight-previousHeight;
 			previousHeight=currentHeight;
-			PartialCoalescentState4BackForwardKernel coalesceResult = (PartialCoalescentState4BackForwardKernel) current
-					.coalesce(current.indexOf(first), current.indexOf(second),
-							currentDelta, 0, 0, currentArbre.getContents());
-			coalesceResult.setDeltaOld(currentDelta);
-			coalesceResult.setParent(current);
+//			PartialCoalescentState4BackForwardKernel coalesceResult = (PartialCoalescentState4BackForwardKernel) current
+//					.coalesce(current.indexOf(first), current.indexOf(second),
+//							currentDelta, 0, 0, currentArbre.getContents());
+//			coalesceResult.setDeltaOld(currentDelta);
+//			coalesceResult.setParent(current);
+			
+			PartialCoalescentState4BackForwardKernel coalesceResult = new PartialCoalescentState4BackForwardKernel(current
+			.coalesce(current.indexOf(first), current.indexOf(second),
+					currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta);
+			
 			// PartialCoalescentState4BackForwardKernel;
 			double logWeight = coalesceResult.logLikelihoodRatio();// coalesceResult.logLikelihood()-current.logLikelihood();
 			current=coalesceResult;

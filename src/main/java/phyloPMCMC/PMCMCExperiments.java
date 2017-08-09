@@ -37,6 +37,7 @@ import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
 import pty.smc.test.TestBrownianModel.KernelType;
 import smc.BackForwardKernel;
+//import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
 import ev.ex.PhyloSamplerMain;
 import ev.poi.processors.TreeDistancesProcessor;
@@ -127,7 +128,7 @@ public class PMCMCExperiments implements Runnable {
 	@Option
 	public double smcmcmcMix = 0.5;
 	@Option
-	public boolean betterStartVal = true;
+	public boolean betterStartVal = false;
 	@Option
 	public int nCSMC = 10;
 	@Option
@@ -917,13 +918,12 @@ public class PMCMCExperiments implements Runnable {
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
 				// six parameters of substitutions:rAC,rAG,rAT,rCG,rGT,rCT
-				double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
-				// double[] subsRates=new
-				// double[]{0.26,0.18,0.17,0.15,0.11,0.13};
+				//double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
+				 double[] subsRates=new double[]{0.26,0.18,0.17,0.15,0.11,0.13};
 				// stationary state frequencies. pi_A, pi_C, pi_G, pi_T
-				double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
-				// double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
-				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
+				//double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
+				 double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
+				double alpha = 0.5; //Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
 																					// parameter
 																					// in
 																					// the
@@ -963,7 +963,7 @@ public class PMCMCExperiments implements Runnable {
 				if (nPMMH == 0)
 					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
-				ParticleGibbs4GTRIGamma pg = new ParticleGibbs4GTRIGamma(dataset, options, tdp,
+				ParticleGibbs4GTRIGammaBF pg = new ParticleGibbs4GTRIGammaBF(dataset, options, tdp,
 						instance.useTopologyProcessor, trTopo, initTree, subsRates, statFreqs, alpha, pInv,
 						instance.a_alpha, instance.a_pInv, instance.a_statFreqs, instance.a_subsRates, nCategories,
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
