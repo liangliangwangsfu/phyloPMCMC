@@ -69,7 +69,7 @@ public class PGSExperiments implements Runnable {
 	@Option
 	public double pmcmcSMCExpMix = 2.0 / 3.0;
 	@Option
-	public double treeRatePrior = 1.0;
+	public double treeRatePrior = 10.0;
 	public static ev.ex.DataGenerator.DataGeneratorMain generator = new ev.ex.DataGenerator.DataGeneratorMain();
 	public static PhyloSamplerMain samplerMain = new PhyloSamplerMain();
 	@Option

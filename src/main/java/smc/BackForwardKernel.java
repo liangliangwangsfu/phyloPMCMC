@@ -63,8 +63,11 @@ public class BackForwardKernel implements
 			PartialCoalescentState resultpcs = current
 					.coalesce(i0, i1, delta, leftIncrement,
 					rightIncrement);
+			int[] oldIndx=new int[]{-1,-1};
+			int[] newIndx1=new int[]{-1,-1};
+			int[] newIndx2=new int[]{i0, i1};
 			result = new PartialCoalescentState4BackForwardKernel(resultpcs,
-					null, delta);
+					null, delta, oldIndx,newIndx1,newIndx2);
 			}
 
 		if (isPeek)
@@ -104,10 +107,14 @@ public class BackForwardKernel implements
 //		}
 		double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,
 				deltaOld);		
+		
+		int[] oldIndx=new int[]{current.getNewIndx2Left(),current.getNewIndx2Right()};
+		int[] newIndx1=new int[]{i00,i01};
+		int[] newIndx2=new int[]{i10, i11};
 
 
 		PartialCoalescentState4BackForwardKernel result0 = new PartialCoalescentState4BackForwardKernel(parent
-				.coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0), parent, delta0);
+				.coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0), parent, delta0, );
 		List<Integer> sampledIndices1 = Sampling.sampleWithoutReplacement(rand,
 				result0.nRoots(), 2);
 		final int i10 = sampledIndices1.get(0), i11 = sampledIndices1.get(1);
