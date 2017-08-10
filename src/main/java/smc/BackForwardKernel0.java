@@ -120,8 +120,7 @@ public class BackForwardKernel0 implements
 		Double logw =null;
 		if (isPeek) {
 			logw= loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
-							leftIncrement1, rightIncrement1)
-					- oldLogLikelihoodRatio - logExpDensityDeltaOld;
+							leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld ;
 		} else {		
 			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,delta1);
 		}
@@ -132,8 +131,7 @@ public class BackForwardKernel0 implements
 			return logw;
 		else
 			return Pair.makePair(result, result.logLikelihoodRatio()
-					+ loglikeRatio0 - oldLogLikelihoodRatio
-					- logExpDensityDeltaOld);
+					+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld);
 	}
 
 	public static double nChoose2(double n) {

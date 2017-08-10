@@ -312,6 +312,50 @@ public class PGSExperiments implements Runnable {
 				return tdp;
 			}
 		},
+		SMC4K2PBF {
+
+			@Override
+			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
+					String treeName) {
+				ParticleFilterOptions options = new ParticleFilterOptions();
+				options.nParticles = (int) (iterScale * instance.nThousandIters * 1000);
+				options.nThreads = instance.nThreads;
+				options.resampleLastRound = true;
+				options.parallelizeFinalParticleProcessing = true;
+				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
+				options.maxNUniqueParticles = instance.maxNUniqueParticles;
+				options.rand = instance.mainRand;
+				options.verbose = instance.verbose;
+				// options.maxNGrow = 0;
+
+				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
+				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
+				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0);
+				LazyParticleKernel pk2 = new BackForwardKernel(init);
+				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
+						pk2, options);
+
+				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
+
+				if (instance.useTopologyProcessor) {
+					TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
+					final double zHat = lpf.sample(tdp, trTopo);
+
+					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
+					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
+					for (UnrootedTree urt : urtCounter.keySet()) {
+						LogInfo.logsForce(urt);
+						LogInfo.logsForce(urtCounter.getCount(urt));
+					}
+				} else {
+					final double zHat = lpf.sample(tdp);
+					// LogInfo.logsForce("Norm:" + zHat);
+				}
+				return tdp;
+			}
+		},		
+		
 		SMCNonClock4K2P {
 
 			@Override
