@@ -16,7 +16,6 @@ import nuts.math.Sampling;
 import nuts.math.StatisticsMap.DescriptiveStatisticsMap;
 import nuts.util.Counter;
 import phyloPMCMC.InteractingParticleGibbs4GTRIGamma;
-import phyloPMCMC.PMMHSMC2;
 import pty.RandomRootedTrees;
 import pty.RootedTree;
 import pty.UnrootedTree;
