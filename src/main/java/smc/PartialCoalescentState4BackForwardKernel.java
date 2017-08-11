@@ -13,8 +13,8 @@ import pty.io.Dataset;
 import pty.io.Dataset.DatasetUtils;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleFilter;
-import pty.smc.ParticleKernel;
 import pty.smc.ParticleFilter.StoreProcessor;
+import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
 
 public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentState {
@@ -68,6 +68,24 @@ public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentS
 	}
 	
 	
+	public static double forwardDensity(PartialCoalescentState4BackForwardKernel thisState, PartialCoalescentState4BackForwardKernel newState)
+	{
+		double result=0;		
+		PartialCoalescentState4BackForwardKernel grandmaOfNewState=newState.parentState().parentState();
+		PartialCoalescentState4BackForwardKernel parentOfthisState=thisState.parentState();
+		if(grandmaOfNewState.equals(parentOfthisState))
+		{
+			double numRootPairs0=BackForwardKernel.nChoose2(grandmaOfNewState.nRoots());
+			double param0= 0.1 / numRootPairs0;				
+	        double logExpDensityDelta0 = Sampling.exponentialLogDensity(param0, newState.parentState().getLatestDelta());	        
+			double numRootPairs1=BackForwardKernel.nChoose2(newState.parentState().nRoots());
+			double param1= 0.1 / numRootPairs1;				
+	        double logExpDensityDelta1 = Sampling.exponentialLogDensity(param1, newState.getLatestDelta());	        
+	        result=logExpDensityDelta0+logExpDensityDelta1-Math.log(numRootPairs0)-Math.log(numRootPairs1);
+		}		
+		return result;		
+	}
+	
 	public static List<Pair<PartialCoalescentState4BackForwardKernel,Double>>  restoreSequence(	PartialCoalescentState4BackForwardKernel finalState)
 	{
 	
@@ -87,13 +105,17 @@ public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentS
 		current=current.parentState();		
 		}
 		result.add(Pair.makePair(current, current.logLikelihoodRatio()));
-		System.out.println(result.size());
+		//System.out.println(result.size());
 		
 		List<Pair<PartialCoalescentState4BackForwardKernel,Double>> finalResult=list();
 		for(int i=result.size()-1;i>=0;i--)
 			finalResult.add(result.get(i));
 		return finalResult;
 	}
+	
+	
+	
+	
 	
 	public static void main(String [] args)
 	  {
@@ -114,12 +136,8 @@ public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentS
 		pf.N=100;
 		StoreProcessor<PartialCoalescentState4BackForwardKernel> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel>();
 		pf.sample(kernel, pro);
-		PartialCoalescentState4BackForwardKernel sampled = pro.sample(new Random(441));
-		
+		PartialCoalescentState4BackForwardKernel sampled = pro.sample(new Random(441));		
 		List<Pair<PartialCoalescentState4BackForwardKernel,Double>> conditionedPath = restoreSequence(sampled);
-//        restoreSequence(
-//        		kernel,
-//        		sampled, true);
 	  }
 
 }
