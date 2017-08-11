@@ -157,7 +157,7 @@ public class PGS4K2PBF {
 //			kernel, currentSample, isGS4Clock);
 			if(sampled!=null)
 			{
-				System.out.println("Find the conditioned path!");
+			//	System.out.println("Find the conditioned path!");
 			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = PartialCoalescentState4BackForwardKernel.restoreSequence(sampled);
 			
 			List<PartialCoalescentState4BackForwardKernel> path = list();

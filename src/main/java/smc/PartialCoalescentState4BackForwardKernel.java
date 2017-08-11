@@ -75,14 +75,16 @@ public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentS
 		PartialCoalescentState4BackForwardKernel parentOfthisState=thisState.parentState();
 		if(grandmaOfNewState.equals(parentOfthisState))
 		{
+		//	System.out.print("grandmaOfNewState.equals(parentOfthisState): ");
 			double numRootPairs0=BackForwardKernel.nChoose2(grandmaOfNewState.nRoots());
 			double param0= 0.1 / numRootPairs0;				
-	        double logExpDensityDelta0 = Sampling.exponentialLogDensity(param0, newState.parentState().getLatestDelta());	        
-			double numRootPairs1=BackForwardKernel.nChoose2(newState.parentState().nRoots());
-			double param1= 0.1 / numRootPairs1;				
-	        double logExpDensityDelta1 = Sampling.exponentialLogDensity(param1, newState.getLatestDelta());	        
-	        result=logExpDensityDelta0+logExpDensityDelta1-Math.log(numRootPairs0)-Math.log(numRootPairs1);
-		}		
+			final double delta0 = thisState.getLatestDelta();
+			double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
+			result=newState.logLikelihoodRatio()
+					+ newState.parentState().logLikelihoodRatio()
+					- thisState.logLikelihoodRatio() - logExpDensityDeltaOld;	        
+		}	
+		//System.out.println(result);
 		return result;		
 	}
 	

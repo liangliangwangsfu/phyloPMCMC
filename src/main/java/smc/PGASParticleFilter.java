@@ -40,9 +40,9 @@ public final class PGASParticleFilter<S> {
 	@Option
 	public ResamplingStrategy resamplingStrategy = ResamplingStrategy.ALWAYS;
 	public static final double essRatioThreshold = 0.5;
-	
-	@Option	
-	public boolean usePGAS=true;
+
+	@Option
+	public boolean usePGAS = true;
 
 	private List<S> conditional = null; // exclude initial state
 	private double[] conditionalUnnormWeights = null;
@@ -154,7 +154,7 @@ public final class PGASParticleFilter<S> {
 				Random rand = new Random(seeds[x]);
 				if (x == 0 && isConditional()) {
 					samples.set(x, conditional.get(t));
-					logWeights[x] = conditionalUnnormWeights[t];					
+					logWeights[x] = conditionalUnnormWeights[t];
 				} else {
 					final Pair<S, Double> current = kernel.next(rand, samples.get(x));
 					if (current == null) {
@@ -258,24 +258,29 @@ public final class PGASParticleFilter<S> {
 			newProcess(t, normalizedWeights, processor, T);
 			if (t < T - 1 && (hasNulls(samples) || resamplingStrategy.needResample(normalizedWeights))) {
 				samples = resample(samples, normalizedWeights, rand);
-				if(usePGAS && isConditional() && conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel){
-					double[] forwardDensityWeights=new double[N]; 
-					PartialCoalescentState4BackForwardKernel conditionedState=(PartialCoalescentState4BackForwardKernel) conditional.get(t+1);
-					for(int k=0;k<N;k++)
-						forwardDensityWeights[k]=logWeights[k]+PartialCoalescentState4BackForwardKernel.forwardDensity((PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
+				if (usePGAS && isConditional()
+						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel) {					
+					double[] forwardDensityWeights = new double[N];
+					PartialCoalescentState4BackForwardKernel conditionedState = (PartialCoalescentState4BackForwardKernel) conditional
+							.get(t + 1);
+					for (int k = 0; k < N; k++) {
+						forwardDensityWeights[k] = logWeights[k]
+								+ PartialCoalescentState4BackForwardKernel.forwardDensity(
+										(PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
+					}
 					NumUtils.expNormalize(forwardDensityWeights);
 					int sampledIndx = SampleUtils.sampleMultinomial(rand, forwardDensityWeights);
-					System.out.println("Ancestor index: "+sampledIndx);
-					PartialCoalescentState4BackForwardKernel newAncestor=(PartialCoalescentState4BackForwardKernel) samples.get(sampledIndx);
+					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
+							.get(sampledIndx);
 					samples.set(0, samples.get(sampledIndx));
-					double param0 = 0.1 / BackForwardKernel.nChoose2(conditionedState.parentState().parentState().nRoots());
-					final double delta0 = newAncestor.getLatestDelta();			
-					double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,
-							delta0);
-					conditionalUnnormWeights[t+1]=conditionedState.logLikelihoodRatio() + conditionedState.parentState().logLikelihoodRatio()-  conditionedState.parentState().parentState().logLikelihoodRatio() - logExpDensityDeltaOld;
+					double param0 = 0.1
+							/ BackForwardKernel.nChoose2(conditionedState.parentState().parentState().nRoots());
+					final double delta0 = newAncestor.getLatestDelta();
+					double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
+					conditionalUnnormWeights[t + 1] = conditionedState.logLikelihoodRatio()
+							+ conditionedState.parentState().logLikelihoodRatio()
+							- conditionedState.parentState().parentState().logLikelihoodRatio() - logExpDensityDeltaOld;
 				}
-
-				
 				logWeights = new double[N]; // reset weights
 			}
 			if (verbose)
@@ -327,7 +332,6 @@ public final class PGASParticleFilter<S> {
 
 		Counter<Integer> packed = Sampling.efficientMultinomialSampling(rand, w, w.length);
 
-		
 		double[] resultWeight = new double[packed.size()];
 		List<S> resultList = new ArrayList<S>(packed.size());
 
@@ -475,8 +479,8 @@ public final class PGASParticleFilter<S> {
 
 	/**
 	 * Given a function f and a loss l, returns min_x E l(f(x), f(X)), where the
-	 * expectation is approximated using the samples from the SMC, and also
-	 * min_x is restricted to the set of samples returned by SMC
+	 * expectation is approximated using the samples from the SMC, and also min_x is
+	 * restricted to the set of samples returned by SMC
 	 * 
 	 * @author bouchard
 	 *
@@ -546,7 +550,7 @@ public final class PGASParticleFilter<S> {
 
 		public void process(PartialCoalescentState state, double weight) {
 			hasher.add(weight).add(state.logLikelihood()).add(state.topHeight())
-			.add(state.getUnlabeledArbre().deepToLispString());
+					.add(state.getUnlabeledArbre().deepToLispString());
 		}
 
 		public int getHash() {
