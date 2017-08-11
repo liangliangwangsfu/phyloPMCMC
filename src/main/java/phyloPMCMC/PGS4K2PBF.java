@@ -24,7 +24,7 @@ import pty.smc.ParticleFilter;
 import pty.smc.ParticleFilter.StoreProcessor;
 import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
-import smc.BackForwardKernel0;
+import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
@@ -52,6 +52,7 @@ public class PGS4K2PBF {
 	private boolean isGS4Clock=true;
 	private double trans2tranv;
 	public double a=2;
+	private PartialCoalescentState4BackForwardKernel sampled=null;
 
 
 	public PGS4K2PBF(Dataset dataset0,ParticleFilterOptions options,TreeDistancesProcessor tdp,
@@ -120,7 +121,6 @@ public class PGS4K2PBF {
 		//		System.out.println(scale);
 		//	double proposedTrans2tranv = scale*trans2tranv; 
 		double proposedTrans2tranv = 2.0;
-
 		// sample from PF
 		StoreProcessor<PartialCoalescentState4BackForwardKernel> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel>();		 
 		if((iter % sampleTreeEveryNIter) == 0)
@@ -139,36 +139,39 @@ public class PGS4K2PBF {
 //			for(int i=0;i<restorePCS.size();i++){
 //				path.add(restorePCS.get(i).getFirst());			 
 //				weights[i]=restorePCS.get(i).getSecond();
-//			}			 
-			
+//			}			 			
 			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);
 			PartialCoalescentState init0 = PartialCoalescentState
 					.initFastState(dataset, ctmc, true);
 			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
-					init0, null, 0);
+					init0, null, 0, new int[] {-1,-1});
 
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel0(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel(
 					init);
 
 			ParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new ParticleFilter<PartialCoalescentState4BackForwardKernel>();
 			pf.nThreads = options.nThreads;
 			pf.resampleLastRound = false;
 			pf.N=options.nParticles;
-			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = restoreSequence(
-					kernel, currentSample, isGS4Clock);
+//			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = restoreSequence(
+//			kernel, currentSample, isGS4Clock);
+			if(sampled!=null)
+			{
+				System.out.println("Find the conditioned path!");
+			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = PartialCoalescentState4BackForwardKernel.restoreSequence(sampled);
+			
 			List<PartialCoalescentState4BackForwardKernel> path = list();
 			double[] weights=new double[restorePCS.size()];
 			for(int i=0;i<restorePCS.size();i++){
 				path.add(restorePCS.get(i).getFirst());			 
 				weights[i]=restorePCS.get(i).getSecond();
 			}
-			
-			
 			// set the conditioning and its weights
 			pf.setConditional(path, weights);
+			}
 			// do the sampling			
 			pf.sample(kernel, pro);
-			PartialCoalescentState4BackForwardKernel sampled = pro.sample(rand);
+			sampled = pro.sample(rand);
 			
 			currentSample=sampled.getFullCoalescentState();
 			// update tdp
@@ -248,104 +251,66 @@ public class PGS4K2PBF {
 	}
 
 	
-	
-	public static List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restoreSequence(
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel,
-			PartialCoalescentState4BackForwardKernel finalState, boolean isClock)
-	{
-		finalState.getHeight(0)
-		
-		
-		
-		finalState.parentState();
-		
-		
-		
-		List<String> newNodeNames=list();
-		List<Pair<PartialCoalescentState4BackForwardKernel, Double>> result = list();
-		PartialCoalescentState4BackForwardKernel current = kernel.getInitial();
-		List<Arbre<Taxon>> childrenList=rt.topology().nodes();
-		Map<Taxon,Double> branchLengths=rt.branchLengths();
-		Map<Arbre<Taxon>,Double> heightMap=map();
-		for(int i=0;i<childrenList.size();i++)
-		{
-			if(!childrenList.get(i).isLeaf()) 
-				heightMap.put(childrenList.get(i), height(branchLengths, childrenList.get(i))); 		
-		}
-		//   sort the height in an increasing order		
-		Map<Arbre<Taxon>,Double> sortHeightMap=sortByValue(heightMap);
-		Set<Arbre<Taxon>> arbreSet=sortHeightMap.keySet();		
-		Iterator<Arbre<Taxon>> arbreIterator=arbreSet.iterator();
-		while(arbreIterator.hasNext())
-		{			
-			Arbre<Taxon> currentArbre=arbreIterator.next();
-			newNodeNames.add(currentArbre.toString());
-		}
-		arbreIterator=arbreSet.iterator();
-		double previousHeight=0;
-		while(arbreIterator.hasNext())
-		{			
-			Arbre<Taxon> currentArbre=arbreIterator.next();
-			Taxon first=currentArbre.getChildren().get(0).getContents(),second=currentArbre.getChildren().get(1).getContents();
-			double currentHeight=sortHeightMap.get(currentArbre);
-			double currentDelta=currentHeight-previousHeight;
-			previousHeight=currentHeight;
+//	
+//	//public static List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restoreSequence(
+//	public static void restoreSequence(
+//			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel,
+//			PartialCoalescentState4BackForwardKernel finalState, boolean isClock)
+//	{
+//		PartialCoalescentState4BackForwardKernel current=finalState;		
+//		while(current!=null)
+//		{
+//		System.out.println(current.parentState());
+//		current=current.parentState();
+//		}
+//		
+//	
+//	}
 
-			PartialCoalescentState4BackForwardKernel coalesceResult = new PartialCoalescentState4BackForwardKernel(current
-					.coalesce(current.indexOf(first), current.indexOf(second),
-							currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta);
-
-			double logWeight = coalesceResult.logLikelihoodRatio();// coalesceResult.logLikelihood()-current.logLikelihood();
-			current=coalesceResult;
-			result.add(Pair.makePair(coalesceResult, logWeight));			
-		}			
-		return result;
-	}
-
-	public static List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restoreSequence(
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel,
-			RootedTree rt, boolean isClock)
-	{
-		List<String> newNodeNames=list();
-		List<Pair<PartialCoalescentState4BackForwardKernel, Double>> result = list();
-		PartialCoalescentState4BackForwardKernel current = kernel.getInitial();
-		List<Arbre<Taxon>> childrenList=rt.topology().nodes();
-		Map<Taxon,Double> branchLengths=rt.branchLengths();
-		Map<Arbre<Taxon>,Double> heightMap=map();
-		for(int i=0;i<childrenList.size();i++)
-		{
-			if(!childrenList.get(i).isLeaf()) 
-				heightMap.put(childrenList.get(i), height(branchLengths, childrenList.get(i))); 		
-		}
-		//   sort the height in an increasing order		
-		Map<Arbre<Taxon>,Double> sortHeightMap=sortByValue(heightMap);
-		Set<Arbre<Taxon>> arbreSet=sortHeightMap.keySet();		
-		Iterator<Arbre<Taxon>> arbreIterator=arbreSet.iterator();
-		while(arbreIterator.hasNext())
-		{			
-			Arbre<Taxon> currentArbre=arbreIterator.next();
-			newNodeNames.add(currentArbre.toString());
-		}
-		arbreIterator=arbreSet.iterator();
-		double previousHeight=0;
-		while(arbreIterator.hasNext())
-		{			
-			Arbre<Taxon> currentArbre=arbreIterator.next();
-			Taxon first=currentArbre.getChildren().get(0).getContents(),second=currentArbre.getChildren().get(1).getContents();
-			double currentHeight=sortHeightMap.get(currentArbre);
-			double currentDelta=currentHeight-previousHeight;
-			previousHeight=currentHeight;
-
-			PartialCoalescentState4BackForwardKernel coalesceResult = new PartialCoalescentState4BackForwardKernel(current
-					.coalesce(current.indexOf(first), current.indexOf(second),
-							currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta);
-
-			double logWeight = coalesceResult.logLikelihoodRatio();// coalesceResult.logLikelihood()-current.logLikelihood();
-			current=coalesceResult;
-			result.add(Pair.makePair(coalesceResult, logWeight));			
-		}			
-		return result;
-	}
+//	public static List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restoreSequence(
+//			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel,
+//			RootedTree rt, boolean isClock)
+//	{
+//		List<String> newNodeNames=list();
+//		List<Pair<PartialCoalescentState4BackForwardKernel, Double>> result = list();
+//		PartialCoalescentState4BackForwardKernel current = kernel.getInitial();
+//		List<Arbre<Taxon>> childrenList=rt.topology().nodes();
+//		Map<Taxon,Double> branchLengths=rt.branchLengths();
+//		Map<Arbre<Taxon>,Double> heightMap=map();
+//		for(int i=0;i<childrenList.size();i++)
+//		{
+//			if(!childrenList.get(i).isLeaf()) 
+//				heightMap.put(childrenList.get(i), height(branchLengths, childrenList.get(i))); 		
+//		}
+//		//   sort the height in an increasing order		
+//		Map<Arbre<Taxon>,Double> sortHeightMap=sortByValue(heightMap);
+//		Set<Arbre<Taxon>> arbreSet=sortHeightMap.keySet();		
+//		Iterator<Arbre<Taxon>> arbreIterator=arbreSet.iterator();
+//		while(arbreIterator.hasNext())
+//		{			
+//			Arbre<Taxon> currentArbre=arbreIterator.next();
+//			newNodeNames.add(currentArbre.toString());
+//		}
+//		arbreIterator=arbreSet.iterator();
+//		double previousHeight=0;
+//		while(arbreIterator.hasNext())
+//		{			
+//			Arbre<Taxon> currentArbre=arbreIterator.next();
+//			Taxon first=currentArbre.getChildren().get(0).getContents(),second=currentArbre.getChildren().get(1).getContents();
+//			double currentHeight=sortHeightMap.get(currentArbre);
+//			double currentDelta=currentHeight-previousHeight;
+//			previousHeight=currentHeight;
+//
+//			PartialCoalescentState4BackForwardKernel coalesceResult = new PartialCoalescentState4BackForwardKernel(current
+//					.coalesce(current.indexOf(first), current.indexOf(second),
+//							currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta);
+//
+//			double logWeight = coalesceResult.logLikelihoodRatio();// coalesceResult.logLikelihood()-current.logLikelihood();
+//			current=coalesceResult;
+//			result.add(Pair.makePair(coalesceResult, logWeight));			
+//		}			
+//		return result;
+//	}
 
 	
 	

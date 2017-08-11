@@ -5,6 +5,7 @@ import java.util.Random;
 import nuts.math.Sampling;
 import pty.smc.LazyParticleFilter.LazyParticleKernel;
 import pty.smc.PartialCoalescentState;
+import pty.smc.ParticleKernel;
 import fig.basic.Option;
 import fig.basic.Pair;
 
@@ -13,7 +14,7 @@ import fig.basic.Pair;
  * @author Liangliang Wang
  */
 public class BackForwardKernel implements
-		LazyParticleKernel<PartialCoalescentState4BackForwardKernel> {
+LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<PartialCoalescentState4BackForwardKernel> {
 	@Option
 	public static boolean printBranchLengthMagnitudes = false;
 	private final PartialCoalescentState4BackForwardKernel initial;
@@ -59,16 +60,13 @@ public class BackForwardKernel implements
 			logw = current.peekLogLikelihoodRatio(i0, i1, delta, leftIncrement,
 					rightIncrement);
 		else
- {
+		{
 			PartialCoalescentState resultpcs = current
 					.coalesce(i0, i1, delta, leftIncrement,
-					rightIncrement);
-			int[] oldIndx=new int[]{-1,-1};
-			int[] newIndx1=new int[]{-1,-1};
-			int[] newIndx2=new int[]{i0, i1};
+							rightIncrement);
 			result = new PartialCoalescentState4BackForwardKernel(resultpcs,
-					null, delta, oldIndx,newIndx1,newIndx2);
-			}
+					current, delta, new int[]{i0, i1});
+		}
 
 		if (isPeek)
 			return logw;
@@ -81,40 +79,35 @@ public class BackForwardKernel implements
 			boolean isPeek) {
 		// 1- go back to current state's parent partial state
 		PartialCoalescentState4BackForwardKernel parent = current.parentState();
+//		System.out.println(parent.toString());;
 		double oldLogLikelihoodRatio = current.logLikelihoodRatio();
-		double deltaOld = current.getDeltaOld();
-		
+		double deltaOld = current.getLatestDelta();
+
 		// 2- sample the exponential waiting time
-		
-		
+
+
 		// 3- sample a random pair (without replacement)
 		List<Integer> sampledIndices0 = Sampling.sampleWithoutReplacement(rand,
 				parent.nRoots(), 2);
 		final int i00 = sampledIndices0.get(0), i01 = sampledIndices0.get(1);
 		double param0=(initial.isClock() ? 0.1 : 0.05)
-		/ nChoose2(parent.nRoots());
+				/ nChoose2(parent.nRoots());
 		final double delta0 = Sampling.sampleExponential(rand, param0);
 		double leftIncrement0 = 0.0, rightIncrement0 = 0.0;
-//		if (!initial.isClock()) {
-//			double incr0 = Sampling.sampleExponential(rand, 0.1), incr1 = Sampling
-//					.sampleExponential(rand, 0.1);
-//			if (rand.nextBoolean()) {
-//				leftIncrement0 += incr0;
-//			}
-// else {
-//				rightIncrement0 += incr0;
-//			}
-//		}
+		//		if (!initial.isClock()) {
+		//			double incr0 = Sampling.sampleExponential(rand, 0.1), incr1 = Sampling
+		//					.sampleExponential(rand, 0.1);
+		//			if (rand.nextBoolean()) {
+		//				leftIncrement0 += incr0;
+		//			}
+		// else {
+		//				rightIncrement0 += incr0;
+		//			}
+		//		}
 		double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,
-				deltaOld);		
-		
-		int[] oldIndx=new int[]{current.getNewIndx2Left(),current.getNewIndx2Right()};
-		int[] newIndx1=new int[]{i00,i01};
-		int[] newIndx2=new int[]{i10, i11};
-
-
+				deltaOld);				
 		PartialCoalescentState4BackForwardKernel result0 = new PartialCoalescentState4BackForwardKernel(parent
-				.coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0), parent, delta0, );
+				.coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0), parent, delta0, new int[]{i00, i01});
 		List<Integer> sampledIndices1 = Sampling.sampleWithoutReplacement(rand,
 				result0.nRoots(), 2);
 		final int i10 = sampledIndices1.get(0), i11 = sampledIndices1.get(1);
@@ -123,13 +116,13 @@ public class BackForwardKernel implements
 		final double delta1 = Sampling.sampleExponential(rand, param1);		
 		double leftIncrement1 = 0.0, rightIncrement1 = 0.0;
 		PartialCoalescentState4BackForwardKernel result = null;
-		 Double loglikeRatio0=result0.logLikelihoodRatio();
+		Double loglikeRatio0=result0.logLikelihoodRatio();
 		Double logw =null;
 		if (isPeek) {
 			logw= loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
-							leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld ;
+					leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld ;
 		} else {		
-			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,delta1);
+			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,delta1,new int[]{i10, i11});
 		}
 
 		// 4- the weight update is simply equal to the ratio of the new
@@ -148,6 +141,7 @@ public class BackForwardKernel implements
 
 	public Object _next(Random rand,
 			PartialCoalescentState4BackForwardKernel current, boolean isPeek) {
+		//System.out.println(current.hasParent());
 		if (current.hasParent())
 			return _next1(rand, current, isPeek);
 		else
@@ -165,6 +159,6 @@ public class BackForwardKernel implements
 	public double peekNext(Random rand,
 			PartialCoalescentState4BackForwardKernel current) {
 		return (Double) _next(rand, current, true);
-	}
+	}	
 
 }

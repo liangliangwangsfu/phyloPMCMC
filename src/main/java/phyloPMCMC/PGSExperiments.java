@@ -113,7 +113,7 @@ public class PGSExperiments implements Runnable {
 	@Option
 	public String dataDirName = "output";
 	@Option
-	public SequenceType sequenceType = SequenceType.RNA;
+	public SequenceType sequenceType = SequenceType.DNA;
 	@Option
 	public boolean isPMCMC4clock = true;
 	@Option
@@ -222,7 +222,6 @@ public class PGSExperiments implements Runnable {
 							for (TreeMetric tm : TreeEvaluator.coreTreeMetrics) {
 								final double value = tm.score(inferred, goldut);
 								stats.addValue(tm.toString(), value);
-
 								out.println(CSV.body(m, iterScale, j, tm, value, treeName, time));
 							}
 							// if(m==InferenceMethod.PMMHNC){
@@ -331,7 +330,7 @@ public class PGSExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0);
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0,new int[]{-1,-1});
 				LazyParticleKernel pk2 = new BackForwardKernel(init);
 				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
 						pk2, options);
@@ -428,7 +427,7 @@ public class PGSExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
 				CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(), alpha, nCategories, pInv);
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0);
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0, new int[] {-1,-1});
 				LazyParticleKernel pk2 = new BackForwardKernel(init);
 				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
 						pk2, options);
@@ -594,7 +593,7 @@ public class PGSExperiments implements Runnable {
 				if (nPMMH == 0)
 					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
-				PGS4K2P pg = new PGS4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
+				PGS4K2PBF pg = new PGS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
 				pg.setNameOfAllTrees(instance.nameOfAllTrees);
@@ -656,7 +655,7 @@ public class PGSExperiments implements Runnable {
 				if (nPMMH == 0)
 					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
-				PGS4K2PBF pg = new PGS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
+				PGS4K2P pg = new PGS4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
 
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
