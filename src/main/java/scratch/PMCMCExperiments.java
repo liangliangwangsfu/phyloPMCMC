@@ -571,7 +571,7 @@ public class PMCMCExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
 				CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(), alpha, nCategories, pInv);
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0);
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0, null);
 				LazyParticleKernel pk2 = new BackForwardKernel(init);
 				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
 						pk2, options);

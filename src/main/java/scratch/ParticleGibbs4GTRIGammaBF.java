@@ -25,7 +25,7 @@ import pty.smc.ParticleFilter;
 import pty.smc.ParticleFilter.StoreProcessor;
 import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
-import smc.BackForwardKernel0;
+import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
@@ -218,9 +218,9 @@ public class ParticleGibbs4GTRIGammaBF {
 			PartialCoalescentState init0 = PartialCoalescentState
 					.initFastState(dataset, currentctmc, true);
 			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
-					init0, null, 0);
+					init0, null, 0, null);
 
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel0(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel(
 					init);
 
 			ParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new ParticleFilter<PartialCoalescentState4BackForwardKernel>();
@@ -439,7 +439,7 @@ public class ParticleGibbs4GTRIGammaBF {
 
 			PartialCoalescentState4BackForwardKernel coalesceResult = new PartialCoalescentState4BackForwardKernel(current
 					.coalesce(current.indexOf(first), current.indexOf(second),
-							currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta);
+							currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta, null);
 
 			// PartialCoalescentState4BackForwardKernel;
 			double logWeight = coalesceResult.logLikelihoodRatio();// coalesceResult.logLikelihood()-current.logLikelihood();
