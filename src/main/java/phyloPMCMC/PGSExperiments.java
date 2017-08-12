@@ -141,6 +141,10 @@ public class PGSExperiments implements Runnable {
 
 	@Option
 	public double essRatioThreshold = 0.7;
+	
+	@Option
+	public boolean sampleTrans2tranv=true;
+	
 
 	public File data = null;
 	private File output = null;
@@ -595,8 +599,10 @@ public class PGSExperiments implements Runnable {
 				options.nThreads = instance.nThreads;
 				PGS4K2PBF pg = new PGS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
+				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
-				pg.setNameOfAllTrees(instance.nameOfAllTrees);
+				String allTreeFilename="allTrees-PGS4K2PBF.trees";
+				pg.setNameOfAllTrees(allTreeFilename);
 				int i = 0;
 				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
 				while (i < nPGS) {
@@ -607,7 +613,7 @@ public class PGSExperiments implements Runnable {
 					pg.next(instance.mainRand);
 				}
 				if (instance.saveTreesFromPMCMC) {
-					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
+					IO.call("bash -s", "echo 'END;' >> " + allTreeFilename, output);
 					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
 					String msg0 = IO.call("bash -s", RcmdStr, output);
 					LogInfo.logs(msg0);
@@ -657,8 +663,10 @@ public class PGSExperiments implements Runnable {
 				options.nThreads = instance.nThreads;
 				PGAS4K2PBF pg = new PGAS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
+				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
-				pg.setNameOfAllTrees(instance.nameOfAllTrees);
+				String allTreeFilename="allTrees-PGAS4K2PBF.trees";
+				pg.setNameOfAllTrees(allTreeFilename);
 				int i = 0;
 				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
 				while (i < nPGS) {
@@ -669,7 +677,7 @@ public class PGSExperiments implements Runnable {
 					pg.next(instance.mainRand);
 				}
 				if (instance.saveTreesFromPMCMC) {
-					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
+					IO.call("bash -s", "echo 'END;' >> " + allTreeFilename, output);
 					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
 					String msg0 = IO.call("bash -s", RcmdStr, output);
 					LogInfo.logs(msg0);
@@ -719,9 +727,10 @@ public class PGSExperiments implements Runnable {
 				options.nThreads = instance.nThreads;
 				PGS4K2P pg = new PGS4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
-
+				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
-				pg.setNameOfAllTrees(instance.nameOfAllTrees);
+				String allTreeFilename="allTrees-PGS4K2P.trees";
+				pg.setNameOfAllTrees(allTreeFilename);
 				int i = 0;
 				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
 				while (i < nPGS) {
@@ -732,7 +741,7 @@ public class PGSExperiments implements Runnable {
 					pg.next(instance.mainRand);
 				}
 				if (instance.saveTreesFromPMCMC) {
-					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
+					IO.call("bash -s", "echo 'END;' >> " + allTreeFilename, output);
 					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
 					String msg0 = IO.call("bash -s", RcmdStr, output);
 					LogInfo.logs(msg0);
@@ -1132,91 +1141,7 @@ public class PGSExperiments implements Runnable {
 				return tdp;
 			}
 		};
-		/*
-		 * BlockPG4GTRIGamma {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) {
-		 * ParticleFilter<PartialCoalescentState> pc = new
-		 * ParticleFilter<PartialCoalescentState>(); // pc.N = (int) (iterScale *
-		 * instance.nThousandIters * 1000); pc.nThreads = instance.nThreads;
-		 * pc.resampleLastRound = false; pc.rand = instance.mainRand; pc.verbose =
-		 * instance.verbose;
-		 * 
-		 * double[] subsRates=instance.generator.subsRates; double[]
-		 * statFreqs=instance.generator.stationaryDistribution; double
-		 * alpha=instance.generator.alpha; // shape parameter in the Gamma distribution
-		 * double pInv=0; // the proportion of invariant sites int nCategories=4; int
-		 * dataRepeatN=nCategories; if(pInv>0)dataRepeatN=nCategories+1; MSAPoset align
-		 * = MSAPoset.parseAlnOrMsfFormats(instance.data); Dataset dataset =
-		 * DatasetUtils.fromAlignment(align, instance.sequenceType,dataRepeatN); CTMC
-		 * ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(),
-		 * alpha, nCategories, pInv); PartialCoalescentState init =
-		 * PartialCoalescentState.initFastState(dataset, ctmc, false);
-		 * NCPriorPriorKernel ppk = new NCPriorPriorKernel(init); TreeDistancesProcessor
-		 * tdp = new TreeDistancesProcessor(); final double requested = (iterScale *
-		 * instance.nThousandIters * 1000); //pc.N = 1+ (int) Math.pow(requested,
-		 * instance.pmcmcSMCExpMix); pc.N =instance.nParticlesEachStep; //pty.smc.PG pg
-		 * = new pty.smc.PG(pc, ppk, tdp, init); pty.smc.PG2 pg = new pty.smc.PG2(pc,
-		 * ppk, tdp, init); final int nMCMC = 1 + (int) Math.pow(requested, 1.0 -
-		 * instance.pmcmcSMCExpMix);
-		 * System.out.println("pc.N is "+pc.N+"; nMCMC is "+nMCMC); for (int i = 0; i <
-		 * nMCMC; i++) pg.next(instance.mainRand); // pc.sample(ppk,tdp); return tdp; }
-		 * }, NJ {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) { NJ nj = new NJ();
-		 * MSAPoset align = MSAParser.parseMSA(instance.data); RootedTree rt =
-		 * nj.inferTree(align.toMultiAlignmentObject()); final UnrootedTree urt =
-		 * UnrootedTree.fromRooted(rt); return new TreeDistancesProcessor() {
-		 * 
-		 * @Override public UnrootedTree getConsensus() { return urt; } }; }
-		 * 
-		 * }, NINJA {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) { MSAPoset align =
-		 * MSAParser.parseMSA(instance.data); final UnrootedTree tree =
-		 * Ninja.inferTreeFromNucleotides(align); return new TreeDistancesProcessor() {
-		 * 
-		 * @Override public UnrootedTree getConsensus() { return tree; } }; }
-		 * 
-		 * }, NINJA2 {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) { MSAPoset align =
-		 * MSAParser.parseMSA(instance.data); final UnrootedTree tree =
-		 * Ninja.inferTreeFromNucleotides2(align); return new TreeDistancesProcessor() {
-		 * 
-		 * @Override public UnrootedTree getConsensus() { return tree; } }; }
-		 * 
-		 * }, LAZYPMMHNC {
-		 * 
-		 * @Override public TreeDistancesProcessor doIt(PMCMCExperiments instance,
-		 * double iterScale, UnrootedTree goldut, String treeName) {
-		 * ParticleFilter<LazyPCS> pc = new ParticleFilter<LazyPCS>(); // pc.N = (int)
-		 * (iterScale * instance.nThousandIters * 1000); pc.N=45; pc.nThreads = 1; //
-		 * only nThread=1 works properly // pc.resampleLastRound = false; //
-		 * pc.resamplingStrategy=ResamplingStrategy.NEVER; pc.rand = instance.mainRand;
-		 * 
-		 * Dataset dataset = DatasetUtils.fromAlignment(instance.data,
-		 * instance.sequenceType);
-		 * 
-		 * // KernelType kernelType = KernelType.PRIOR_PRIOR;
-		 * 
-		 * double initTrans2tranv= 2.2; TreeDistancesProcessor tdp = new
-		 * TreeDistancesProcessor(); LAZYPMMHNC pmmhnc = new LAZYPMMHNC(dataset, pc,
-		 * tdp, initTrans2tranv, instance.treeRatePrior);
-		 * 
-		 * // final double requested = (iterScale * instance.nThousandIters * 1000); //
-		 * pc.N = 1+ (int) Math.pow(requested, instance.pmcmcSMCExpMix); // final int
-		 * nMCMC = 1 + (int) Math.pow(requested, 1.0 - instance.pmcmcSMCExpMix); final
-		 * int nMCMC=(int) iterScale; System.out.println("# particles: "+pc.N+
-		 * "; nMCMC:"+ nMCMC); for (int i = 0; i < nMCMC; i++)
-		 * pmmhnc.next(instance.mainRand); return tdp; } };
-		 */
-
-		abstract TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
+			abstract TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
 				String treeName);
 	}
 

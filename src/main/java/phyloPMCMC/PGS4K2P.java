@@ -2,7 +2,6 @@ package phyloPMCMC;
 
 import static nuts.util.CollUtils.list;
 import static nuts.util.CollUtils.map;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,20 +12,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
 import nuts.io.IO;
 import nuts.math.Sampling;
 import nuts.util.Arbre;
 import pty.RootedTree;
-import pty.UnrootedTree;
 import pty.io.Dataset;
 import pty.io.TreeEvaluator;
-import pty.mcmc.ProposalDistribution;
 import pty.mcmc.UnrootedTreeState;
 import pty.smc.LazyParticleFilter.LazyParticleKernel;
 import pty.smc.LazyParticleFilter.ParticleFilterOptions;
-import pty.smc.LazyParticleFilter;
-import pty.smc.NCPriorPriorKernel;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleFilter;
 import pty.smc.ParticleFilter.StoreProcessor;
@@ -35,11 +29,8 @@ import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
-import fig.basic.ListUtils;
 import fig.basic.Pair;
-import fig.basic.UnorderedPair;
 import fig.exec.Execution;
-import fig.prob.Dirichlet;
 import gep.util.OutputManager;
 import goblin.Taxon;
 
@@ -55,14 +46,14 @@ public class PGS4K2P {
 	private int iter = 0;
 	private int treeCount = 0;
 	File output = new File(Execution.getFile("results"));
-	private String nameOfAllTrees = "allTrees.trees";
+	private String nameOfAllTrees = "allTrees-PGS4K2P.trees";
 	private boolean saveTreesFromPMCMC = false;
 	private int sampleTreeEveryNIter = 100;
 	private boolean processTree = false;
 	private boolean isGS4Clock = true;
 	private double trans2tranv=2;
-	public double a = 2;
-    private boolean sampleTrans2tranv=false;
+	public double a = 1.25;
+    private boolean sampleTrans2tranv=true;
 	
 	public PGS4K2P(Dataset dataset0, ParticleFilterOptions options, TreeDistancesProcessor tdp,
 			boolean useTopologyProcessor, TreeTopologyProcessor trTopo, RootedTree initrt, boolean processTree,
@@ -117,15 +108,15 @@ public class PGS4K2P {
 	private double MHTrans2tranv(double currentTrans2tranv, Random rand) {
 		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
 		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
-		double proposedTrans2tranv=proposed.getFirst();
-		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);
-		PartialCoalescentState newState = PartialCoalescentState.initFastState(dataset, ctmc, true); // is clock
-		double logratio = newState.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
+		double proposedTrans2tranv=proposed.getFirst();		
+		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);			
+		UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);	
+		double logratio = ncs.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
 		double acceptPr = Math.min(1, Math.exp(logratio));
 		final boolean accept = Sampling.sampleBern(acceptPr, rand);
 		if (accept) {
 			trans2tranv = proposedTrans2tranv;
-			previousLogLLEstimate = newState.logLikelihood();			
+		//	previousLogLLEstimate = ncs.logLikelihood();			
 		}
 		return acceptPr;
 	}
@@ -155,16 +146,13 @@ public class PGS4K2P {
 		iter++;
 		RootedTree previousSample = currentSample;		
 		if(sampleTrans2tranv) MHTrans2tranv(trans2tranv,  rand);
-	//	double proposedTrans2tranv = 2.0;
-
 		// sample from PF
 		StoreProcessor<PartialCoalescentState> pro = new StoreProcessor<PartialCoalescentState>();		 
 		if((iter % sampleTreeEveryNIter) == 0)
 		{
 			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);  
 			PartialCoalescentState init = PartialCoalescentState.initFastState(dataset, ctmc, true);  // is clock	          								
-			LazyParticleKernel kernel = new PriorPriorKernel(init);
-			//LazyParticleFilter<PartialCoalescentState> pf = new LazyParticleFilter<PartialCoalescentState>(kernel, options);	
+			LazyParticleKernel kernel = new PriorPriorKernel(init);	
 			ParticleFilter<PartialCoalescentState> pf = new ParticleFilter<PartialCoalescentState>();	
 			pf.N=options.nParticles;
 			pf.rand = rand;
@@ -181,6 +169,7 @@ public class PGS4K2P {
 			pf.sample(kernel, pro);
 			PartialCoalescentState sampled = pro.sample(rand);
 			currentSample=sampled.getFullCoalescentState();
+			previousLogLLEstimate=sampled.logLikelihood();
 			// update tdp
 			if(processTree)tdp.process(currentSample);
 			if(useTopologyProcessor) trTopo.process(currentSample);

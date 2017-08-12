@@ -1,23 +1,15 @@
 package phyloPMCMC;
 
 import static nuts.util.CollUtils.list;
-import static nuts.util.CollUtils.map;
-
 import java.io.File;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import nuts.io.IO;
-import nuts.util.Arbre;
+import nuts.math.Sampling;
 import pty.RootedTree;
 import pty.io.Dataset;
 import pty.io.TreeEvaluator;
+import pty.mcmc.UnrootedTreeState;
 import pty.smc.LazyParticleFilter.ParticleFilterOptions;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleFilter;
@@ -31,7 +23,6 @@ import ev.poi.processors.TreeTopologyProcessor;
 import fig.basic.Pair;
 import fig.exec.Execution;
 import gep.util.OutputManager;
-import goblin.Taxon;
 
 public class PGS4K2PBF {
 	private final Dataset dataset;
@@ -45,15 +36,24 @@ public class PGS4K2PBF {
 	private int iter=0; 
 	private int treeCount=0;	
 	File output=new File(Execution.getFile("results")); 
-	private String nameOfAllTrees="allTrees.trees";
+	private String nameOfAllTrees="allTrees-PGS4K2PBF.trees";
 	private boolean saveTreesFromPMCMC=false;
 	private int sampleTreeEveryNIter=1; 
 	private boolean processTree=false;
 	private boolean isGS4Clock=true;
-	private double trans2tranv;
-	public double a=2;
+	private double trans2tranv=2;
+	public double a=1.25;
 	private PartialCoalescentState4BackForwardKernel sampled=null;
+	private boolean sampleTrans2tranv=true;
 
+
+	public boolean isSampleTrans2tranv() {
+		return sampleTrans2tranv;
+	}
+
+	public void setSampleTrans2tranv(boolean sampleTrans2tranv) {
+		this.sampleTrans2tranv = sampleTrans2tranv;
+	}
 
 	public PGS4K2PBF(Dataset dataset0,ParticleFilterOptions options,TreeDistancesProcessor tdp,
 			boolean useTopologyProcessor,TreeTopologyProcessor trTopo,
@@ -110,37 +110,52 @@ public class PGS4K2PBF {
 	{
 		return currentSample;
 	}
+	
+	private double MHTrans2tranv(double currentTrans2tranv, Random rand) {
+		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
+		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
+		double proposedTrans2tranv=proposed.getFirst();
+		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);			
+		UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
+		double logratio = ncs.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
+		double acceptPr = Math.min(1, Math.exp(logratio));
+		final boolean accept = Sampling.sampleBern(acceptPr, rand);
+		if (accept) {
+			trans2tranv = proposedTrans2tranv;
+		//	previousLogLLEstimate = ncs.logLikelihood();			
+		}
+		return acceptPr;
+	}
+
+	public static class Trans2tranvProposal{
+		private final double a; // higher will have lower accept rate		
+	    private Random rand;
+		public Trans2tranvProposal(double a, Random rand) {
+			if (a <= 1)
+				throw new RuntimeException();
+			this.a = a;
+			this.rand=rand;			
+		}
+
+		public  Pair<Double,Double> propose(double currentTrans2tranv) {
+			double lambda=2*Math.log(a);
+			double rvUnif = Sampling.nextDouble(rand, 0, 1);
+			double m  = Math.exp(lambda*(rvUnif-0.5));		
+			final double newTrans2tranv = m * currentTrans2tranv;
+			return Pair.makePair(newTrans2tranv, Math.log(m));						
+		}
+	}
 
 	public void next(Random rand)
 	{
 		iter++;
 		RootedTree previousSample = currentSample;		
-		// proposals:
-		// alpha: multiplier				    
-		//	double scale=Sampling.nextDouble(rand, 1.0/a, a);
-		//		System.out.println(scale);
-		//	double proposedTrans2tranv = scale*trans2tranv; 
-		double proposedTrans2tranv = 2.0;
-		// sample from PF
+		if(sampleTrans2tranv) MHTrans2tranv(trans2tranv,  rand);
 		StoreProcessor<PartialCoalescentState4BackForwardKernel> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel>();		 
 		if((iter % sampleTreeEveryNIter) == 0)
 		{
-//			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);  
-//			PartialCoalescentState init = PartialCoalescentState.initFastState(dataset, ctmc, true);  // is clock	          								
-//			LazyParticleKernel kernel = new PriorPriorKernel(init);
-//			//LazyParticleFilter<PartialCoalescentState> pf = new LazyParticleFilter<PartialCoalescentState>(kernel, options);	
-//			ParticleFilter<PartialCoalescentState> pf = new ParticleFilter<PartialCoalescentState>();	
-//			pf.N=options.nParticles;
-//			pf.rand = rand;
-//			pf.resampleLastRound = false;
-//			List<Pair<PartialCoalescentState,Double>> restorePCS = restoreSequence(kernel, currentSample,isGS4Clock); 
-//			List<PartialCoalescentState> path=list();
-//			double[] weights=new double[restorePCS.size()];
-//			for(int i=0;i<restorePCS.size();i++){
-//				path.add(restorePCS.get(i).getFirst());			 
-//				weights[i]=restorePCS.get(i).getSecond();
-//			}			 			
-			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);
+
+			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);
 			PartialCoalescentState init0 = PartialCoalescentState
 					.initFastState(dataset, ctmc, true);
 			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
@@ -173,6 +188,9 @@ public class PGS4K2PBF {
 			pf.sample(kernel, pro);
 			sampled = pro.sample(rand);			
 			currentSample=sampled.getFullCoalescentState();
+//			previousLogLLEstimate=sampled.logLikelihood();			
+			UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
+			previousLogLLEstimate=ncs.logLikelihood();  //TODO:update the logLikelihood calculation in PartialCoalescentState4BackForwardKernel so that it is equal to this value.
 			// update tdp
 			if(processTree)tdp.process(currentSample);
 			if(useTopologyProcessor) trTopo.process(currentSample);
@@ -191,6 +209,7 @@ public class PGS4K2PBF {
 		outMan.write("PGS4K2PBF",
 				"Iter", iter,
 				"treeSize", tSize,
+				"trans2tranv", trans2tranv,
 				//        "maskSparsity", currentSparsity,
 				"rfDist", (previousSample == null ? 0 : new TreeEvaluator.RobinsonFouldsMetric().score(currentSample, previousSample)),
 				"LogLikelihood", previousLogLLEstimate);
