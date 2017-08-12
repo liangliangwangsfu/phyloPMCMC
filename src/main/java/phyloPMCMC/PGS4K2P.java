@@ -18,8 +18,10 @@ import nuts.io.IO;
 import nuts.math.Sampling;
 import nuts.util.Arbre;
 import pty.RootedTree;
+import pty.UnrootedTree;
 import pty.io.Dataset;
 import pty.io.TreeEvaluator;
+import pty.mcmc.ProposalDistribution;
 import pty.mcmc.UnrootedTreeState;
 import pty.smc.LazyParticleFilter.LazyParticleKernel;
 import pty.smc.LazyParticleFilter.ParticleFilterOptions;
@@ -35,6 +37,7 @@ import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
 import fig.basic.ListUtils;
 import fig.basic.Pair;
+import fig.basic.UnorderedPair;
 import fig.exec.Execution;
 import fig.prob.Dirichlet;
 import gep.util.OutputManager;
@@ -42,97 +45,123 @@ import goblin.Taxon;
 
 public class PGS4K2P {
 	private final Dataset dataset;
-	ParticleFilterOptions options=null;
+	ParticleFilterOptions options = null;
 	private final TreeDistancesProcessor tdp;
-	private boolean useTopologyProcessor=false;	
+	private boolean useTopologyProcessor = false;
 	private final TreeTopologyProcessor trTopo;
 	private double previousLogLLEstimate = Double.NEGATIVE_INFINITY;
 	private RootedTree currentSample = null;
-	public static OutputManager outMan = new OutputManager();		
-	private int iter=0; 
-	private int treeCount=0;	
-	File output=new File(Execution.getFile("results")); 
-	private String nameOfAllTrees="allTrees.trees";
-	private boolean saveTreesFromPMCMC=false;
-	private int sampleTreeEveryNIter=100; 
-	private boolean processTree=false;
-	private boolean isGS4Clock=true;
-	private double trans2tranv;
-	public double a=2;
-
-
-	public PGS4K2P(Dataset dataset0,ParticleFilterOptions options,TreeDistancesProcessor tdp,
-			boolean useTopologyProcessor,TreeTopologyProcessor trTopo,
-			RootedTree initrt, boolean processTree,boolean isGS4Clock,int sampleTreeEveryNIter)
-	{
-		this.dataset=dataset0;
+	public static OutputManager outMan = new OutputManager();
+	private int iter = 0;
+	private int treeCount = 0;
+	File output = new File(Execution.getFile("results"));
+	private String nameOfAllTrees = "allTrees.trees";
+	private boolean saveTreesFromPMCMC = false;
+	private int sampleTreeEveryNIter = 100;
+	private boolean processTree = false;
+	private boolean isGS4Clock = true;
+	private double trans2tranv=2;
+	public double a = 2;
+    private boolean sampleTrans2tranv=false;
+	
+	public PGS4K2P(Dataset dataset0, ParticleFilterOptions options, TreeDistancesProcessor tdp,
+			boolean useTopologyProcessor, TreeTopologyProcessor trTopo, RootedTree initrt, boolean processTree,
+			boolean isGS4Clock, int sampleTreeEveryNIter) {
+		this.dataset = dataset0;
 		this.options = options;
 		this.tdp = tdp;
-		this.useTopologyProcessor=useTopologyProcessor;
-		if(useTopologyProcessor)
-			this.trTopo=trTopo; 
-		else this.trTopo=null; 
-		this.currentSample=initrt;   
-		this.processTree=processTree;
-		this.isGS4Clock=isGS4Clock;
-		this.sampleTreeEveryNIter=sampleTreeEveryNIter;
+		this.useTopologyProcessor = useTopologyProcessor;
+		if (useTopologyProcessor)
+			this.trTopo = trTopo;
+		else
+			this.trTopo = null;
+		this.currentSample = initrt;
+		this.processTree = processTree;
+		this.isGS4Clock = isGS4Clock;
+		this.sampleTreeEveryNIter = sampleTreeEveryNIter;
 	}
 
-	public PGS4K2P(Dataset dataset0, ParticleFilterOptions options,  TreeDistancesProcessor tdp, RootedTree initrt, TreeTopologyProcessor trTopo)
-	{
-		this.dataset=dataset0;
+	public PGS4K2P(Dataset dataset0, ParticleFilterOptions options, TreeDistancesProcessor tdp, RootedTree initrt,
+			TreeTopologyProcessor trTopo) {
+		this.dataset = dataset0;
 		this.options = options;
 		this.tdp = tdp;
-		this.currentSample=initrt;
-		this.trTopo=trTopo;
-	}	
-
-	public void setSaveTreesFromPMCMC(boolean saveTreesFromPMCMC)
-	{
-		this.saveTreesFromPMCMC=saveTreesFromPMCMC; 
+		this.currentSample = initrt;
+		this.trTopo = trTopo;
 	}
 
-	public void setNameOfAllTrees(String nameOfAllTrees)
-	{
-		this.nameOfAllTrees=nameOfAllTrees; 
+	public void setSaveTreesFromPMCMC(boolean saveTreesFromPMCMC) {
+		this.saveTreesFromPMCMC = saveTreesFromPMCMC;
 	}
 
-	public String getNameOfAllTrees()
-	{
+	public void setNameOfAllTrees(String nameOfAllTrees) {
+		this.nameOfAllTrees = nameOfAllTrees;
+	}
+
+	public String getNameOfAllTrees() {
 		return this.nameOfAllTrees;
 	}
 
-	public boolean getSaveTreesFromPMCMC()
-	{
+	public boolean getSaveTreesFromPMCMC() {
 		return this.saveTreesFromPMCMC;
 	}
 
-	public void setProcessTree(boolean processTree)
-	{
-		this.processTree=processTree; 
+	public void setProcessTree(boolean processTree) {
+		this.processTree = processTree;
 	}
 
-	public RootedTree getRootedTree()
-	{
+	public RootedTree getRootedTree() {
 		return currentSample;
 	}
+
+	private double MHTrans2tranv(double currentTrans2tranv, Random rand) {
+		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
+		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
+		double proposedTrans2tranv=proposed.getFirst();
+		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);
+		PartialCoalescentState newState = PartialCoalescentState.initFastState(dataset, ctmc, true); // is clock
+		double logratio = newState.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
+		double acceptPr = Math.min(1, Math.exp(logratio));
+		final boolean accept = Sampling.sampleBern(acceptPr, rand);
+		if (accept) {
+			trans2tranv = proposedTrans2tranv;
+			previousLogLLEstimate = newState.logLikelihood();			
+		}
+		return acceptPr;
+	}
+
+	public static class Trans2tranvProposal{
+		private final double a; // higher will have lower accept rate		
+	    private Random rand;
+		public Trans2tranvProposal(double a, Random rand) {
+			if (a <= 1)
+				throw new RuntimeException();
+			this.a = a;
+			this.rand=rand;			
+		}
+
+		public  Pair<Double,Double> propose(double currentTrans2tranv) {
+			double lambda=2*Math.log(a);
+			double rvUnif = Sampling.nextDouble(rand, 0, 1);
+			double m  = Math.exp(lambda*(rvUnif-0.5));		
+			final double newTrans2tranv = m * currentTrans2tranv;
+			return Pair.makePair(newTrans2tranv, Math.log(m));						
+		}
+	}
+
 
 	public void next(Random rand)
 	{
 		iter++;
 		RootedTree previousSample = currentSample;		
-		// proposals:
-		// alpha: multiplier				    
-		//	double scale=Sampling.nextDouble(rand, 1.0/a, a);
-		//		System.out.println(scale);
-		//	double proposedTrans2tranv = scale*trans2tranv; 
-		double proposedTrans2tranv = 2.0;
+		if(sampleTrans2tranv) MHTrans2tranv(trans2tranv,  rand);
+	//	double proposedTrans2tranv = 2.0;
 
 		// sample from PF
 		StoreProcessor<PartialCoalescentState> pro = new StoreProcessor<PartialCoalescentState>();		 
 		if((iter % sampleTreeEveryNIter) == 0)
 		{
-			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);  
+			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);  
 			PartialCoalescentState init = PartialCoalescentState.initFastState(dataset, ctmc, true);  // is clock	          								
 			LazyParticleKernel kernel = new PriorPriorKernel(init);
 			//LazyParticleFilter<PartialCoalescentState> pf = new LazyParticleFilter<PartialCoalescentState>(kernel, options);	
@@ -167,9 +196,10 @@ public class PGS4K2P {
 		}
 		// log some stats
 		final int tSize = currentSample.topology().nLeaves();
-		outMan.write("PGS",
+		outMan.write("PGS4K2P",
 				"Iter", iter,
 				"treeSize", tSize,
+				"trans2tranv", trans2tranv,
 				//        "maskSparsity", currentSparsity,
 				"rfDist", (previousSample == null ? 0 : new TreeEvaluator.RobinsonFouldsMetric().score(currentSample, previousSample)),
 				"LogLikelihood", previousLogLLEstimate);
@@ -267,7 +297,12 @@ public class PGS4K2P {
 		}			
 		return result;
 	}
+
+	public boolean isSampleTrans2tranv() {
+		return sampleTrans2tranv;
+	}
+
+	public void setSampleTrans2tranv(boolean sampleTrans2tranv) {
+		this.sampleTrans2tranv = sampleTrans2tranv;
+	}
 }
-
-
-

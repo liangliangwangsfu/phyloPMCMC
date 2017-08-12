@@ -237,7 +237,6 @@ public class ParticleGibbs4GTRIGammaBF {
 			}
 			// set the conditioning and its weights
 			pf.setConditional(path, weights);
-
 			// do the sampling			
 			pf.sample(kernel, pro);
 			PartialCoalescentState sampled = pro.sample(rand);
