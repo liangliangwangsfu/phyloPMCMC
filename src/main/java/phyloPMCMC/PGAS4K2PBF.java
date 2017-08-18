@@ -110,7 +110,7 @@ public class PGAS4K2PBF {
 	{
 		return currentSample;
 	}
-	
+
 	private double MHTrans2tranv(double currentTrans2tranv, Random rand) {
 		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
 		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
@@ -122,14 +122,14 @@ public class PGAS4K2PBF {
 		final boolean accept = Sampling.sampleBern(acceptPr, rand);
 		if (accept) {
 			trans2tranv = proposedTrans2tranv;
-		//	previousLogLLEstimate = ncs.logLikelihood();			
+			//	previousLogLLEstimate = ncs.logLikelihood();			
 		}
 		return acceptPr;
 	}
 
 	public static class Trans2tranvProposal{
 		private final double a; // higher will have lower accept rate		
-	    private Random rand;
+		private Random rand;
 		public Trans2tranvProposal(double a, Random rand) {
 			if (a <= 1)
 				throw new RuntimeException();
@@ -160,10 +160,8 @@ public class PGAS4K2PBF {
 					.initFastState(dataset, ctmc, true);
 			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
 					init0, null, 0, new int[] {-1,-1});
-
 			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel(
 					init);
-
 			PGASParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new PGASParticleFilter<PartialCoalescentState4BackForwardKernel>();
 			pf.rand= rand;
 			pf.nThreads = options.nThreads;
@@ -171,22 +169,22 @@ public class PGAS4K2PBF {
 			pf.N=options.nParticles;
 			if(sampled!=null)
 			{
-			//	System.out.println("Find the conditioned path!");
-			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = PartialCoalescentState4BackForwardKernel.restoreSequence(sampled);			
-			List<PartialCoalescentState4BackForwardKernel> path = list();
-			double[] weights=new double[restorePCS.size()];
-			for(int i=0;i<restorePCS.size();i++){
-				path.add(restorePCS.get(i).getFirst());			 
-				weights[i]=restorePCS.get(i).getSecond();
-			}
-			// set the conditioning and its weights
-			pf.setConditional(path, weights);
+				//	System.out.println("Find the conditioned path!");
+				List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = PartialCoalescentState4BackForwardKernel.restoreSequence(sampled);			
+				List<PartialCoalescentState4BackForwardKernel> path = list();
+				double[] weights=new double[restorePCS.size()];
+				for(int i=0;i<restorePCS.size();i++){
+					path.add(restorePCS.get(i).getFirst());			 
+					weights[i]=restorePCS.get(i).getSecond();
+				}
+				// set the conditioning and its weights
+				pf.setConditional(path, weights);
 			}
 			// do the sampling			
 			pf.sample(kernel,  pro);
 			sampled = pro.sample(rand);			
 			currentSample=sampled.getFullCoalescentState();
-//			previousLogLLEstimate=sampled.logLikelihood();
+			//			previousLogLLEstimate=sampled.logLikelihood();
 			UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
 			previousLogLLEstimate=ncs.logLikelihood();  //TODO:update the logLikelihood calculation in PartialCoalescentState4BackForwardKernel so that it is equal to this value.
 

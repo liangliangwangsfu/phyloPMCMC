@@ -21,6 +21,12 @@ public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentS
 	private PartialCoalescentState4BackForwardKernel parent = null;
 	private double latestDelta = 0;
 	private int[] indxInParentState=new int[2];
+	
+	public void setCTMC(CTMC ctmc)
+	{
+		
+	}
+	
 
 	public PartialCoalescentState4BackForwardKernel(PartialCoalescentState pcs,
 			PartialCoalescentState4BackForwardKernel parent, double latestDelta, int[] indxInParentState) {
@@ -73,8 +79,12 @@ public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentS
 		double result=0;		
 		PartialCoalescentState4BackForwardKernel grandmaOfNewState=newState.parentState().parentState();
 		PartialCoalescentState4BackForwardKernel parentOfthisState=thisState.parentState();
+		
+		System.out.println("grandmaOfNewState "+grandmaOfNewState.toString());
+		System.out.println("parentOfthisState "+parentOfthisState.toString());
 		if(grandmaOfNewState.equals(parentOfthisState))
 		{
+			System.out.println("EQUAL!!");
 		//	System.out.print("grandmaOfNewState.equals(parentOfthisState): ");
 			double numRootPairs0=BackForwardKernel.nChoose2(grandmaOfNewState.nRoots());
 			double param0= 0.1 / numRootPairs0;				
@@ -83,12 +93,13 @@ public class PartialCoalescentState4BackForwardKernel extends PartialCoalescentS
 			result=newState.logLikelihoodRatio()
 					+ newState.parentState().logLikelihoodRatio()
 					- thisState.logLikelihoodRatio() - logExpDensityDeltaOld;	        
-		}	
+		}else
+			System.out.println("NOT EQUAL!!");
 		//System.out.println(result);
 		return result;		
 	}
 	
-	public static List<Pair<PartialCoalescentState4BackForwardKernel,Double>>  restoreSequence(	PartialCoalescentState4BackForwardKernel finalState)
+	public static List<Pair<PartialCoalescentState4BackForwardKernel,Double>>  restoreSequence(PartialCoalescentState4BackForwardKernel finalState)
 	{
 	
 		List<Pair<PartialCoalescentState4BackForwardKernel,Double>> result=list();		

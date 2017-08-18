@@ -154,7 +154,6 @@ public class PGS4K2PBF {
 		StoreProcessor<PartialCoalescentState4BackForwardKernel> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel>();		 
 		if((iter % sampleTreeEveryNIter) == 0)
 		{
-
 			CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);
 			PartialCoalescentState init0 = PartialCoalescentState
 					.initFastState(dataset, ctmc, true);

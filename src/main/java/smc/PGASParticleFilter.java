@@ -117,6 +117,7 @@ public final class PGASParticleFilter<S> {
 	private long[] seeds;
 	private List<S> samples;
 	private double[] logWeights;
+	private double[] normalizedWeights;
 	// private List<Integer> ancestors;
 
 	public List<S> getSamples() {
@@ -127,19 +128,10 @@ public final class PGASParticleFilter<S> {
 		return logWeights;
 	}
 
-	// /// remove me
-	// private double max = Double.NEGATIVE_INFINITY;
 
 	private void propagateAndComputeWeights(final ParticleKernel<S> kernel, final int t) {
-		// //// remove me!
-		// max = Double.NEGATIVE_INFINITY;
-
 		if (verbose)
 			LogInfo.track("Processing...", false);
-
-		final double[] normalizedWeights0 = logWeights.clone();
-		NumUtils.expNormalize(normalizedWeights0);
-		final double[] logWeights2 = new double[N];
 		// System.out.println("Creating seed=" + rand.nextDouble());
 		seeds = Sampling.createSeeds(N, rand); // so that result for a given
 		// randomization is
@@ -161,29 +153,12 @@ public final class PGASParticleFilter<S> {
 						samples.set(x, null);
 						logWeights[x] = Double.NEGATIVE_INFINITY;
 					} else {
-						// System.out.println(x+": "+logWeights[x]+"
-						// "+current.getSecond());
 						samples.set(x, current.getFirst());
-						logWeights[x] += current.getSecond();
-						// System.out.println(logWeights[x]);
-						logWeights2[x] = Math.log(normalizedWeights0[x]) + current.getSecond();
-
-						// /// remove me
-						// if (current.getSecond() > max)
-						// {
-						// max = current.getSecond();
-						// System.out.println("New max" + max +
-						// "\nValue:\n"+((LazyPCS)current.getFirst()).peekState());
-						// }
-						//
-						// ///
-
+						logWeights[x] = Math.log(normalizedWeights[x]) + current.getSecond();
 					}
 				}
 			}
 		});
-		// lognorm += SloppyMath.logAdd(logWeights) - Math.log(N);
-		lognorm += SloppyMath.logAdd(logWeights2);
 		if (verbose)
 			LogInfo.end_track();
 	}
@@ -206,6 +181,8 @@ public final class PGASParticleFilter<S> {
 		for (int n = 0; n < N; n++)
 			samples.add(initial);
 		logWeights = new double[N]; // init to zero
+		normalizedWeights = new double[N];
+		for(int i=0;i<normalizedWeights.length;i++) normalizedWeights[i]=1.0/N;
 	}
 
 	private void newProcess(int t, double[] normalizedWeights, ParticleProcessor<S> processor, int T) {
@@ -234,9 +211,6 @@ public final class PGASParticleFilter<S> {
 	 *            what to do with the produced sample
 	 */
 	public void sample(final ParticleKernel<S> kernel, final ParticleProcessor<S> processor) {
-		// System.out.println("Current random:" + rand.nextLong());
-		// System.out.println("nt=" + nThreads);
-
 		init(kernel);
 		final int T = kernel.nIterationsLeft(kernel.getInitial());
 		// System.out.println("T=" + T);
@@ -246,42 +220,54 @@ public final class PGASParticleFilter<S> {
 			if (verbose)
 				LogInfo.track("Particle generation " + (t + 1) + "/" + T, true);
 			propagateAndComputeWeights(kernel, t);
-			double[] normalizedWeights = logWeights.clone();
+			if(t>0)lognorm += SloppyMath.logAdd(logWeights);
+			normalizedWeights = logWeights.clone();
 			NumUtils.expNormalize(normalizedWeights);
-			// if(t==0) lognorm = SloppyMath.logAdd(logWeights) - Math.log(N);
 			if (verbose)
 				LogInfo.logs("LargestNormalizedWeights=" + ArrayUtils.max(normalizedWeights));
 			if (verbose)
 				LogInfo.logs("RelativeESS=" + ess(normalizedWeights) / normalizedWeights.length);
 			// if (verbose) LogInfo.logs("NumberOfAncestors=" + new
-			// HashSet<Integer>(ancestors).size());
+			// HashSet<Integer>(ancestors).size());			
 			newProcess(t, normalizedWeights, processor, T);
 			if (t < T - 1 && (hasNulls(samples) || resamplingStrategy.needResample(normalizedWeights))) {
-				samples = resample(samples, normalizedWeights, rand);
+				
 				if (usePGAS && isConditional()
 						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel) {					
 					double[] forwardDensityWeights = new double[N];
 					PartialCoalescentState4BackForwardKernel conditionedState = (PartialCoalescentState4BackForwardKernel) conditional
-							.get(t + 1);
+							.get(t+1);
 					for (int k = 0; k < N; k++) {
-						forwardDensityWeights[k] = logWeights[k]
-								+ PartialCoalescentState4BackForwardKernel.forwardDensity(
+						forwardDensityWeights[k] = 0;
+								// logWeights[k]+ 
+								double tmp= PartialCoalescentState4BackForwardKernel.forwardDensity(
 										(PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
-					}
-					NumUtils.expNormalize(forwardDensityWeights);
-					int sampledIndx = SampleUtils.sampleMultinomial(rand, forwardDensityWeights);
+								if(tmp!=0) forwardDensityWeights[k]=tmp+logWeights[k];
+						if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
+					}					
+					System.out.println();
+					double[] normalizedForwardDensityWeights =forwardDensityWeights.clone();
+					NumUtils.expNormalize(normalizedForwardDensityWeights);
+					int sampledIndx = SampleUtils.sampleMultinomial(rand, normalizedForwardDensityWeights);
+
+					logWeights[0] = forwardDensityWeights[sampledIndx];
+					System.out.println("weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
 					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
-							.get(sampledIndx);
-					samples.set(0, samples.get(sampledIndx));
+							.get(sampledIndx);					
 					double param0 = 0.1
 							/ BackForwardKernel.nChoose2(conditionedState.parentState().parentState().nRoots());
 					final double delta0 = newAncestor.getLatestDelta();
 					double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
-					conditionalUnnormWeights[t + 1] = conditionedState.logLikelihoodRatio()
+					//conditionalUnnormWeights[t + 1]
+					//logWeights[0] = 
+							double refWeight =conditionedState.logLikelihoodRatio()
 							+ conditionedState.parentState().logLikelihoodRatio()
-							- conditionedState.parentState().parentState().logLikelihoodRatio() - logExpDensityDeltaOld;
+							- newAncestor.logLikelihoodRatio() - logExpDensityDeltaOld;
+							System.out.println("ref weight: "+refWeight);							
+							samples.set(0, samples.get(sampledIndx));
 				}
-				logWeights = new double[N]; // reset weights
+				samples = resample(samples, normalizedWeights, rand);
+				for(int i=0;i<normalizedWeights.length;i++) normalizedWeights[i]=1.0/N;
 			}
 			if (verbose)
 				LogInfo.end_track();
@@ -308,8 +294,6 @@ public final class PGASParticleFilter<S> {
 			}
 			if (schedule != null)
 				schedule.monitor(new ProcessScheduleContext(t, t == T - 1, ResampleStatus.NA));
-			// System.out.println("Current random:" + rand.nextLong() +
-			// "========>" + (_randcoutn++) + "<-----");
 		}
 		setUnconditional();
 	}
@@ -344,29 +328,7 @@ public final class PGASParticleFilter<S> {
 
 		return Pair.makePair(resultList, resultWeight);
 
-		// Counter<Integer> newSamples = new Counter<Integer>();
-		// for (int n = 0; n < samples.size(); n++)
-		// {
-		// int index;
-		// if (n == 0 && isConditional())
-		// index = 0;
-		// else
-		// {
-		// try { index = SampleUtils.sampleMultinomial(rand, weights); }
-		// catch (RuntimeException re) { throw new MeasureZeroException(); }
-		// }
-		// newSamples.incrementCount(index, 1.0);
-		// }
-		// newSamples.normalize();
-		// double [] resultWeight = new double[newSamples.size()];
-		// List<S> resultList = new ArrayList<S>(newSamples.size());
-		// int i = 0;
-		// for (Integer key : newSamples.keySet())
-		// {
-		// resultList.add(samples.get(key));
-		// resultWeight[i++] = newSamples.getCount(key);
-		// }
-		// return Pair.makePair(resultList,resultWeight);
+
 	}
 
 	// TODO: can be more efficient, nlog(n) instead of n^2
@@ -550,7 +512,7 @@ public final class PGASParticleFilter<S> {
 
 		public void process(PartialCoalescentState state, double weight) {
 			hasher.add(weight).add(state.logLikelihood()).add(state.topHeight())
-					.add(state.getUnlabeledArbre().deepToLispString());
+			.add(state.getUnlabeledArbre().deepToLispString());
 		}
 
 		public int getHash() {
