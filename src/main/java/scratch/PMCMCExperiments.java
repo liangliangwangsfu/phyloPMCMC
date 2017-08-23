@@ -37,9 +37,9 @@ import pty.smc.ParticleKernel;
 import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
 import pty.smc.test.TestBrownianModel.KernelType;
-import smc.BackForwardKernel;
+import smc.BackForwardKernel2;
 //import smc.BackForwardKernel;
-import smc.PartialCoalescentState4BackForwardKernel;
+import smc.PartialCoalescentState4BackForwardKernel2;
 import ev.ex.PhyloSamplerMain;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
@@ -571,9 +571,9 @@ public class PMCMCExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
 				CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(), alpha, nCategories, pInv);
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0, null);
-				LazyParticleKernel pk2 = new BackForwardKernel(init);
-				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
+				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(init0, null, 0, null);
+				LazyParticleKernel pk2 = new BackForwardKernel2(init);
+				LazyParticleFilter<PartialCoalescentState4BackForwardKernel2> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel2>(
 						pk2, options);
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 				if (instance.useTopologyProcessor) {

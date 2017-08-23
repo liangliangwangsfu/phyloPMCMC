@@ -38,8 +38,8 @@ import scratch.PMMH4GTRIGamma;
 import scratch.PMMHNC;
 import scratch.ParticleGibbs4GTRIGamma;
 import scratch.ParticleGibbs4GTRIGammaBF;
-import smc.BackForwardKernel;
-import smc.PartialCoalescentState4BackForwardKernel;
+import smc.BackForwardKernel2;
+import smc.PartialCoalescentState4BackForwardKernel2;
 import ev.ex.PhyloSamplerMain;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
@@ -334,9 +334,9 @@ public class PGSExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0,new int[]{-1,-1});
-				LazyParticleKernel pk2 = new BackForwardKernel(init);
-				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
+				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(init0, null, null, null, 0,new int[]{-1,-1});
+				LazyParticleKernel pk2 = new BackForwardKernel2(init);
+				LazyParticleFilter<PartialCoalescentState4BackForwardKernel2> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel2>(
 						pk2, options);
 
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
@@ -431,9 +431,9 @@ public class PGSExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
 				CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(), alpha, nCategories, pInv);
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, null, 0, new int[] {-1,-1});
-				LazyParticleKernel pk2 = new BackForwardKernel(init);
-				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
+				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(init0, init0,init0,null, 0, new int[] {-1,-1});
+				LazyParticleKernel pk2 = new BackForwardKernel2(init);
+				LazyParticleFilter<PartialCoalescentState4BackForwardKernel2> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel2>(
 						pk2, options);
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 				if (instance.useTopologyProcessor) {
@@ -597,8 +597,16 @@ public class PGSExperiments implements Runnable {
 				if (nPMMH == 0)
 					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
+				
+				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2);
+				PartialCoalescentState init0 = PartialCoalescentState
+						.initFastState(dataset, ctmc, true);
+				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(
+						init0, null, null, null, 0, new int[] {-1,-1});
+
+				
 				PGS4K2PBF pg = new PGS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
-						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
+						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter, init, ctmc);
 				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
 				String allTreeFilename="allTrees-PGS4K2PBF.trees";
@@ -661,8 +669,14 @@ public class PGSExperiments implements Runnable {
 				if (nPMMH == 0)
 					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
+				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2);
+				PartialCoalescentState init0 = PartialCoalescentState
+						.initFastState(dataset, ctmc, true);
+				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(
+						init0, null,  null, null, 0, new int[] {-1,-1});
+
 				PGAS4K2PBF pg = new PGAS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
-						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
+						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter, init,ctmc);
 				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
 				String allTreeFilename="allTrees-PGAS4K2PBF.trees";

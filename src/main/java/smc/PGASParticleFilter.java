@@ -1,7 +1,6 @@
 package smc;
 
 import java.util.*;
-
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleKernel;
 import monaco.process.ProcessSchedule;
@@ -211,8 +210,10 @@ public final class PGASParticleFilter<S> {
 	 *            what to do with the produced sample
 	 */
 	public void sample(final ParticleKernel<S> kernel, final ParticleProcessor<S> processor) {
-		init(kernel);
+		init(kernel);		
+
 		final int T = kernel.nIterationsLeft(kernel.getInitial());
+
 		// System.out.println("T=" + T);
 		if (isConditional() && conditional.size() != T)
 			throw new RuntimeException();
@@ -231,40 +232,38 @@ public final class PGASParticleFilter<S> {
 			// HashSet<Integer>(ancestors).size());			
 			newProcess(t, normalizedWeights, processor, T);
 			if (t < T - 1 && (hasNulls(samples) || resamplingStrategy.needResample(normalizedWeights))) {
-				
+
 				if (usePGAS && isConditional()
-						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel) {					
+						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel2) {					
 					double[] forwardDensityWeights = new double[N];
-					PartialCoalescentState4BackForwardKernel conditionedState = (PartialCoalescentState4BackForwardKernel) conditional
+					PartialCoalescentState4BackForwardKernel2 conditionedState = (PartialCoalescentState4BackForwardKernel2) conditional
 							.get(t+1);
-					for (int k = 0; k < N; k++) {
-						forwardDensityWeights[k] = 0;
-								// logWeights[k]+ 
-								double tmp= PartialCoalescentState4BackForwardKernel.forwardDensity(
-										(PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
-								if(tmp!=0) forwardDensityWeights[k]=tmp+logWeights[k];
-						if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
+					for (int k = 0; k < N; k++) {						 
+						forwardDensityWeights[k]= PartialCoalescentState4BackForwardKernel2.forwardDensity(
+								(PartialCoalescentState4BackForwardKernel2) samples.get(k), conditionedState);
+						//	if(tmp!=0) forwardDensityWeights[k]=tmp+logWeights[k];													
+						//		if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
 					}					
-					System.out.println();
+					//System.out.println();
 					double[] normalizedForwardDensityWeights =forwardDensityWeights.clone();
 					NumUtils.expNormalize(normalizedForwardDensityWeights);
 					int sampledIndx = SampleUtils.sampleMultinomial(rand, normalizedForwardDensityWeights);
 
 					logWeights[0] = forwardDensityWeights[sampledIndx];
-					System.out.println("weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
-					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
+					//					System.out.println("sampledIndx "+sampledIndx);
+					//					System.out.println("weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
+					PartialCoalescentState4BackForwardKernel2 newAncestor = (PartialCoalescentState4BackForwardKernel2) samples
 							.get(sampledIndx);					
-					double param0 = 0.1
-							/ BackForwardKernel.nChoose2(conditionedState.parentState().parentState().nRoots());
-					final double delta0 = newAncestor.getLatestDelta();
-					double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
-					//conditionalUnnormWeights[t + 1]
-					//logWeights[0] = 
-							double refWeight =conditionedState.logLikelihoodRatio()
-							+ conditionedState.parentState().logLikelihoodRatio()
-							- newAncestor.logLikelihoodRatio() - logExpDensityDeltaOld;
-							System.out.println("ref weight: "+refWeight);							
-							samples.set(0, samples.get(sampledIndx));
+					//		double param0 = 0.1
+					//				/ BackForwardKernel2.nChoose2(conditionedState.parentState().getCurrentState().nRoots());
+					//		final double delta0 = newAncestor.getDelta();
+					//			double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
+					//							double refWeight =conditionedState.getCurrentState().logLikelihoodRatio()
+					//							+ conditionedState.getMidState().logLikelihoodRatio()
+					//							- newAncestor.getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld;
+					//							System.out.println("ref weight: "+refWeight);							
+					samples.set(0, samples.get(sampledIndx));							
+					conditionedState.setParent(newAncestor);														
 				}
 				samples = resample(samples, normalizedWeights, rand);
 				for(int i=0;i<normalizedWeights.length;i++) normalizedWeights[i]=1.0/N;

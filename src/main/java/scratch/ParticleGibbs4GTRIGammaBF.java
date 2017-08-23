@@ -25,8 +25,8 @@ import pty.smc.ParticleFilter;
 import pty.smc.ParticleFilter.StoreProcessor;
 import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
-import smc.BackForwardKernel;
-import smc.PartialCoalescentState4BackForwardKernel;
+import smc.BackForwardKernel2;
+import smc.PartialCoalescentState4BackForwardKernel2;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
 import fig.basic.ListUtils;
@@ -211,25 +211,25 @@ public class ParticleGibbs4GTRIGammaBF {
 		//		double[] proposedstatFreqs=proposeFromDirichlet(rand,a_statFreqs,statFreqs);
 		//		double acceptPrstatFreqs=MHstatFreqs(proposedstatFreqs,a_statFreqs,rand);
 		// sample from PF
-		StoreProcessor<PartialCoalescentState4BackForwardKernel> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel>();
+		StoreProcessor<PartialCoalescentState4BackForwardKernel2> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel2>();
 		if((iter % sampleTreeEveryNIter) == 0)
 		{
 			CTMC currentctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(), alpha, nCategories, pInv);
 			PartialCoalescentState init0 = PartialCoalescentState
 					.initFastState(dataset, currentctmc, true);
-			PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
+			PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(
 					init0, null, 0, null);
 
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel2> kernel = new BackForwardKernel2(
 					init);
 
-			ParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new ParticleFilter<PartialCoalescentState4BackForwardKernel>();
+			ParticleFilter<PartialCoalescentState4BackForwardKernel2> pf = new ParticleFilter<PartialCoalescentState4BackForwardKernel2>();
 			pf.nThreads = 4;
 			pf.resampleLastRound = false;
 			pf.N=options.nParticles;
-			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = restoreSequence(
+			List<Pair<PartialCoalescentState4BackForwardKernel2, Double>> restorePCS = restoreSequence(
 					kernel, currentSample, isGS4Clock);
-			List<PartialCoalescentState4BackForwardKernel> path = list();
+			List<PartialCoalescentState4BackForwardKernel2> path = list();
 			double[] weights=new double[restorePCS.size()];
 			for(int i=0;i<restorePCS.size();i++){
 				path.add(restorePCS.get(i).getFirst());			 
@@ -395,15 +395,15 @@ public class ParticleGibbs4GTRIGammaBF {
 		return result;
 	}
 
-	public static List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restoreSequence(
-			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel,
+	public static List<Pair<PartialCoalescentState4BackForwardKernel2, Double>> restoreSequence(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel2> kernel,
 			RootedTree rt, boolean isClock)
 	{
 		// if(!isClock)return
 		// restoreSequence4NonClockTree(kernel.getInitial(),rt);
 		List<String> newNodeNames=list();
-		List<Pair<PartialCoalescentState4BackForwardKernel, Double>> result = list();
-		PartialCoalescentState4BackForwardKernel current = kernel.getInitial();
+		List<Pair<PartialCoalescentState4BackForwardKernel2, Double>> result = list();
+		PartialCoalescentState4BackForwardKernel2 current = kernel.getInitial();
 		List<Arbre<Taxon>> childrenList=rt.topology().nodes();
 		Map<Taxon,Double> branchLengths=rt.branchLengths();
 		Map<Arbre<Taxon>,Double> heightMap=map();
@@ -436,7 +436,7 @@ public class ParticleGibbs4GTRIGammaBF {
 			//			coalesceResult.setDeltaOld(currentDelta);
 			//			coalesceResult.setParent(current);
 
-			PartialCoalescentState4BackForwardKernel coalesceResult = new PartialCoalescentState4BackForwardKernel(current
+			PartialCoalescentState4BackForwardKernel2 coalesceResult = new PartialCoalescentState4BackForwardKernel2(current
 					.coalesce(current.indexOf(first), current.indexOf(second),
 							currentDelta, 0, 0, currentArbre.getContents()),current, currentDelta, null);
 
