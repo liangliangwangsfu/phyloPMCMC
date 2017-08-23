@@ -234,13 +234,13 @@ public final class PGASParticleFilter<S> {
 			if (t < T - 1 && (hasNulls(samples) || resamplingStrategy.needResample(normalizedWeights))) {
 
 				if (usePGAS && isConditional()
-						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel2 && t>1) {					
+						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel && t>1) {					
 					double[] forwardDensityWeights = new double[N];
-					PartialCoalescentState4BackForwardKernel2 conditionedState = (PartialCoalescentState4BackForwardKernel2) conditional
+					PartialCoalescentState4BackForwardKernel conditionedState = (PartialCoalescentState4BackForwardKernel) conditional
 							.get(t+1);
 					for (int k = 0; k < N; k++) {						 
-						forwardDensityWeights[k]= PartialCoalescentState4BackForwardKernel2.forwardDensity(
-								(PartialCoalescentState4BackForwardKernel2) samples.get(k), conditionedState);
+						forwardDensityWeights[k]= PartialCoalescentState4BackForwardKernel.forwardDensity(
+								(PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
 						//	if(tmp!=0) forwardDensityWeights[k]=tmp+logWeights[k];													
 						//		if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
 					}					
@@ -251,7 +251,7 @@ public final class PGASParticleFilter<S> {
 					logWeights[0] = forwardDensityWeights[sampledIndx];
 					//					System.out.println("sampledIndx "+sampledIndx);
 					if(logWeights[0]==0)	System.out.println("weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
-					PartialCoalescentState4BackForwardKernel2 newAncestor = (PartialCoalescentState4BackForwardKernel2) samples
+					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
 							.get(sampledIndx);					
 					//		double param0 = 0.1
 					//				/ BackForwardKernel2.nChoose2(conditionedState.parentState().getCurrentState().nRoots());

@@ -13,29 +13,29 @@ import fig.basic.Pair;
  * 
  * @author Liangliang Wang
  */
-public class BackForwardKernel2 implements
-LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<PartialCoalescentState4BackForwardKernel2> {
+public class BackForwardKernel implements
+LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<PartialCoalescentState4BackForwardKernel> {
 	@Option
 	public static boolean printBranchLengthMagnitudes = false;
-	private final PartialCoalescentState4BackForwardKernel2 initial;
+	private final PartialCoalescentState4BackForwardKernel initial;
 
-	public BackForwardKernel2(PartialCoalescentState4BackForwardKernel2 initial) {
+	public BackForwardKernel(PartialCoalescentState4BackForwardKernel initial) {
 		this.initial = initial;
 	}
 
-	public PartialCoalescentState4BackForwardKernel2 getInitial() {
+	public PartialCoalescentState4BackForwardKernel getInitial() {
 		return initial;
 	}
 		
 
 	public int nIterationsLeft(
-			PartialCoalescentState4BackForwardKernel2 partialState) {
+			PartialCoalescentState4BackForwardKernel partialState) {
 	//	System.out.println(partialState.getCurrentState().toString());
 		return partialState.getCurrentState().nIterationsLeft();
 	}
 
 	public Object _next0(Random rand,
-			PartialCoalescentState4BackForwardKernel2 current,
+			PartialCoalescentState4BackForwardKernel current,
 			boolean isPeek) {
 
 		final double delta = Sampling.sampleExponential(rand,
@@ -56,7 +56,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 				rightIncrement += incr;
 		}
 
-		PartialCoalescentState4BackForwardKernel2 result = null;
+		PartialCoalescentState4BackForwardKernel result = null;
 		Double logw = null;
 		if (isPeek)
 			logw = current.getCurrentState().peekLogLikelihoodRatio(i0, i1, delta, leftIncrement,
@@ -66,7 +66,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 			PartialCoalescentState resultpcs = current.getCurrentState()
 					.coalesce(i0, i1, delta, leftIncrement,
 							rightIncrement);
-			result = new PartialCoalescentState4BackForwardKernel2(resultpcs,current.getCurrentState(),null,
+			result = new PartialCoalescentState4BackForwardKernel(resultpcs,current.getCurrentState(),null,
 					current, delta, new int[]{i0, i1});
 		}
 
@@ -77,13 +77,13 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 	}
 
 	public Object _next1(Random rand,
-			PartialCoalescentState4BackForwardKernel2 current,
+			PartialCoalescentState4BackForwardKernel current,
 			boolean isPeek) {
 		boolean self=false;		
 		double oldLogLikelihoodRatio = 0;
 		double logExpDensityDeltaOld = 0;
 		// 1- go back to current state's parent partial state
-		PartialCoalescentState4BackForwardKernel2 parent = current.parentState();		
+		PartialCoalescentState4BackForwardKernel parent = current.parentState();		
 		//PartialCoalescentState4BackForwardKernel2 result0 = null;
 		PartialCoalescentState result0 = null;
 		
@@ -135,7 +135,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 				/ nChoose2(current.getCurrentState().nRoots());
 		final double delta1 = Sampling.sampleExponential(rand, param1);		
 		double leftIncrement1 = 0.0, rightIncrement1 = 0.0;
-		PartialCoalescentState4BackForwardKernel2 result = null;
+		PartialCoalescentState4BackForwardKernel result = null;
 		Double loglikeRatio0=result0.logLikelihoodRatio();
 		Double logw =null;
 		if (isPeek) {
@@ -146,7 +146,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 				logw= loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
 					leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld ;
 		} else {		
-			result = new PartialCoalescentState4BackForwardKernel2(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
+			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
 		}
 
 		// 4- the weight update is simply equal to the ratio of the new
@@ -167,7 +167,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 
 
 	public Object _next(Random rand,
-			PartialCoalescentState4BackForwardKernel2 current, boolean isPeek) {
+			PartialCoalescentState4BackForwardKernel current, boolean isPeek) {
 		//System.out.println(current.hasParent());
 		if (current.hasParent())
 			return _next1(rand, current, isPeek);
@@ -176,15 +176,15 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 	}
 
 	@Override
-	public Pair<PartialCoalescentState4BackForwardKernel2, Double> next(
-			Random rand, PartialCoalescentState4BackForwardKernel2 current) {
+	public Pair<PartialCoalescentState4BackForwardKernel, Double> next(
+			Random rand, PartialCoalescentState4BackForwardKernel current) {
 		return (Pair) _next(rand, current, false);
 
 	}
 
 	@Override
 	public double peekNext(Random rand,
-			PartialCoalescentState4BackForwardKernel2 current) {
+			PartialCoalescentState4BackForwardKernel current) {
 		return (Double) _next(rand, current, true);
 	}	
 

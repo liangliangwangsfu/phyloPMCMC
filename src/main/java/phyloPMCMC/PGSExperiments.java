@@ -38,9 +38,9 @@ import pty.smc.models.CTMC;
 import scratch.PMMH4GTRIGamma;
 import scratch.PMMHNC;
 import scratch.ParticleGibbs4GTRIGamma;
-import smc.BackForwardKernel2;
+import smc.BackForwardKernel;
 import smc.PGASParticleFilter;
-import smc.PartialCoalescentState4BackForwardKernel2;
+import smc.PartialCoalescentState4BackForwardKernel;
 import ev.ex.PhyloSamplerMain;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
@@ -355,9 +355,9 @@ public class PGSExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(init0, init0, init0, null, 0,new int[]{-1,-1});
-				LazyParticleKernel pk2 = new BackForwardKernel2(init);
-				LazyParticleFilter<PartialCoalescentState4BackForwardKernel2> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel2>(
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, init0, init0, null, 0,new int[]{-1,-1});
+				LazyParticleKernel pk2 = new BackForwardKernel(init);
+				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
 						pk2, options);
 
 				TreeDistancesProcessor tdp = new TreeProcessorBFState();
@@ -452,9 +452,9 @@ public class PGSExperiments implements Runnable {
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
 				CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4, dataset.nSites(), alpha, nCategories, pInv);
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(init0, init0,init0,null, 0, new int[] {-1,-1});
-				LazyParticleKernel pk2 = new BackForwardKernel2(init);
-				LazyParticleFilter<PartialCoalescentState4BackForwardKernel2> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel2>(
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, init0,init0,null, 0, new int[] {-1,-1});
+				LazyParticleKernel pk2 = new BackForwardKernel(init);
+				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
 						pk2, options);
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 				if (instance.useTopologyProcessor) {
@@ -622,7 +622,7 @@ public class PGSExperiments implements Runnable {
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2);
 				PartialCoalescentState init0 = PartialCoalescentState
 						.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
 						init0, null, null, null, 0, new int[] {-1,-1});
 
 				
@@ -693,7 +693,7 @@ public class PGSExperiments implements Runnable {
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2);
 				PartialCoalescentState init0 = PartialCoalescentState
 						.initFastState(dataset, ctmc, true);
-				PartialCoalescentState4BackForwardKernel2 init = new PartialCoalescentState4BackForwardKernel2(
+				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(
 						init0, null,  null, null, 0, new int[] {-1,-1});
 
 				PGAS4K2PBF pg = new PGAS4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  

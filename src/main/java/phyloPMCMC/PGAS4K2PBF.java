@@ -14,8 +14,8 @@ import pty.smc.LazyParticleFilter.ParticleFilterOptions;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
-import smc.BackForwardKernel2;
-import smc.PartialCoalescentState4BackForwardKernel2;
+import smc.BackForwardKernel;
+import smc.PartialCoalescentState4BackForwardKernel;
 import smc.PGASParticleFilter;
 import smc.PGASParticleFilter.StoreProcessor;
 import ev.poi.processors.TreeDistancesProcessor;
@@ -43,10 +43,10 @@ public class PGAS4K2PBF {
 	private boolean isGS4Clock=true;
 	private double trans2tranv=2;
 	public double a=1.25;
-	private PartialCoalescentState4BackForwardKernel2 sampled=null;
+	private PartialCoalescentState4BackForwardKernel sampled=null;
 	private boolean sampleTrans2tranv=true;
 	private CTMC ctmc =null;
-	private PartialCoalescentState4BackForwardKernel2 init=null;
+	private PartialCoalescentState4BackForwardKernel init=null;
 
 	public boolean isSampleTrans2tranv() {
 		return sampleTrans2tranv;
@@ -58,7 +58,7 @@ public class PGAS4K2PBF {
 
 	public PGAS4K2PBF(Dataset dataset0,ParticleFilterOptions options,TreeDistancesProcessor tdp,
 			boolean useTopologyProcessor,TreeTopologyProcessor trTopo,
-			RootedTree initrt, boolean processTree,boolean isGS4Clock,int sampleTreeEveryNIter,PartialCoalescentState4BackForwardKernel2 init, CTMC ctmc)
+			RootedTree initrt, boolean processTree,boolean isGS4Clock,int sampleTreeEveryNIter,PartialCoalescentState4BackForwardKernel init, CTMC ctmc)
 	{
 		this.dataset=dataset0;
 		this.options = options;
@@ -156,18 +156,18 @@ public class PGAS4K2PBF {
 		RootedTree previousSample = currentSample;		
 		if(sampleTrans2tranv) MHTrans2tranv(trans2tranv,  rand);
 		// sample from PF
-		StoreProcessor<PartialCoalescentState4BackForwardKernel2> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel2>();		 
+		StoreProcessor<PartialCoalescentState4BackForwardKernel> pro = new StoreProcessor<PartialCoalescentState4BackForwardKernel>();		 
 		if((iter % sampleTreeEveryNIter) == 0)
 		{
 			if(sampleTrans2tranv) {
 			ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);
 			PartialCoalescentState init0 = PartialCoalescentState
 					.initFastState(dataset, ctmc, true);
-			 init = new PartialCoalescentState4BackForwardKernel2(init0, null, null, null,  0, new int[] {-1,-1});
+			 init = new PartialCoalescentState4BackForwardKernel(init0, null, null, null,  0, new int[] {-1,-1});
 			}
-			ParticleKernel<PartialCoalescentState4BackForwardKernel2> kernel = new BackForwardKernel2(
+			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel(
 					init);
-			PGASParticleFilter<PartialCoalescentState4BackForwardKernel2> pf = new PGASParticleFilter<PartialCoalescentState4BackForwardKernel2>();
+			PGASParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new PGASParticleFilter<PartialCoalescentState4BackForwardKernel>();
 			pf.rand= rand;
 			pf.nThreads = options.nThreads;
 			pf.resampleLastRound = false;
@@ -175,8 +175,8 @@ public class PGAS4K2PBF {
 			if(sampled!=null)
 			{
 				//	System.out.println("Find the conditioned path!");
-				List<Pair<PartialCoalescentState4BackForwardKernel2, Double>> restorePCS = PartialCoalescentState4BackForwardKernel2.restoreSequence(sampled);			
-				List<PartialCoalescentState4BackForwardKernel2> path = list();
+				List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = PartialCoalescentState4BackForwardKernel.restoreSequence(sampled);			
+				List<PartialCoalescentState4BackForwardKernel> path = list();
 				double[] weights=new double[restorePCS.size()];
 				for(int i=0;i<restorePCS.size();i++){
 					path.add(restorePCS.get(i).getFirst());			 

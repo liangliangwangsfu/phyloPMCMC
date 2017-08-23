@@ -17,7 +17,7 @@ import pty.smc.ParticleFilter.StoreProcessor;
 import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
 
-public class PartialCoalescentState4BackForwardKernel2{
+public class PartialCoalescentState4BackForwardKernel{
 	private  PartialCoalescentState currentState=null;
 	private  PartialCoalescentState previousState=null;
 	private  PartialCoalescentState midState=null;
@@ -55,7 +55,7 @@ public class PartialCoalescentState4BackForwardKernel2{
 	}
 
 
-	private PartialCoalescentState4BackForwardKernel2 parent = null;
+	private PartialCoalescentState4BackForwardKernel parent = null;
 	private double delta = 0;
 	private int[] indxState=new int[2];
 	
@@ -65,9 +65,9 @@ public class PartialCoalescentState4BackForwardKernel2{
 	}
 	
 
-	public PartialCoalescentState4BackForwardKernel2(PartialCoalescentState currentState,
+	public PartialCoalescentState4BackForwardKernel(PartialCoalescentState currentState,
 			PartialCoalescentState midState, PartialCoalescentState previousState,			
-			PartialCoalescentState4BackForwardKernel2 parent, double delta, int[] indxState) {
+			PartialCoalescentState4BackForwardKernel parent, double delta, int[] indxState) {
 		this.currentState=currentState;
 		this.midState=midState;
 		this.previousState=previousState;
@@ -81,11 +81,11 @@ public class PartialCoalescentState4BackForwardKernel2{
 		return PartialCoalescentState.initFastState(false, data, ctmc, isClock);		
 	}
 
-	public PartialCoalescentState4BackForwardKernel2 parentState() {
+	public PartialCoalescentState4BackForwardKernel parentState() {
 		return parent;
 	}
 
-	public void setParent(PartialCoalescentState4BackForwardKernel2 parent) {
+	public void setParent(PartialCoalescentState4BackForwardKernel parent) {
 		this.parent = parent;
 	}
 
@@ -97,7 +97,7 @@ public class PartialCoalescentState4BackForwardKernel2{
 
 
 	
-	public static double forwardDensity(PartialCoalescentState4BackForwardKernel2 thisState, PartialCoalescentState4BackForwardKernel2 newState)
+	public static double forwardDensity(PartialCoalescentState4BackForwardKernel thisState, PartialCoalescentState4BackForwardKernel newState)
 	{
 		double result=0;		
 //		System.out.println("grandmaOfNewState "+grandmaOfNewState.toString());
@@ -106,7 +106,7 @@ public class PartialCoalescentState4BackForwardKernel2{
 		{
 	//		System.out.println("EQUAL!!");
 		//	System.out.print("grandmaOfNewState.equals(parentOfthisState): ");
-			double numRootPairs0=BackForwardKernel2.nChoose2(thisState.getMidState().nRoots());
+			double numRootPairs0=BackForwardKernel.nChoose2(thisState.getMidState().nRoots());
 			double param0= 0.1 / numRootPairs0;				
 			final double delta0 = thisState.getDelta();
 			double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
@@ -120,13 +120,13 @@ public class PartialCoalescentState4BackForwardKernel2{
 		return result;		
 	}
 	
-	public static List<Pair<PartialCoalescentState4BackForwardKernel2,Double>>  restoreSequence(PartialCoalescentState4BackForwardKernel2 finalState)
+	public static List<Pair<PartialCoalescentState4BackForwardKernel,Double>>  restoreSequence(PartialCoalescentState4BackForwardKernel finalState)
 	{	
-		List<Pair<PartialCoalescentState4BackForwardKernel2,Double>> result=list();		
-		PartialCoalescentState4BackForwardKernel2 current=finalState;				
+		List<Pair<PartialCoalescentState4BackForwardKernel,Double>> result=list();		
+		PartialCoalescentState4BackForwardKernel current=finalState;				
 		while(current.parentState().hasParent())
 		{
-			double param0 = 0.1 / BackForwardKernel2.nChoose2(current.getPreviousState().nRoots());
+			double param0 = 0.1 / BackForwardKernel.nChoose2(current.getPreviousState().nRoots());
 			final double delta0 = current.parentState().parentState().getDelta();			
 			double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,
 					delta0);		
@@ -140,7 +140,7 @@ public class PartialCoalescentState4BackForwardKernel2{
 		result.add(Pair.makePair(current, current.getCurrentState().logLikelihoodRatio()));
 		//System.out.println(result.size());
 		
-		List<Pair<PartialCoalescentState4BackForwardKernel2,Double>> finalResult=list();
+		List<Pair<PartialCoalescentState4BackForwardKernel,Double>> finalResult=list();
 		for(int i=result.size()-1;i>=0;i--)
 			finalResult.add(result.get(i));
 		return finalResult;
