@@ -156,6 +156,7 @@ public class PGS4K2P {
 			ParticleFilter<PartialCoalescentState> pf = new ParticleFilter<PartialCoalescentState>();	
 			pf.N=options.nParticles;
 			pf.rand = rand;
+			pf.nThreads = options.nThreads;
 			List<Pair<PartialCoalescentState,Double>> restorePCS = restoreSequence(kernel, currentSample,isGS4Clock); 
 			List<PartialCoalescentState> path=list();
 			double[] weights=new double[restorePCS.size()];

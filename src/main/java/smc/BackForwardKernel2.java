@@ -92,7 +92,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 				parent.getCurrentState().nRoots(), 2);
 		final int i00 = sampledIndices0.get(0), i01 = sampledIndices0.get(1);
 		int[] currentIndx=current.getIndxState();
-		if(i00==currentIndx[0] && i01==currentIndx[1] || i00==currentIndx[1] && i01==currentIndx[0] )
+		if((i00==currentIndx[0] && i01==currentIndx[1]) || (i00==currentIndx[1] && i01==currentIndx[0] ))
 		{
 			self=true;
 			result0=current.getCurrentState();
@@ -118,8 +118,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 		//				rightIncrement0 += incr0;
 		//			}
 		//		}
-		logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,
-				deltaOld);				
+		logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,deltaOld);				
 		
 		//PartialCoalescentState resultMid
 		result0=current.getMidState().coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0); 
@@ -154,9 +153,12 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel2>,ParticleKernel<Par
 		// likelihood score to the old one
 		if (isPeek)
 			return logw;
-		else
+		else{
+			if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
+			else
 			return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio()
 					+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld);
+		}
 	}
 
 	public static double nChoose2(double n) {

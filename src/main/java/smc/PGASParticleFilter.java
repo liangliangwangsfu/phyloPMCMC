@@ -234,7 +234,7 @@ public final class PGASParticleFilter<S> {
 			if (t < T - 1 && (hasNulls(samples) || resamplingStrategy.needResample(normalizedWeights))) {
 
 				if (usePGAS && isConditional()
-						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel2) {					
+						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel2 && t>1) {					
 					double[] forwardDensityWeights = new double[N];
 					PartialCoalescentState4BackForwardKernel2 conditionedState = (PartialCoalescentState4BackForwardKernel2) conditional
 							.get(t+1);
@@ -244,14 +244,13 @@ public final class PGASParticleFilter<S> {
 						//	if(tmp!=0) forwardDensityWeights[k]=tmp+logWeights[k];													
 						//		if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
 					}					
-					//System.out.println();
 					double[] normalizedForwardDensityWeights =forwardDensityWeights.clone();
 					NumUtils.expNormalize(normalizedForwardDensityWeights);
 					int sampledIndx = SampleUtils.sampleMultinomial(rand, normalizedForwardDensityWeights);
 
 					logWeights[0] = forwardDensityWeights[sampledIndx];
 					//					System.out.println("sampledIndx "+sampledIndx);
-					//					System.out.println("weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
+					if(logWeights[0]==0)	System.out.println("weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
 					PartialCoalescentState4BackForwardKernel2 newAncestor = (PartialCoalescentState4BackForwardKernel2) samples
 							.get(sampledIndx);					
 					//		double param0 = 0.1
@@ -263,7 +262,8 @@ public final class PGASParticleFilter<S> {
 					//							- newAncestor.getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld;
 					//							System.out.println("ref weight: "+refWeight);							
 					samples.set(0, samples.get(sampledIndx));							
-					conditionedState.setParent(newAncestor);														
+				//	conditionedState.setParent(newAncestor);			
+				//	conditionalUnnormWeights[t+1]=forwardDensityWeights[sampledIndx];
 				}
 				samples = resample(samples, normalizedWeights, rand);
 				for(int i=0;i<normalizedWeights.length;i++) normalizedWeights[i]=1.0/N;

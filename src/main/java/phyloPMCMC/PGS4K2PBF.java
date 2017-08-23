@@ -192,9 +192,12 @@ public class PGS4K2PBF {
 			pf.sample(kernel, pro);
 			sampled = pro.sample(rand);			
 			currentSample=sampled.getCurrentState().getFullCoalescentState();
-//			previousLogLLEstimate=sampled.logLikelihood();			
+//			previousLogLLEstimate=sampled.logLikelihood();		
+			if(sampleTrans2tranv)
+			{
 			UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
 			previousLogLLEstimate=ncs.logLikelihood();  //TODO:update the logLikelihood calculation in PartialCoalescentState4BackForwardKernel so that it is equal to this value.
+			}
 			// update tdp
 			if(processTree)tdp.process(currentSample);
 			if(useTopologyProcessor) trTopo.process(currentSample);
