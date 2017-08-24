@@ -35,9 +35,6 @@ import pty.smc.ParticleKernel;
 import pty.smc.ParticleFilter.ResamplingStrategy;
 import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
-import scratch.PMMH4GTRIGamma;
-import scratch.PMMHNC;
-import scratch.ParticleGibbs4GTRIGamma;
 import smc.BackForwardKernel;
 import smc.PGASParticleFilter;
 import smc.PartialCoalescentState4BackForwardKernel;
@@ -893,256 +890,256 @@ public class PGSExperiments implements Runnable {
 //				return tdp;
 //			}
 //		},
-		PMMH_PGS4GTRIGamma {
-
-			@Override
-			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
-					String treeName) {
-				ParticleFilterOptions options = new ParticleFilterOptions();
-				options.nParticles = instance.nParticlesEachStep; // generator.nTaxa*(generator.nTaxa-1)*20;
-				// //(int)
-				// (iterScale
-				// *
-				// instance.nThousandIters
-				// * 1000);
-				// options.nThreads = instance.nThreads;
-				options.nThreads = 1; // TODO: solve the problems of using
-				// multiple threads in pmmh.
-				options.resampleLastRound = true;
-				options.parallelizeFinalParticleProcessing = true;
-				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
-				options.maxNUniqueParticles = instance.maxNUniqueParticles;
-				options.rand = instance.mainRand;
-				options.verbose = instance.verbose;
-				// six parameters of substitutions:rAC,rAG,rAT,rCG,rGT,rCT
-				double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
-				// double[] subsRates=new
-				// double[]{0.26,0.18,0.17,0.15,0.11,0.13};
-				// stationary state frequencies. pi_A, pi_C, pi_G, pi_T
-				double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
-				// double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
-				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
-				// parameter
-				// in
-				// the
-				// Gamma
-				// distribution
-				if (instance.betterStartVal) {
-					double[] subsRatesTmp = new double[subsRates.length];
-					for (int i = 0; i < subsRates.length; i++)
-						subsRatesTmp[i] = instance.generator.subsRates[i] * 10;
-					subsRates = Dirichlet.sample(instance.mainRand, subsRatesTmp);
-					double[] subStatFreqsTmp = new double[statFreqs.length];
-					for (int i = 0; i < statFreqs.length; i++)
-						subStatFreqsTmp[i] = instance.generator.stationaryDistribution[i] * 10;
-					statFreqs = Dirichlet.sample(instance.mainRand, subStatFreqsTmp);
-					alpha = Sampling.nextDouble(instance.mainRand, Math.max(instance.generator.alpha - 0.1, 0),
-							Math.max(instance.generator.alpha + 0.1, 1.0));
-				}
-
-				double pInv = 0; // the proportion of invariant sites
-				int nCategories = 4;
-				int dataRepeatN = nCategories;
-				if (pInv > 0)
-					dataRepeatN = nCategories + 1;
-				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
-				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
-				// CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-				// dataset.nSites(), alpha, nCategories, pInv);
-				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
-				TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
-				final int nMCMC = (int) iterScale;
-				final int nPMMH = (int) (nMCMC * instance.pmmhPgsExpMix);
-				final int nPGS = nMCMC - nPMMH;
-				String resultFolder = Execution.getFile("results");
-				File output = new File(resultFolder);
-				PMMH4GTRIGamma pmmh = new PMMH4GTRIGamma(dataset, options, tdp, instance.useTopologyProcessor, trTopo,
-						subsRates, statFreqs, alpha, pInv, instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
-						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock, instance.useNJinfo);
-				pmmh.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
-				if (instance.saveTreesFromPMCMC) {
-					String cmdStr = "echo '#NEXUS' > " + instance.nameOfAllTrees;
-					String msg0 = IO.call("bash -s", cmdStr, output);
-					IO.call("bash -s", "echo 'BEGIN TREES;' >> " + instance.nameOfAllTrees, output);
-					IO.call("bash -s", "echo 'TRANSLATE' >> " + instance.nameOfAllTrees, output);
-					for (int j = 0; j < dataset.observations().size(); j++)
-						IO.call("bash -s", "echo '" + j + " leaf_" + j + ",' >> " + instance.nameOfAllTrees, output);
-					IO.call("bash -s", "echo ';' >> " + instance.nameOfAllTrees, output);
-					pmmh.setNameOfAllTrees(instance.nameOfAllTrees);
-				}
-				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
-				final int nPMMHburnin = (int) (nPMMH * instance.burninPercent);
-				int i = 0;
-				while (i < nPMMH) {
-					i++;
-					// System.out.println(i);
-					if (i > nPMMHburnin)
-						pmmh.setProcessTree(true);
-					pmmh.next(instance.mainRand);
-				}
-				RootedTree initTree = pmmh.getRootedTree();
-				if (nPMMH == 0)
-					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
-				options.nThreads = instance.nThreads;
-				ParticleGibbs4GTRIGamma pg = new ParticleGibbs4GTRIGamma(dataset, options, tdp,
-						instance.useTopologyProcessor, trTopo, initTree, pmmh.getSubsRates(), pmmh.getStateFreqs(),
-						pmmh.getAlpha(), pmmh.getpInv(), instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
-						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock,
-						instance.sampleTreeEveryNIter);
-				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
-				pg.setNameOfAllTrees(instance.nameOfAllTrees);
-				i = 0;
-				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
-				while (i < nPGS) {
-					i++;
-					System.out.println(i);
-					if (i > nPGSburnin)
-						pg.setProcessTree(true);
-					pg.next(instance.mainRand);
-				}
-				if (instance.saveTreesFromPMCMC) {
-					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
-					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
-					String msg0 = IO.call("bash -s", RcmdStr, output);
-					LogInfo.logs(msg0);
-				}
-
-				if (instance.useTopologyProcessor) {
-					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
-					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
-					for (UnrootedTree urt : urtCounter.keySet()) {
-						LogInfo.logsForce(urt);
-						LogInfo.logsForce(urtCounter.getCount(urt));
-					}
-				}
-				return tdp;
-			}
-		},
-		PMMH_iPGS4GTRIGamma {
-
-			@Override
-			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
-					String treeName) {
-				ParticleFilterOptions options = new ParticleFilterOptions();
-				options.nParticles = instance.nParticlesEachStep; // generator.nTaxa*(generator.nTaxa-1)*20;
-				// //(int)
-				// (iterScale
-				// *
-				// instance.nThousandIters
-				// * 1000);
-				// options.nThreads = instance.nThreads;
-				options.nThreads = 1; // TODO: solve the problems of using
-				// multiple threads in pmmh.
-				options.resampleLastRound = true;
-				options.parallelizeFinalParticleProcessing = true;
-				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
-				options.maxNUniqueParticles = instance.maxNUniqueParticles;
-				options.rand = instance.mainRand;
-				options.verbose = instance.verbose;
-				// six parameters of substitutions:rAC,rAG,rAT,rCG,rGT,rCT
-				double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
-				// double[] subsRates=new
-				// double[]{0.26,0.18,0.17,0.15,0.11,0.13};
-				// stationary state frequencies. pi_A, pi_C, pi_G, pi_T
-				double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
-				// double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
-				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
-				// parameter
-				// in
-				// the
-				// Gamma
-				// distribution
-				if (instance.betterStartVal) {
-					double[] subsRatesTmp = new double[subsRates.length];
-					for (int i = 0; i < subsRates.length; i++)
-						subsRatesTmp[i] = instance.generator.subsRates[i] * 10;
-					subsRates = Dirichlet.sample(instance.mainRand, subsRatesTmp);
-					double[] subStatFreqsTmp = new double[statFreqs.length];
-					for (int i = 0; i < statFreqs.length; i++)
-						subStatFreqsTmp[i] = instance.generator.stationaryDistribution[i] * 10;
-					statFreqs = Dirichlet.sample(instance.mainRand, subStatFreqsTmp);
-					alpha = Sampling.nextDouble(instance.mainRand, Math.max(instance.generator.alpha - 0.1, 0),
-							Math.max(instance.generator.alpha + 0.1, 1.0));
-				}
-
-				double pInv = 0; // the proportion of invariant sites
-				int nCategories = 4;
-				int dataRepeatN = nCategories;
-				if (pInv > 0)
-					dataRepeatN = nCategories + 1;
-				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
-				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
-				// CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-				// dataset.nSites(), alpha, nCategories, pInv);
-				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
-				TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
-				final int nMCMC = (int) iterScale;
-				final int nPMMH = (int) (nMCMC * instance.pmmhPgsExpMix);
-				final int nPGS = nMCMC - nPMMH;
-				String resultFolder = Execution.getFile("results");
-				File output = new File(resultFolder);
-				PMMH4GTRIGamma pmmh = new PMMH4GTRIGamma(dataset, options, tdp, instance.useTopologyProcessor, trTopo,
-						subsRates, statFreqs, alpha, pInv, instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
-						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock, instance.useNJinfo);
-				pmmh.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
-				if (instance.saveTreesFromPMCMC) {
-					String cmdStr = "echo '#NEXUS' > " + instance.nameOfAllTrees;
-					String msg0 = IO.call("bash -s", cmdStr, output);
-					IO.call("bash -s", "echo 'BEGIN TREES;' >> " + instance.nameOfAllTrees, output);
-					IO.call("bash -s", "echo 'TRANSLATE' >> " + instance.nameOfAllTrees, output);
-					for (int j = 0; j < dataset.observations().size(); j++)
-						IO.call("bash -s", "echo '" + j + " leaf_" + j + ",' >> " + instance.nameOfAllTrees, output);
-					IO.call("bash -s", "echo ';' >> " + instance.nameOfAllTrees, output);
-					pmmh.setNameOfAllTrees(instance.nameOfAllTrees);
-				}
-				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
-				final int nPMMHburnin = (int) (nPMMH * instance.burninPercent);
-				int i = 0;
-				while (i < nPMMH) {
-					i++;
-					System.out.println("PMMH " + i);
-					// if (i > nPMMHburnin)
-					// pmmh.setProcessTree(true);
-					pmmh.next(instance.mainRand);
-				}
-				RootedTree initTree = pmmh.getRootedTree();
-				if (nPMMH == 0)
-					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 1);
-				options.nThreads = instance.nThreads;
-				InteractingParticleGibbs4GTRIGamma pg = new InteractingParticleGibbs4GTRIGamma(dataset, options, tdp,
-						instance.useTopologyProcessor, trTopo, initTree, pmmh.getSubsRates(), pmmh.getStateFreqs(),
-						pmmh.getAlpha(), pmmh.getpInv(), instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
-						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter,
-						instance.nCSMC, instance.nUCSMC);
-				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
-				pg.setNameOfAllTrees(instance.nameOfAllTrees);
-				i = 0;
-				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
-				while (i < nPGS) {
-					i++;
-					System.out.println("Gibbs " + i);
-					if (i > nPGSburnin)
-						pg.setProcessTree(true);
-					pg.next(instance.mainRand);
-				}
-				if (instance.saveTreesFromPMCMC) {
-					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
-					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
-					String msg0 = IO.call("bash -s", RcmdStr, output);
-					LogInfo.logs(msg0);
-				}
-
-				if (instance.useTopologyProcessor) {
-					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
-					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
-					for (UnrootedTree urt : urtCounter.keySet()) {
-						LogInfo.logsForce(urt);
-						LogInfo.logsForce(urtCounter.getCount(urt));
-					}
-				}
-				return tdp;
-			}
-		},
+//		PMMH_PGS4GTRIGamma {
+//
+//			@Override
+//			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
+//					String treeName) {
+//				ParticleFilterOptions options = new ParticleFilterOptions();
+//				options.nParticles = instance.nParticlesEachStep; // generator.nTaxa*(generator.nTaxa-1)*20;
+//				// //(int)
+//				// (iterScale
+//				// *
+//				// instance.nThousandIters
+//				// * 1000);
+//				// options.nThreads = instance.nThreads;
+//				options.nThreads = 1; // TODO: solve the problems of using
+//				// multiple threads in pmmh.
+//				options.resampleLastRound = true;
+//				options.parallelizeFinalParticleProcessing = true;
+//				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
+//				options.maxNUniqueParticles = instance.maxNUniqueParticles;
+//				options.rand = instance.mainRand;
+//				options.verbose = instance.verbose;
+//				// six parameters of substitutions:rAC,rAG,rAT,rCG,rGT,rCT
+//				double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
+//				// double[] subsRates=new
+//				// double[]{0.26,0.18,0.17,0.15,0.11,0.13};
+//				// stationary state frequencies. pi_A, pi_C, pi_G, pi_T
+//				double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
+//				// double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
+//				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
+//				// parameter
+//				// in
+//				// the
+//				// Gamma
+//				// distribution
+//				if (instance.betterStartVal) {
+//					double[] subsRatesTmp = new double[subsRates.length];
+//					for (int i = 0; i < subsRates.length; i++)
+//						subsRatesTmp[i] = instance.generator.subsRates[i] * 10;
+//					subsRates = Dirichlet.sample(instance.mainRand, subsRatesTmp);
+//					double[] subStatFreqsTmp = new double[statFreqs.length];
+//					for (int i = 0; i < statFreqs.length; i++)
+//						subStatFreqsTmp[i] = instance.generator.stationaryDistribution[i] * 10;
+//					statFreqs = Dirichlet.sample(instance.mainRand, subStatFreqsTmp);
+//					alpha = Sampling.nextDouble(instance.mainRand, Math.max(instance.generator.alpha - 0.1, 0),
+//							Math.max(instance.generator.alpha + 0.1, 1.0));
+//				}
+//
+//				double pInv = 0; // the proportion of invariant sites
+//				int nCategories = 4;
+//				int dataRepeatN = nCategories;
+//				if (pInv > 0)
+//					dataRepeatN = nCategories + 1;
+//				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
+//				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
+//				// CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
+//				// dataset.nSites(), alpha, nCategories, pInv);
+//				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
+//				TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
+//				final int nMCMC = (int) iterScale;
+//				final int nPMMH = (int) (nMCMC * instance.pmmhPgsExpMix);
+//				final int nPGS = nMCMC - nPMMH;
+//				String resultFolder = Execution.getFile("results");
+//				File output = new File(resultFolder);
+//				PMMH4GTRIGamma pmmh = new PMMH4GTRIGamma(dataset, options, tdp, instance.useTopologyProcessor, trTopo,
+//						subsRates, statFreqs, alpha, pInv, instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
+//						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock, instance.useNJinfo);
+//				pmmh.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
+//				if (instance.saveTreesFromPMCMC) {
+//					String cmdStr = "echo '#NEXUS' > " + instance.nameOfAllTrees;
+//					String msg0 = IO.call("bash -s", cmdStr, output);
+//					IO.call("bash -s", "echo 'BEGIN TREES;' >> " + instance.nameOfAllTrees, output);
+//					IO.call("bash -s", "echo 'TRANSLATE' >> " + instance.nameOfAllTrees, output);
+//					for (int j = 0; j < dataset.observations().size(); j++)
+//						IO.call("bash -s", "echo '" + j + " leaf_" + j + ",' >> " + instance.nameOfAllTrees, output);
+//					IO.call("bash -s", "echo ';' >> " + instance.nameOfAllTrees, output);
+//					pmmh.setNameOfAllTrees(instance.nameOfAllTrees);
+//				}
+//				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
+//				final int nPMMHburnin = (int) (nPMMH * instance.burninPercent);
+//				int i = 0;
+//				while (i < nPMMH) {
+//					i++;
+//					// System.out.println(i);
+//					if (i > nPMMHburnin)
+//						pmmh.setProcessTree(true);
+//					pmmh.next(instance.mainRand);
+//				}
+//				RootedTree initTree = pmmh.getRootedTree();
+//				if (nPMMH == 0)
+//					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+//				options.nThreads = instance.nThreads;
+//				ParticleGibbs4GTRIGamma pg = new ParticleGibbs4GTRIGamma(dataset, options, tdp,
+//						instance.useTopologyProcessor, trTopo, initTree, pmmh.getSubsRates(), pmmh.getStateFreqs(),
+//						pmmh.getAlpha(), pmmh.getpInv(), instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
+//						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock,
+//						instance.sampleTreeEveryNIter);
+//				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
+//				pg.setNameOfAllTrees(instance.nameOfAllTrees);
+//				i = 0;
+//				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
+//				while (i < nPGS) {
+//					i++;
+//					System.out.println(i);
+//					if (i > nPGSburnin)
+//						pg.setProcessTree(true);
+//					pg.next(instance.mainRand);
+//				}
+//				if (instance.saveTreesFromPMCMC) {
+//					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
+//					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
+//					String msg0 = IO.call("bash -s", RcmdStr, output);
+//					LogInfo.logs(msg0);
+//				}
+//
+//				if (instance.useTopologyProcessor) {
+//					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
+//					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
+//					for (UnrootedTree urt : urtCounter.keySet()) {
+//						LogInfo.logsForce(urt);
+//						LogInfo.logsForce(urtCounter.getCount(urt));
+//					}
+//				}
+//				return tdp;
+//			}
+//		},
+//		PMMH_iPGS4GTRIGamma {
+//
+//			@Override
+//			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
+//					String treeName) {
+//				ParticleFilterOptions options = new ParticleFilterOptions();
+//				options.nParticles = instance.nParticlesEachStep; // generator.nTaxa*(generator.nTaxa-1)*20;
+//				// //(int)
+//				// (iterScale
+//				// *
+//				// instance.nThousandIters
+//				// * 1000);
+//				// options.nThreads = instance.nThreads;
+//				options.nThreads = 1; // TODO: solve the problems of using
+//				// multiple threads in pmmh.
+//				options.resampleLastRound = true;
+//				options.parallelizeFinalParticleProcessing = true;
+//				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
+//				options.maxNUniqueParticles = instance.maxNUniqueParticles;
+//				options.rand = instance.mainRand;
+//				options.verbose = instance.verbose;
+//				// six parameters of substitutions:rAC,rAG,rAT,rCG,rGT,rCT
+//				double[] subsRates = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10, 10, 10 });
+//				// double[] subsRates=new
+//				// double[]{0.26,0.18,0.17,0.15,0.11,0.13};
+//				// stationary state frequencies. pi_A, pi_C, pi_G, pi_T
+//				double[] statFreqs = Dirichlet.sample(instance.mainRand, new double[] { 10, 10, 10, 10 });
+//				// double[] statFreqs=new double[]{0.3,0.2,0.2,0.3};
+//				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); // shape
+//				// parameter
+//				// in
+//				// the
+//				// Gamma
+//				// distribution
+//				if (instance.betterStartVal) {
+//					double[] subsRatesTmp = new double[subsRates.length];
+//					for (int i = 0; i < subsRates.length; i++)
+//						subsRatesTmp[i] = instance.generator.subsRates[i] * 10;
+//					subsRates = Dirichlet.sample(instance.mainRand, subsRatesTmp);
+//					double[] subStatFreqsTmp = new double[statFreqs.length];
+//					for (int i = 0; i < statFreqs.length; i++)
+//						subStatFreqsTmp[i] = instance.generator.stationaryDistribution[i] * 10;
+//					statFreqs = Dirichlet.sample(instance.mainRand, subStatFreqsTmp);
+//					alpha = Sampling.nextDouble(instance.mainRand, Math.max(instance.generator.alpha - 0.1, 0),
+//							Math.max(instance.generator.alpha + 0.1, 1.0));
+//				}
+//
+//				double pInv = 0; // the proportion of invariant sites
+//				int nCategories = 4;
+//				int dataRepeatN = nCategories;
+//				if (pInv > 0)
+//					dataRepeatN = nCategories + 1;
+//				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
+//				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType, dataRepeatN);
+//				// CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
+//				// dataset.nSites(), alpha, nCategories, pInv);
+//				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
+//				TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
+//				final int nMCMC = (int) iterScale;
+//				final int nPMMH = (int) (nMCMC * instance.pmmhPgsExpMix);
+//				final int nPGS = nMCMC - nPMMH;
+//				String resultFolder = Execution.getFile("results");
+//				File output = new File(resultFolder);
+//				PMMH4GTRIGamma pmmh = new PMMH4GTRIGamma(dataset, options, tdp, instance.useTopologyProcessor, trTopo,
+//						subsRates, statFreqs, alpha, pInv, instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
+//						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock, instance.useNJinfo);
+//				pmmh.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
+//				if (instance.saveTreesFromPMCMC) {
+//					String cmdStr = "echo '#NEXUS' > " + instance.nameOfAllTrees;
+//					String msg0 = IO.call("bash -s", cmdStr, output);
+//					IO.call("bash -s", "echo 'BEGIN TREES;' >> " + instance.nameOfAllTrees, output);
+//					IO.call("bash -s", "echo 'TRANSLATE' >> " + instance.nameOfAllTrees, output);
+//					for (int j = 0; j < dataset.observations().size(); j++)
+//						IO.call("bash -s", "echo '" + j + " leaf_" + j + ",' >> " + instance.nameOfAllTrees, output);
+//					IO.call("bash -s", "echo ';' >> " + instance.nameOfAllTrees, output);
+//					pmmh.setNameOfAllTrees(instance.nameOfAllTrees);
+//				}
+//				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
+//				final int nPMMHburnin = (int) (nPMMH * instance.burninPercent);
+//				int i = 0;
+//				while (i < nPMMH) {
+//					i++;
+//					System.out.println("PMMH " + i);
+//					// if (i > nPMMHburnin)
+//					// pmmh.setProcessTree(true);
+//					pmmh.next(instance.mainRand);
+//				}
+//				RootedTree initTree = pmmh.getRootedTree();
+//				if (nPMMH == 0)
+//					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 1);
+//				options.nThreads = instance.nThreads;
+//				InteractingParticleGibbs4GTRIGamma pg = new InteractingParticleGibbs4GTRIGamma(dataset, options, tdp,
+//						instance.useTopologyProcessor, trTopo, initTree, pmmh.getSubsRates(), pmmh.getStateFreqs(),
+//						pmmh.getAlpha(), pmmh.getpInv(), instance.a_alpha, instance.a_pInv, instance.a_statFreqs,
+//						instance.a_subsRates, nCategories, false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter,
+//						instance.nCSMC, instance.nUCSMC);
+//				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
+//				pg.setNameOfAllTrees(instance.nameOfAllTrees);
+//				i = 0;
+//				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
+//				while (i < nPGS) {
+//					i++;
+//					System.out.println("Gibbs " + i);
+//					if (i > nPGSburnin)
+//						pg.setProcessTree(true);
+//					pg.next(instance.mainRand);
+//				}
+//				if (instance.saveTreesFromPMCMC) {
+//					IO.call("bash -s", "echo 'END;' >> " + instance.nameOfAllTrees, output);
+//					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
+//					String msg0 = IO.call("bash -s", RcmdStr, output);
+//					LogInfo.logs(msg0);
+//				}
+//
+//				if (instance.useTopologyProcessor) {
+//					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
+//					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
+//					for (UnrootedTree urt : urtCounter.keySet()) {
+//						LogInfo.logsForce(urt);
+//						LogInfo.logsForce(urtCounter.getCount(urt));
+//					}
+//				}
+//				return tdp;
+//			}
+//		},
 		PG {
 
 			@Override
