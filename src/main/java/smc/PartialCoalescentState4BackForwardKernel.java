@@ -99,7 +99,7 @@ public class PartialCoalescentState4BackForwardKernel{
 	
 	public static double forwardDensity(PartialCoalescentState4BackForwardKernel thisState, PartialCoalescentState4BackForwardKernel newState)
 	{
-		double result=0;		
+		double result=Double.NEGATIVE_INFINITY;		
 //		System.out.println("grandmaOfNewState "+grandmaOfNewState.toString());
 //		System.out.println("parentOfthisState "+parentOfthisState.toString());
 		if(thisState.getMidState() == newState.getPreviousState())
