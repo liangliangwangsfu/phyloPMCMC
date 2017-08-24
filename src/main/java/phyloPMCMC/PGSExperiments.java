@@ -633,7 +633,7 @@ public class PGSExperiments implements Runnable {
 				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
 				while (i < nPGS) {
 					i++;
-					System.out.println(i);
+				//	System.out.println(i);
 					if (i > nPGSburnin)
 						pg.setProcessTree(true);
 					pg.next(instance.mainRand);
@@ -703,7 +703,7 @@ public class PGSExperiments implements Runnable {
 				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
 				while (i < nPGS) {
 					i++;
-					System.out.println(i);
+				//	System.out.println(i);
 					if (i > nPGSburnin)
 						pg.setProcessTree(true);
 					pg.next(instance.mainRand);
@@ -767,7 +767,7 @@ public class PGSExperiments implements Runnable {
 				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
 				while (i < nPGS) {
 					i++;
-					System.out.println(i);
+				//	System.out.println(i);
 					if (i > nPGSburnin)
 						pg.setProcessTree(true);
 					pg.next(instance.mainRand);
