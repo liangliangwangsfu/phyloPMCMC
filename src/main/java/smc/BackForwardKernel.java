@@ -144,7 +144,8 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 						leftIncrement1, rightIncrement1);
 			else
 				logw= loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
-						leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld - Math.log(nPossiblePairs);
+								leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld - Math.log(nPossiblePairs);
+						//leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld;
 		} else {		
 			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
 		}
@@ -157,7 +158,8 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 			if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
 			else
 				return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio()
-						+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld- Math.log(nPossiblePairs));
+							+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld- Math.log(nPossiblePairs));
+					//+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld);
 		}
 	}
 

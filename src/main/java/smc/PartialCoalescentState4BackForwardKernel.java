@@ -112,7 +112,7 @@ public class PartialCoalescentState4BackForwardKernel{
 			double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
 			result=newState.getCurrentState().logLikelihoodRatio()
 					+ newState.getMidState().logLikelihoodRatio()
-					- thisState.getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld;	        
+					- thisState.getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld- Math.log(numRootPairs0);	        
 		}
 		//else
 		//	System.out.println("NOT EQUAL!!");
@@ -126,11 +126,12 @@ public class PartialCoalescentState4BackForwardKernel{
 		PartialCoalescentState4BackForwardKernel current=finalState;				
 		while(current.parentState().hasParent())
 		{
-			double param0 = 0.1 / BackForwardKernel.nChoose2(current.getPreviousState().nRoots());
+			double numRootPairs0=BackForwardKernel.nChoose2(current.getMidState().nRoots());
+			double param0 = 0.1 / numRootPairs0;
 			final double delta0 = current.parentState().parentState().getDelta();			
 			double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,
 					delta0);		
-			result.add(Pair.makePair(current, current.getCurrentState().logLikelihoodRatio() + current.getMidState().logLikelihoodRatio()-  current.parentState().getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld));
+			result.add(Pair.makePair(current, current.getCurrentState().logLikelihoodRatio() + current.getMidState().logLikelihoodRatio()-  current.parentState().getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld- Math.log(numRootPairs0)));
 //		System.out.println(i++);
 //		System.out.println(current.parentState().toString());
 //		System.out.println(current.getLatestDelta()+": "+current.getIndxInParentState()[0]+","+current.getIndxInParentState()[1]);
