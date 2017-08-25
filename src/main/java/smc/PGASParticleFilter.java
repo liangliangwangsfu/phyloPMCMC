@@ -238,20 +238,23 @@ public final class PGASParticleFilter<S> {
 					double[] forwardDensityWeights = new double[N];
 					PartialCoalescentState4BackForwardKernel conditionedState = (PartialCoalescentState4BackForwardKernel) conditional
 							.get(t+1);
+					double[] logweightWithNewAncestor =new double[N];
 					for (int k = 0; k < N; k++) {						 
-						forwardDensityWeights[k]= PartialCoalescentState4BackForwardKernel.forwardDensity(
+						//forwardDensityWeights[k]
+							 logweightWithNewAncestor[k] = PartialCoalescentState4BackForwardKernel.forwardDensity(
 								(PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
-						//	if(tmp!=0) forwardDensityWeights[k]=tmp+logWeights[k];													
+							//if(forwardDensityWeights[k]!=Double.NEGATIVE_INFINITY) 
+								forwardDensityWeights[k]=logweightWithNewAncestor[k]+logWeights[k];													
 						//		if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
 					}					
 					double[] normalizedForwardDensityWeights =forwardDensityWeights.clone();
 					NumUtils.expNormalize(normalizedForwardDensityWeights);
 					int sampledIndx = SampleUtils.sampleMultinomial(rand, normalizedForwardDensityWeights);
-					logWeights[0] = forwardDensityWeights[sampledIndx];
-					//					System.out.println("sampledIndx "+sampledIndx);
+					logWeights[0] = logWeights[sampledIndx]; //forwardDensityWeights[sampledIndx];
+				//	System.out.println("sampledIndx "+sampledIndx);
 					if(logWeights[0]==Double.NEGATIVE_INFINITY)	System.out.println(forwardDensityWeights[0]+" "+"t "+t+" weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
-					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
-							.get(sampledIndx);					
+				//	PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
+					//		.get(sampledIndx);					
 					//		double param0 = 0.1
 					//				/ BackForwardKernel2.nChoose2(conditionedState.parentState().getCurrentState().nRoots());
 					//		final double delta0 = newAncestor.getDelta();
@@ -264,6 +267,8 @@ public final class PGASParticleFilter<S> {
 				//	conditionedState.setParent(newAncestor);			
 				//	conditionalUnnormWeights[t+1]=forwardDensityWeights[sampledIndx];
 				}
+				normalizedWeights = logWeights.clone();
+				NumUtils.expNormalize(normalizedWeights);
 				samples = resample(samples, normalizedWeights, rand);
 				for(int i=0;i<normalizedWeights.length;i++) normalizedWeights[i]=1.0/N;
 			}
