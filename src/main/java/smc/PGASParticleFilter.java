@@ -253,8 +253,8 @@ public final class PGASParticleFilter<S> {
 					logWeights[0] = logWeights[sampledIndx]; //forwardDensityWeights[sampledIndx];
 				//	System.out.println("sampledIndx "+sampledIndx);
 					if(logWeights[0]==Double.NEGATIVE_INFINITY)	System.out.println(forwardDensityWeights[0]+" "+"t "+t+" weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
-				//	PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
-					//		.get(sampledIndx);					
+					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
+							.get(sampledIndx);					
 					//		double param0 = 0.1
 					//				/ BackForwardKernel2.nChoose2(conditionedState.parentState().getCurrentState().nRoots());
 					//		final double delta0 = newAncestor.getDelta();
@@ -264,8 +264,8 @@ public final class PGASParticleFilter<S> {
 					//							- newAncestor.getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld;
 					//							System.out.println("ref weight: "+refWeight);							
 					samples.set(0, samples.get(sampledIndx));							
-				//	conditionedState.setParent(newAncestor);			
-				//	conditionalUnnormWeights[t+1]=forwardDensityWeights[sampledIndx];
+					conditionedState.setParent(newAncestor);			
+					conditionalUnnormWeights[t+1]=logweightWithNewAncestor[sampledIndx];
 				}
 				normalizedWeights = logWeights.clone();
 				NumUtils.expNormalize(normalizedWeights);
