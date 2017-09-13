@@ -317,7 +317,8 @@ public final class PGASParticleFilter<S> {
 		if (list.size() != w.length)
 			throw new RuntimeException();
 
-		Counter<Integer> packed = Sampling.efficientMultinomialSampling(rand, w, w.length);
+		Counter<Integer> packed = Sampling.ResamplingScheme.Systematic.Resampling(rand, w, w.length);
+		//Counter<Integer> packed = Sampling.efficientSystematicSampling(rand, w, w.length);
 
 		double[] resultWeight = new double[packed.size()];
 		List<S> resultList = new ArrayList<S>(packed.size());
@@ -342,7 +343,8 @@ public final class PGASParticleFilter<S> {
 		if (list.size() != w.length)
 			throw new RuntimeException();
 
-		Counter<Integer> packed = Sampling.efficientMultinomialSampling(rand, w, w.length);
+		//Counter<Integer> packed = Sampling.efficientMultinomialSampling(rand, w, w.length);
+		Counter<Integer> packed = Sampling.ResamplingScheme.Systematic.Resampling(rand, w, w.length);
 		final List<S> result = new ArrayList<S>(list.size());
 		// System.out.print("resampled(");
 		for (int itemIdx : packed.keySet()) {
@@ -492,6 +494,7 @@ public final class PGASParticleFilter<S> {
 			return counter.argMax();
 		}
 
+		//make clear about this function //
 		public I sample(Random rand) {
 			double[] probs = new double[counter.size()];
 			ArrayList<I> states = new ArrayList<I>();
