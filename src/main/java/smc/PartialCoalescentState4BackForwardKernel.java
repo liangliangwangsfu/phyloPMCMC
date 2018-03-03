@@ -1,20 +1,11 @@
 package smc;
 
 import static nuts.util.CollUtils.list;
-
-import java.io.File;
 import java.util.List;
-import java.util.Random;
-
 import fig.basic.Pair;
-import ma.SequenceType;
 import nuts.math.Sampling;
 import pty.io.Dataset;
-import pty.io.Dataset.DatasetUtils;
 import pty.smc.PartialCoalescentState;
-import pty.smc.ParticleFilter;
-import pty.smc.ParticleFilter.StoreProcessor;
-import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
 
 public class PartialCoalescentState4BackForwardKernel{
@@ -25,45 +16,34 @@ public class PartialCoalescentState4BackForwardKernel{
 		return currentState;
 	}
 
-
 	public void setCurrentState(PartialCoalescentState currentState) {
 		this.currentState = currentState;
 	}
 
-
-
 	public PartialCoalescentState getPreviousState() {
 		return previousState;
 	}
-
-
+	
 	public void setPreviousState(PartialCoalescentState previousState) {
 		this.previousState = previousState;
 	}
-
-
-	
-	
 	
 	public PartialCoalescentState getMidState() {
 		return midState;
 	}
 
-
 	public void setMidState(PartialCoalescentState midState) {
 		this.midState = midState;
 	}
-
 
 	private PartialCoalescentState4BackForwardKernel parent = null;
 	private double delta = 0;
 	private int[] indxState=new int[2];
 	
-	public void setCTMC(CTMC ctmc)
-	{
-		
-	}
-	
+//	public void setCTMC(CTMC ctmc)
+//	{
+//		
+//	}	
 
 	public PartialCoalescentState4BackForwardKernel(PartialCoalescentState currentState,
 			PartialCoalescentState midState, PartialCoalescentState previousState,			
@@ -93,9 +73,6 @@ public class PartialCoalescentState4BackForwardKernel{
 	{
 		return (this.parent != null);
 	}
-
-
-
 	
 	public static double forwardDensity(PartialCoalescentState4BackForwardKernel thisState, PartialCoalescentState4BackForwardKernel newState)
 	{
@@ -146,9 +123,6 @@ public class PartialCoalescentState4BackForwardKernel{
 			finalResult.add(result.get(i));
 		return finalResult;
 	}
-	
-	
-	
 	
 	
 	public static void main(String [] args)

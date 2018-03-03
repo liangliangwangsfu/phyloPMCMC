@@ -31,12 +31,9 @@ import pty.smc.LazyParticleFilter.ParticleFilterOptions;
 import pty.smc.NCPriorPriorKernel;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleFilter;
-import pty.smc.ParticleKernel;
-import pty.smc.ParticleFilter.ResamplingStrategy;
 import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
 import smc.BackForwardKernel;
-import smc.PGASParticleFilter;
 import smc.PartialCoalescentState4BackForwardKernel;
 import ev.ex.PhyloSamplerMain;
 import ev.poi.processors.TreeDistancesProcessor;
@@ -47,7 +44,7 @@ import fig.basic.IOUtils;
 import fig.basic.LogInfo;
 import fig.basic.Option;
 import fig.exec.Execution;
-import fig.prob.Dirichlet;
+
 
 public class PGSExperiments implements Runnable {
 	@Option
@@ -95,7 +92,7 @@ public class PGSExperiments implements Runnable {
 	@Option
 	public double pmmhPgsExpMix = 0.05;
 	@Option
-	public double burninPercent = 0.2; // in PMCMC algorithm
+	public double burninPercent = 0.5; // in PMCMC algorithm
 	@Option
 	public int sampleTreeEveryNIter = 1;
 	@Option

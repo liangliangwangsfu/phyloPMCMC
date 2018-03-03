@@ -17,6 +17,7 @@ import pty.smc.models.CTMC;
 import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
 import smc.PGASParticleFilter;
+import smc.PGASParticleFilter.ResamplingStrategy;
 import smc.PGASParticleFilter.StoreProcessor;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
@@ -172,6 +173,7 @@ public class PGAS4K2PBF {
 			pf.nThreads = options.nThreads;
 			pf.resampleLastRound = false;
 			pf.N=options.nParticles;
+			//pf.resamplingStrategy=ResamplingStrategy.ESS;
 			if(sampled!=null)
 			{
 				//	System.out.println("Find the conditioned path!");
