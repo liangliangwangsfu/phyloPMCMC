@@ -18,6 +18,7 @@ import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
 import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
+import smc.PGASParticleFilter.ResamplingStrategy;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
 import fig.basic.Pair;
@@ -172,6 +173,8 @@ public class PGS4K2PBF {
 			pf.nThreads = options.nThreads;
 			pf.resampleLastRound = false;
 			pf.N=options.nParticles;
+			pf.rand=rand;
+		//	pf.resamplingStrategy=ParticleFilter.ResamplingStrategy.ESS;
 //			List<Pair<PartialCoalescentState4BackForwardKernel, Double>> restorePCS = restoreSequence(
 //			kernel, currentSample, isGS4Clock);
 			if(sampled!=null)
@@ -192,12 +195,16 @@ public class PGS4K2PBF {
 			pf.sample(kernel, pro);
 			sampled = pro.sample(rand);			
 			currentSample=sampled.getCurrentState().getFullCoalescentState();
-//			previousLogLLEstimate=sampled.logLikelihood();		
-			if(sampleTrans2tranv)
-			{
+     		//previousLogLLEstimate=sampled.logLikelihood();
 			UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
 			previousLogLLEstimate=ncs.logLikelihood();  //TODO:update the logLikelihood calculation in PartialCoalescentState4BackForwardKernel so that it is equal to this value.
-			}
+
+//			if(sampleTrans2tranv)
+//			{
+//			UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
+//			previousLogLLEstimate=ncs.logLikelihood();  //TODO:update the logLikelihood calculation in PartialCoalescentState4BackForwardKernel so that it is equal to this value.
+//			}
+			
 			// update tdp
 			if(processTree)tdp.process(currentSample);
 			if(useTopologyProcessor) trTopo.process(currentSample);
