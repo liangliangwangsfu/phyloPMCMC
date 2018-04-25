@@ -106,7 +106,12 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 
 			double param0=(initial.getCurrentState().isClock() ? 0.1 : 0.05)
 					/ nChoose2(parent.getCurrentState().nRoots());
-			final double delta0 = Sampling.sampleExponential(rand, param0);
+			double tempdelta0 = Sampling.sampleExponential(rand, param0);
+			if(tempdelta0 < Math.pow(10, -10)) {
+				tempdelta0 = Math.pow(10, -10);
+			}
+			final double delta0 = tempdelta0;
+			//final double delta0 = Sampling.sampleExponential(rand, param0);
 			double leftIncrement0 = 0.0, rightIncrement0 = 0.0;
 			//		if (!initial.isClock()) {
 			//			double incr0 = Sampling.sampleExponential(rand, 0.1), incr1 = Sampling
@@ -118,7 +123,10 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 			//				rightIncrement0 += incr0;
 			//			}
 			//		}
-			logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,deltaOld);				
+			
+			logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,deltaOld);		
+			//System.out.println("Bug is from here 0");
+			//System.out.println(i00 + " "+ i01 + " " + delta0 + " " + leftIncrement0 + " " + rightIncrement0);
 
 			//PartialCoalescentState resultMid
 			result0=current.getMidState().coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0); 
@@ -128,6 +136,8 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 			//	result0 = new PartialCoalescentState4BackForwardKernel2(current.getPreviousState().coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0), parent.getCurrentState(),parent.getMidState(), parent, delta0, new int[]{i00, i01});
 			//	result0 = new PartialCoalescentState4BackForwardKernel2(current.getPreviousState().coalesce(i00, i01, delta0, leftIncrement0, rightIncrement0),resultMid,parent.getMidState(), parent, delta0, new int[]{i00, i01});
 		}
+		//System.out.println("Bug is from here 1");
+		
 		List<Integer> sampledIndices1 = Sampling.sampleWithoutReplacement(rand,
 				result0.nRoots(), 2);
 		final int i10 = sampledIndices1.get(0), i11 = sampledIndices1.get(1);
@@ -149,6 +159,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 		} else {		
 			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
 		}
+		
 
 		// 4- the weight update is simply equal to the ratio of the new
 		// likelihood score to the old one
