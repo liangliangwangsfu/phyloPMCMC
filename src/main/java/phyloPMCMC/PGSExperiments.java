@@ -210,6 +210,11 @@ public class PGSExperiments implements Runnable {
 								double bestLogLL = processor.getBestLogLikelihood();
 								out.println(CSV.body(m, iterScale, j, "BestSampledLogLL", bestLogLL, treeName, time));
 							}
+							{
+								// marginalized likelihood, when available
+								double marginalLL = processor.getMarginalLL();
+								out.println(CSV.body(m, iterScale, j, "MarginalLogLL", marginalLL, treeName, time));
+							}
 							if (goldut == null) {
 								LogInfo.logsForce("Computing gold tree using " + refMethod);
 								goldut = refMethod.doIt(this, refIterScaling, goldut, treeName).getConsensus();
@@ -284,6 +289,7 @@ public class PGSExperiments implements Runnable {
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
 				// options.maxNGrow = 0;
+				double tempMarginalLL = 0.0;
 
 				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
@@ -296,6 +302,7 @@ public class PGSExperiments implements Runnable {
 				if (instance.useTopologyProcessor) {
 					TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
 					final double zHat = lpf.sample(tdp, trTopo);
+					tempMarginalLL = zHat;
 
 					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
 					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
@@ -305,8 +312,10 @@ public class PGSExperiments implements Runnable {
 					}
 				} else {
 					final double zHat = lpf.sample(tdp);
+					tempMarginalLL = zHat;
 					// LogInfo.logsForce("Norm:" + zHat);
 				}
+				tdp.setMarginalLL(tempMarginalLL);
 				return tdp;
 			}
 		},
@@ -345,6 +354,7 @@ public class PGSExperiments implements Runnable {
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
 				// options.maxNGrow = 0;
+				double tempMarginalLL = 0.0;
 
 				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
@@ -359,6 +369,7 @@ public class PGSExperiments implements Runnable {
 				if (instance.useTopologyProcessor) {
 					TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
 					final double zHat = lpf.sample(tdp, trTopo);
+					tempMarginalLL = zHat;
 
 					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
 					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
@@ -368,8 +379,10 @@ public class PGSExperiments implements Runnable {
 					}
 				} else {
 					final double zHat = lpf.sample(tdp);
+					tempMarginalLL = zHat;
 					// LogInfo.logsForce("Norm:" + zHat);
 				}
+				tdp.setMarginalLL(tempMarginalLL);
 				return tdp;
 			}
 		},		

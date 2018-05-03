@@ -6,6 +6,7 @@ import fig.basic.Pair;
 import nuts.math.Sampling;
 import pty.io.Dataset;
 import pty.smc.PartialCoalescentState;
+import pty.smc.ParticleKernel;
 import pty.smc.models.CTMC;
 
 public class PartialCoalescentState4BackForwardKernel{
