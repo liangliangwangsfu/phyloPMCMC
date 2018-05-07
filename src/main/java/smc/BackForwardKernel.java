@@ -90,8 +90,10 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 		// 1- go back to current state's parent partial state
 		PartialCoalescentState4BackForwardKernel parent = current.parentState();		
 		//PartialCoalescentState4BackForwardKernel2 result0 = null;
+		PartialCoalescentState result00 = current.getCurrentState();
 		PartialCoalescentState result0 = null;
 		PartialCoalescentState result1 = null;
+		//System.out.println(parent.getCurrentState().nNonTrivialRoots());
 
 		// 3- sample a random pair (without replacement)
 		List<Integer> sampledIndices0 = Sampling.sampleWithoutReplacement(rand,
@@ -107,6 +109,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 			//		System.out.println(parent.toString());;
 			oldLogLikelihoodRatio = current.getCurrentState().logLikelihoodRatio();
 			double deltaOld = current.getDelta();
+			
 
 			// 2- sample the exponential waiting time
 
@@ -138,6 +141,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 			//		}
 			
 			logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0,deltaOld);	
+			//System.out.println(param0);
 			//System.out.println(deltaOld);
 			//System.out.println(logExpDensityDeltaOld);
 			//System.out.println(i00 + " "+ i01 + " " + delta0 + " " + leftIncrement0 + " " + rightIncrement0);
@@ -160,49 +164,51 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 		double leftIncrement1 = 0.0, rightIncrement1 = 0.0;
 		PartialCoalescentState4BackForwardKernel result = null;
 		Double loglikeRatio0=result0.logLikelihoodRatio();
+		result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1); 
+		//System.out.println(result0.logLikelihood());
 		Double logw =null;
 //		if (isPeek) {
 //			if(self)
 //				logw= result0.peekLogLikelihoodRatio(i10, i11, delta1,
 //						leftIncrement1, rightIncrement1);
 //			else
-				logw= loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
-						//		leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld - Math.log(nPossiblePairs);
-						leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio   - Math.log(result0.nNonTrivialRoots())	;
-//		} else {	 - logExpDensityDeltaOld
+				logw = loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
+						//		leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld - Math.log(nPossiblePairs)- logExpDensityDeltaOld;
+						leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio + Math.log(result00.nNonTrivialRoots()) - Math.log(result0.nNonTrivialRoots())- Math.log(result1.nNonTrivialRoots());
+//		} else {	 
 //			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
 //			result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1); 
 //		}
 				result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
-				//result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1); 
-
+				
+        
 		// 4- the weight update is simply equal to the ratio of the new
 		// likelihood score to the old one
-		if( current.getCurrentState().nRoots() == 2) {
-			result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1);
+//		if( current.getCurrentState().nRoots() == 2) {
+//			result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1);
+//			if (isPeek)
+//				return logw ; // - logExpDensityDeltaNew;- Math.log(result1.nNonTrivialRoots())
+//			else{
+////				if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
+////				else
+//					return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio() 
+//						//		+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld- Math.log(nPossiblePairs));
+//						 + loglikeRatio0 - oldLogLikelihoodRatio - Math.log(result0.nNonTrivialRoots()) );
+//			}// - logExpDensityDeltaNew - logExpDensityDeltaOld - Math.log(result0.nNonTrivialRoots()) - Math.log(result1.nNonTrivialRoots())
+//		}else {
 			if (isPeek)
-				return logw - Math.log(result1.nNonTrivialRoots()); // - logExpDensityDeltaNew;
+				return logw ; // - logExpDensityDeltaNew;
 			else{
 //				if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
 //				else
 					return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio() 
 						//		+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld- Math.log(nPossiblePairs));
-						 + loglikeRatio0- oldLogLikelihoodRatio  - Math.log(result0.nNonTrivialRoots()) - Math.log(result1.nNonTrivialRoots()));
-			}// - logExpDensityDeltaNew - logExpDensityDeltaOld
-		}else {
-			if (isPeek)
-				return logw ; //- Math.log(result1.nNonTrivialRoots()) - logExpDensityDeltaNew;
-			else{
-//				if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
-//				else
-					return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio() 
-						//		+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld- Math.log(nPossiblePairs));
-						 + loglikeRatio0- oldLogLikelihoodRatio  - Math.log(result0.nNonTrivialRoots()));
-			}// - logExpDensityDeltaNew  - Math.log(result1.nNonTrivialRoots())- logExpDensityDeltaOld
+						 + loglikeRatio0 - oldLogLikelihoodRatio + Math.log(result00.nNonTrivialRoots()) - Math.log(result0.nNonTrivialRoots())- Math.log(result1.nNonTrivialRoots()));
+			}// - logExpDensityDeltaNew  - Math.log(result1.nNonTrivialRoots()) - logExpDensityDeltaOld  - Math.log(result0.nNonTrivialRoots())
 			//System.out.println(x);
 		}
 
-	}
+//	}
 
 	public static double nChoose2(double n) {
 		return n * (n - 1) / 2;
