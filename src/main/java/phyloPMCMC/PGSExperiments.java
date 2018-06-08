@@ -140,6 +140,9 @@ public class PGSExperiments implements Runnable {
 	@Option
 	public boolean sampleTrans2tranv=true;
 	
+	private double marginalLogLike = 0;
+	
+	private PrintWriter logZout = null;
 
 	public File data = null;
 	private File output = null;
@@ -154,6 +157,10 @@ public class PGSExperiments implements Runnable {
 
 	protected void treeComparison() {
 		// data = new File( generator.output, "sim-0.msf");
+		logZout = IOUtils.openOutEasy(new File(Execution.getFile("results"),
+				"logZout.csv"));
+		logZout.println(CSV.header("treeName", "Method", "logZ"));
+		
 		PrintWriter out = IOUtils.openOutEasy(new File(output, "results.csv"));
 		out.println(CSV.header("Method", "IterScale", "Repeat", "Metric", "Value", "TreeName", "Time"));
 		List<File> files = null;
@@ -210,11 +217,11 @@ public class PGSExperiments implements Runnable {
 								double bestLogLL = processor.getBestLogLikelihood();
 								out.println(CSV.body(m, iterScale, j, "BestSampledLogLL", bestLogLL, treeName, time));
 							}
-							{
-								// marginalized likelihood, when available
-								double marginalLL = processor.getMarginalLL();
-								out.println(CSV.body(m, iterScale, j, "MarginalLogLL", marginalLL, treeName, time));
-							}
+//							{
+//								// marginalized likelihood, when available
+//								double marginalLL = processor.getMarginalLL();
+//								out.println(CSV.body(m, iterScale, j, "MarginalLogLL", marginalLL, treeName, time));
+//							}
 							if (goldut == null) {
 								LogInfo.logsForce("Computing gold tree using " + refMethod);
 								goldut = refMethod.doIt(this, refIterScaling, goldut, treeName).getConsensus();
@@ -268,6 +275,7 @@ public class PGSExperiments implements Runnable {
 		}
 
 		out.close();
+		logZout.close();
 	}
 
 	public static enum InferenceMethod {
@@ -289,7 +297,6 @@ public class PGSExperiments implements Runnable {
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
 				// options.maxNGrow = 0;
-				double tempMarginalLL = 0.0;
 
 				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
@@ -302,7 +309,6 @@ public class PGSExperiments implements Runnable {
 				if (instance.useTopologyProcessor) {
 					TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
 					final double zHat = lpf.sample(tdp, trTopo);
-					tempMarginalLL = zHat;
 
 					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
 					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
@@ -310,12 +316,18 @@ public class PGSExperiments implements Runnable {
 						LogInfo.logsForce(urt);
 						LogInfo.logsForce(urtCounter.getCount(urt));
 					}
+					
+					String methodname = "SMC4K2P";				
+					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					instance.logZout.flush();
+					
 				} else {
 					final double zHat = lpf.sample(tdp);
-					tempMarginalLL = zHat;
 					// LogInfo.logsForce("Norm:" + zHat);
+					String methodname = "SMC4K2P";				
+					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					instance.logZout.flush();
 				}
-				tdp.setMarginalLL(tempMarginalLL);
 				return tdp;
 			}
 		},
@@ -354,7 +366,6 @@ public class PGSExperiments implements Runnable {
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
 				// options.maxNGrow = 0;
-				double tempMarginalLL = 0.0;
 
 				Dataset dataset = DatasetUtils.fromAlignment(instance.data, instance.sequenceType);
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
@@ -369,7 +380,6 @@ public class PGSExperiments implements Runnable {
 				if (instance.useTopologyProcessor) {
 					TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
 					final double zHat = lpf.sample(tdp, trTopo);
-					tempMarginalLL = zHat;
 
 					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
 					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
@@ -377,12 +387,20 @@ public class PGSExperiments implements Runnable {
 						LogInfo.logsForce(urt);
 						LogInfo.logsForce(urtCounter.getCount(urt));
 					}
+					
+					String methodname = "SMC4K2PBF";				
+					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					instance.logZout.flush();
+					
 				} else {
 					final double zHat = lpf.sample(tdp);
-					tempMarginalLL = zHat;
+					
+					String methodname = "SMC4K2PBF";				
+					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					instance.logZout.flush();
 					// LogInfo.logsForce("Norm:" + zHat);
 				}
-				tdp.setMarginalLL(tempMarginalLL);
+				
 				return tdp;
 			}
 		},		
