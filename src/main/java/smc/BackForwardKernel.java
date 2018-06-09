@@ -173,16 +173,15 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 //						leftIncrement1, rightIncrement1);
 //			else
 				logw = loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
-						//		leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - logExpDensityDeltaOld - Math.log(nPossiblePairs)- logExpDensityDeltaOld;
-						leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio;
+								leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - Math.log(nPossiblePairs);
+						//leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio;
 //		} else {	  + Math.log(result00.nNonTrivialRoots()) - Math.log(result0.nNonTrivialRoots())- Math.log(result1.nNonTrivialRoots())
 //			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
 //			result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1); 
 //		}
-				result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
-				
-        
-		// 4- the weight update is simply equal to the ratio of the new
+				result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});       
+
+				// 4- the weight update is simply equal to the ratio of the new
 		// likelihood score to the old one
 //		if( current.getCurrentState().nRoots() == 2) {
 //			result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1);
@@ -197,13 +196,13 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 //			}// - logExpDensityDeltaNew - logExpDensityDeltaOld - Math.log(result0.nNonTrivialRoots()) - Math.log(result1.nNonTrivialRoots())
 //		}else {
 			if (isPeek)
-				return logw ; // - logExpDensityDeltaNew;
+				return logw; // - logExpDensityDeltaNew;
 			else{
 //				if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
 //				else
 					return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio() 
-						//		+ loglikeRatio0- oldLogLikelihoodRatio - logExpDensityDeltaOld- Math.log(nPossiblePairs));
-						 + loglikeRatio0 - oldLogLikelihoodRatio );
+								+ loglikeRatio0- oldLogLikelihoodRatio - Math.log(nPossiblePairs) );
+						// + loglikeRatio0 - oldLogLikelihoodRatio );
 			}// + Math.log(result00.nNonTrivialRoots()) - Math.log(result0.nNonTrivialRoots())- Math.log(result1.nNonTrivialRoots())
 			//System.out.println(x);
 		}
