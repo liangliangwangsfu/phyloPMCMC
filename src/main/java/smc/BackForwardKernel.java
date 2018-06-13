@@ -201,7 +201,7 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 //				if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
 //				else
 					return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio() 
-								+ loglikeRatio0- oldLogLikelihoodRatio - Math.log(nPossiblePairs) );
+								+ loglikeRatio0- oldLogLikelihoodRatio - Math.log(nPossiblePairs));
 						// + loglikeRatio0 - oldLogLikelihoodRatio );
 			}// + Math.log(result00.nNonTrivialRoots()) - Math.log(result0.nNonTrivialRoots())- Math.log(result1.nNonTrivialRoots())
 			//System.out.println(x);

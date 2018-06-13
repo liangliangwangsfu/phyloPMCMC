@@ -183,6 +183,7 @@ public class PGSExperiments implements Runnable {
 
 					File computedRefTrees = new File(Execution.getFile("computed-ref-trees"));
 					// ReportProgress.progressBlock(methods.size());
+					for (int j = 0; j < repPerDataPt; j++) {
 					for (int i = 0; i < methods.size(); i++) {
 						InferenceMethod m = methods.get(i);
 						final double iterScale = iterScalings.get(i);
@@ -191,7 +192,7 @@ public class PGSExperiments implements Runnable {
 
 						DescriptiveStatisticsMap<String> stats = new DescriptiveStatisticsMap<String>();
 						// ReportProgress.progressBlock(repPerDataPt);
-						for (int j = 0; j < repPerDataPt; j++) {
+						
 							String treeNameCurrentRep = treeName;
 //							if (m == InferenceMethod.PMMHNC)
 //								treeNameCurrentRep = treeNameCurrentRep + ".Rep" + j;
@@ -256,17 +257,18 @@ public class PGSExperiments implements Runnable {
 							// statsMap.median(colName), treeName, time));
 							// }
 							// }
+							LogInfo.track("Score for current block of repeats (Method=" + m + ",IterScale=" + iterScale
+									+ ",TreeName=" + treeName + ")");
+							for (TreeMetric tm : TreeEvaluator.coreTreeMetrics)
+								LogInfo.logsForce("Current " + tm + ":" + stats.median(tm.toString()));
+							LogInfo.end_track();
+							out.flush();
+							LogInfo.end_track();
 
 							LogInfo.end_track();
 							// ReportProgress.divisionCompleted();
 						}
-						LogInfo.track("Score for current block of repeats (Method=" + m + ",IterScale=" + iterScale
-								+ ",TreeName=" + treeName + ")");
-						for (TreeMetric tm : TreeEvaluator.coreTreeMetrics)
-							LogInfo.logsForce("Current " + tm + ":" + stats.median(tm.toString()));
-						LogInfo.end_track();
-						out.flush();
-						LogInfo.end_track();
+
 						// ReportProgress.divisionCompleted();
 					}
 					LogInfo.end_track();
