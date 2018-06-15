@@ -173,8 +173,8 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 //						leftIncrement1, rightIncrement1);
 //			else
 				logw = loglikeRatio0+result0.peekLogLikelihoodRatio(i10, i11, delta1,
-								leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - Math.log(nPossiblePairs);
-						//leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio;
+								leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - Math.log(nChoose2(parent.getCurrentState().nRoots()));
+						//leftIncrement1, rightIncrement1) - oldLogLikelihoodRatio - Math.log(nPossiblePairs);
 //		} else {	  + Math.log(result00.nNonTrivialRoots()) - Math.log(result0.nNonTrivialRoots())- Math.log(result1.nNonTrivialRoots())
 //			result = new PartialCoalescentState4BackForwardKernel(result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1),result0,current.getMidState(),current,delta1,new int[]{i10, i11});
 //			result1 = result0.coalesce(i10, i11, delta1, leftIncrement1, rightIncrement1); 
@@ -201,8 +201,8 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 //				if(self)return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio());
 //				else
 					return Pair.makePair(result, result.getCurrentState().logLikelihoodRatio() 
-								+ loglikeRatio0- oldLogLikelihoodRatio - Math.log(nPossiblePairs));
-						// + loglikeRatio0 - oldLogLikelihoodRatio );
+								+ loglikeRatio0- oldLogLikelihoodRatio - Math.log(nChoose2(parent.getCurrentState().nRoots())));
+						// + loglikeRatio0 - oldLogLikelihoodRatio - Math.log(nPossiblePairs));
 			}// + Math.log(result00.nNonTrivialRoots()) - Math.log(result0.nNonTrivialRoots())- Math.log(result1.nNonTrivialRoots())
 			//System.out.println(x);
 		}
