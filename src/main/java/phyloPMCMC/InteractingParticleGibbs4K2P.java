@@ -53,16 +53,6 @@ public class InteractingParticleGibbs4K2P {
 	private double trans2tranv=2;
 	public double a=1.25;
 	private boolean sampleTrans2tranv=true;
-//	private double[] subsRates; // six parameters of
-//								// substitutions:rAC,rAG,rAT,rCG,rGT,rCT
-//	private double[] statFreqs; // stationary state frequencies. pi_A, pi_C,
-//								// pi_G, pi_T
-//	private double alpha = 0; // shape parameter in the Gamma distribution
-//	private double pInv = 0; // the proportion of invariant sites
-//	private double a_alpha = 1.3; // tuning parameter for alpha.
-//	private double a_pInv = 0.4; // tuning parameter for pInv.
-//	private double a_statFreqs = 300; // tuning parameter for statFreqs;
-//	private double a_subsRates = 200; // tuning parameter for subsRates;
 	public static OutputManager outMan = new OutputManager();
 	private int iter = 0;
 	private int nCategories = 4;
@@ -88,9 +78,6 @@ public class InteractingParticleGibbs4K2P {
 			ParticleFilterOptions options, TreeDistancesProcessor tdp,
 			boolean useTopologyProcessor, TreeTopologyProcessor trTopo,
 			RootedTree initrt, 
-//			double[] subsRates, double[] statFreqs,
-//			double alpha, double pInv, double a_alpha, double a_pInv,
-//			double a_statFreqs, double a_subsRates, int nCategories,
 			boolean processTree, boolean isGS4Clock, int sampleTreeEveryNIter,
 			int nCSMC, int nUCSMC) {
 		this.nCSMC = nCSMC;
@@ -103,18 +90,9 @@ public class InteractingParticleGibbs4K2P {
 			this.trTopo = trTopo;
 		else
 			this.trTopo = null;
-//		this.subsRates = subsRates;
-//		this.statFreqs = statFreqs;
-//		this.alpha = alpha;
-//		this.pInv = pInv;
-		
 		this.currentSample = new ArrayList<RootedTree>(this.nCSMC);
 		for (int i = 0; i < this.nCSMC; i++)
 			this.currentSample.add(initrt);
-//		this.a_alpha = a_alpha;
-//		this.a_pInv = a_pInv;
-//		this.a_statFreqs = a_statFreqs;
-//		this.a_subsRates = a_subsRates;
 		this.nCategories = nCategories;
 		this.processTree = processTree;
 		this.isGS4Clock = isGS4Clock;
@@ -127,15 +105,9 @@ public class InteractingParticleGibbs4K2P {
 	public InteractingParticleGibbs4K2P(Dataset dataset0,
 			ParticleFilterOptions options, TreeDistancesProcessor tdp,
 			RootedTree initrt, TreeTopologyProcessor trTopo) { 
-//			double[] subsRates, double[] statFreqs,
-//			double alpha, double pInv
 		this.dataset = dataset0;
 		this.options = options;
 		this.tdp = tdp;
-//		this.subsRates = subsRates;
-//		this.statFreqs = statFreqs;
-//		this.alpha = alpha;
-//		this.pInv = pInv;
 		this.currentSample = new ArrayList<RootedTree>(this.nCSMC);
 		for (int i = 0; i < this.nCSMC; i++)
 			this.currentSample.add(initrt);
@@ -185,97 +157,16 @@ public class InteractingParticleGibbs4K2P {
 	}
 
 
-//	public double[] getSubsRates() {
-//		return subsRates;
-//	}
-//
-//	public double[] getStateFreqs() {
-//		return statFreqs;
-//	}
-//
-//	public double getAlpha() {
-//		return alpha;
-//	}
-//
-//	public double getpInv() {
-//		return pInv;
-//	}
 
 	public List<RootedTree> getRootedTree() {
 		return currentSample;
 	}
 	
-//	public double[] proposeAlpha(Random rand, double low, double high) {
-//		double[] result = new double[2];
-//		double scale = 0, proposedAlpha = Double.MAX_VALUE;
-//		while (proposedAlpha < low || proposedAlpha > high) {
-//			scale = Sampling.nextDouble(rand, 1.0 / a_alpha, a_alpha);
-//			proposedAlpha = scale * alpha;
-//		}
-//		result[0] = scale;
-//		result[1] = proposedAlpha;
-//		return result;
-//	}
-
-//	public double[] proposeAlpha(Random rand, double low, double high) {
-//		double[] result = new double[2];
-//		double scale = 0, proposedAlpha = Double.MAX_VALUE;
-//		while (proposedAlpha < low || proposedAlpha > high) {
-//			scale = Sampling.nextDouble(rand, 1.0 / a_alpha, a_alpha);
-//			proposedAlpha = scale * alpha;
-//		}
-//		result[0] = scale;
-//		result[1] = proposedAlpha;
-//		return result;
-//	}
-//
-//	public double proposePInv(Random rand, double low, double high) {
-//		double proposedPInv = Double.MAX_VALUE;
-//		while (proposedPInv < low || proposedPInv > high) {
-//			proposedPInv = Sampling.nextDouble(rand,
-//					Math.max(0, pInv - a_pInv), Math.min(1, pInv + a_pInv));
-//		}
-//		return proposedPInv;
-//	}
-//
-//	public double[] proposeFromDirichlet(Random rand, double a, double[] rates) {
-//		double[] alphas = new double[rates.length];
-//		for (int i = 0; i < rates.length; i++)
-//			alphas[i] = a * rates[i];
-//		double[] result = Dirichlet.sample(rand, alphas);
-//		return result;
-//	}
-//
-//	public double logProposal(double scale, double[] rates) {
-//		double[] alphas = new double[rates.length];
-//		for (int i = 0; i < rates.length; i++)
-//			alphas[i] = scale * rates[i];
-//		return Dirichlet.logProb(alphas, ListUtils.sum(alphas), rates);
-//	}
 
 	public void next(Random rand) {
 		iter++;
 		List<RootedTree> previousSample = currentSample;
 		if(sampleTrans2tranv) MHTrans2tranv(trans2tranv,  rand);
-		// pInv: Sliding window
-//		double proposedPInv = 0;
-//		if (pInv > 0)
-//			proposedPInv = proposePInv(rand, 0, 1);
-//		double acceptpInv = MHpInv(proposedPInv, rand);
-//		// proposals:
-//		// alpha: multiplier
-//		double[] propAlpha = proposeAlpha(rand, 0.05, 50);
-//		double scale = propAlpha[0];
-//		double proposedAlpha = alpha;// propAlpha[1];
-//		double acceptPralpha = MHalpha(proposedAlpha, scale, rand);
-//		// rates of substitutions
-//		double[] proposedsubsRates = subsRates; //proposeFromDirichlet(rand, a_subsRates,
-//		// subsRates);
-//		double acceptPrsubsRates =  MHsubsRates(proposedsubsRates,a_subsRates,rand);
-//		double[] proposedstatFreqs =  statFreqs ;//proposeFromDirichlet(rand, a_statFreqs,
-//		// statFreqs);
-//		double acceptPrstatFreqs = MHstatFreqs(proposedstatFreqs, a_statFreqs,
-//				rand);
 
 		// sample from PF
 		StoreProcessor<PartialCoalescentState> pro = new StoreProcessor<PartialCoalescentState>();
@@ -314,26 +205,6 @@ public class InteractingParticleGibbs4K2P {
 				tSize,
 				"trans2tranv",
 				trans2tranv,
-//				"acceptPralpha",
-//				acceptPralpha,
-//				"acceptpInv",
-//				acceptpInv,
-//				"acceptPrstatFreqs",
-//				acceptPrstatFreqs,
-//				"acceptPrsubsRates",
-//				acceptPrsubsRates,
-				// "maskSparsity", currentSparsity,
-//				"rfDist",
-//				(previousSample == null ? 0
-//						: new TreeEvaluator.RobinsonFouldsMetric().score(
-//								currentSample, previousSample)),
-//				"statFreqs1",
-//				statFreqs[0], "statFreqs2", statFreqs[1], "statFreqs3",
-//				statFreqs[2], "statFreqs4", statFreqs[3], "subsRates1",
-//				subsRates[0], "subsRates2", subsRates[1], "subsRates3",
-//				subsRates[2], "subsRates4", subsRates[3], "subsRates5",
-//				subsRates[4], "subsRates6", subsRates[5], "alpha", alpha,
-//				"pInv", pInv, 
 				"LogLikelihood", previousLogLLEstimate);
 	}
 
@@ -341,8 +212,6 @@ public class InteractingParticleGibbs4K2P {
 			boolean isconditional,
 			RootedTree onesample) {
 		StoreProcessor<PartialCoalescentState> pro = new StoreProcessor<PartialCoalescentState>();
-//		CTMC currentctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-//				dataset.nSites(), alpha, nCategories, pInv);
 		CTMC currentctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);		
 		PartialCoalescentState init = PartialCoalescentState.initFastState(
 				dataset, currentctmc, isGS4Clock);
@@ -427,9 +296,6 @@ public class InteractingParticleGibbs4K2P {
 	}
 
 	private void updateLogLikelihood() {
-
-//		CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-//				dataset.nSites(), alpha, nCategories, pInv);
 		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);
 		for (int i = 0; i < this.nCSMC; i++) {
 		UnrootedTreeState previousncs = UnrootedTreeState.initFastState(
@@ -474,65 +340,6 @@ public class InteractingParticleGibbs4K2P {
 		return acceptPr;
 	}
 
-//	private double MHalpha(double proposedAlpha, double scale, Random rand) {
-//		CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-//				dataset.nSites(), proposedAlpha, nCategories, pInv);
-//		double logratio = sumLogLikelihood(ctmc) - sumPreviousLogLLEstimate()
-//				+ Math.log(scale);
-//		double acceptPr = Math.min(1, Math.exp(logratio));
-//		final boolean accept = Sampling.sampleBern(acceptPr, rand);
-//		if (accept) {
-//			alpha = proposedAlpha;
-//			updateLogLikelihood();
-//		}
-//		return acceptPr;
-//	}
-//
-//	private double MHpInv(double proposedpInv, Random rand) {
-//		CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, subsRates, 4,
-//				dataset.nSites(), alpha, nCategories, proposedpInv);
-//		double logratio = sumLogLikelihood(ctmc) - sumPreviousLogLLEstimate();
-//		double acceptPr = Math.min(1, Math.exp(logratio));
-//		final boolean accept = Sampling.sampleBern(acceptPr, rand);
-//		if (accept) {
-//			pInv = proposedpInv;
-//			updateLogLikelihood();
-//		}
-//		return acceptPr;
-//	}
-//
-//	private double MHstatFreqs(double[] proposedstatFreqs, double a_statFreqs,
-//			Random rand) {
-//		CTMC ctmc = new CTMC.GTRIGammaCTMC(proposedstatFreqs, subsRates, 4,
-//				dataset.nSites(), alpha, nCategories, pInv);
-//		double logratio = sumLogLikelihood(ctmc) - sumPreviousLogLLEstimate()
-//				+ logProposal(a_statFreqs, proposedstatFreqs)
-//				- logProposal(a_statFreqs, statFreqs);
-//		double acceptPr = Math.min(1, Math.exp(logratio));
-//		final boolean accept = Sampling.sampleBern(acceptPr, rand);
-//		if (accept) {
-//			statFreqs = proposedstatFreqs;
-//			updateLogLikelihood();
-//		}
-//		return acceptPr;
-//	}
-//
-//	private double MHsubsRates(double[] proposedsubsRates, double a_subsRates,
-//			Random rand) {
-//		CTMC ctmc = new CTMC.GTRIGammaCTMC(statFreqs, proposedsubsRates, 4,
-//				dataset.nSites(), alpha, nCategories, pInv);
-//
-//		double logratio = sumLogLikelihood(ctmc) - sumPreviousLogLLEstimate()
-//				+ logProposal(a_subsRates, proposedsubsRates)
-//				- logProposal(a_subsRates, subsRates);
-//		double acceptPr = Math.min(1, Math.exp(logratio));
-//		final boolean accept = Sampling.sampleBern(acceptPr, rand);
-//		if (accept) {
-//			subsRates = proposedsubsRates;
-//			updateLogLikelihood();
-//		}
-//		return acceptPr;
-//	}
 
 	public static double height(Map<Taxon, Double> branchLengths,
 			Arbre<Taxon> arbre) {

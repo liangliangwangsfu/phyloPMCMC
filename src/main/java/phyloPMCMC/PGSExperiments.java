@@ -126,9 +126,9 @@ public class PGSExperiments implements Runnable {
 	@Option
 	public boolean betterStartVal = true;
 	@Option
-	public int nCSMC = 10;
+	public int nCSMC = 3;
 	@Option
-	public int nUCSMC = 10;
+	public int nUCSMC = 3;
 	@Option
 	public boolean adaptiveTempDiff = false;
 	@Option
@@ -789,6 +789,70 @@ public class PGSExperiments implements Runnable {
 				options.nThreads = instance.nThreads;
 				PGS4K2P pg = new PGS4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
+				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
+				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
+				String allTreeFilename="allTrees-PGS4K2P.trees";
+				pg.setNameOfAllTrees(allTreeFilename);
+				int i = 0;
+				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
+				while (i < nPGS) {
+					i++;
+				//	System.out.println(i);
+					if (i > nPGSburnin)
+						pg.setProcessTree(true);
+					pg.next(instance.mainRand);
+				}
+				if (instance.saveTreesFromPMCMC) {
+					IO.call("bash -s", "echo 'END;' >> " + allTreeFilename, output);
+					String RcmdStr = instance.RcommandDir + "thetaTracePlot.R  \"resultFolder='" + resultFolder + "'\"";
+					String msg0 = IO.call("bash -s", RcmdStr, output);
+					LogInfo.logs(msg0);
+				}
+
+				if (instance.useTopologyProcessor) {
+					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
+					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
+					for (UnrootedTree urt : urtCounter.keySet()) {
+						LogInfo.logsForce(urt);
+						LogInfo.logsForce(urtCounter.getCount(urt));
+					}
+				}
+				return tdp;
+			}
+		},
+		IPGS4K2P {
+
+			@Override
+			public TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
+					String treeName) {
+				ParticleFilterOptions options = new ParticleFilterOptions();
+				options.nParticles = instance.nParticlesEachStep; 
+				options.nThreads = instance.nThreads;
+				//	options.nThreads = 1; // TODO: solve the problems of using
+				// multiple threads in pmmh.
+				options.resampleLastRound = true;
+				options.parallelizeFinalParticleProcessing = true;
+				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
+				options.maxNUniqueParticles = instance.maxNUniqueParticles;
+				options.rand = instance.mainRand;
+				options.verbose = instance.verbose;
+				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); 
+				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
+				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType);
+				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
+				TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
+				final int nMCMC = (int) iterScale;
+				final int nPMMH = 0;
+				final int nPGS = nMCMC - nPMMH;
+				String resultFolder = Execution.getFile("results");
+				File output = new File(resultFolder);
+				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
+				RootedTree initTree = null;
+				if (nPMMH == 0)
+					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+				options.nThreads = instance.nThreads;
+				InteractingParticleGibbs4K2P pg = new InteractingParticleGibbs4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
+						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter, instance.nCSMC, instance.nUCSMC);
 				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
 				String allTreeFilename="allTrees-PGS4K2P.trees";
