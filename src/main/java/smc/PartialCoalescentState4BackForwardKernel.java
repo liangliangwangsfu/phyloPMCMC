@@ -1,18 +1,31 @@
 package smc;
 
 import static nuts.util.CollUtils.list;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import fig.basic.Pair;
+import goblin.Taxon;
 import nuts.math.Sampling;
+import nuts.util.Arbre;
+import nuts.util.Arbre.ArbreMap;
+import pty.RootedTree;
+import pty.UnrootedTree;
 import pty.io.Dataset;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleKernel;
+import pty.smc.PartialCoalescentState.CoalescentNode;
 import pty.smc.models.CTMC;
 
 public class PartialCoalescentState4BackForwardKernel{
 	private  PartialCoalescentState currentState=null;
 	private  PartialCoalescentState previousState=null;
 	private  PartialCoalescentState midState=null;
+	
+	
+
 	public PartialCoalescentState getCurrentState() {
 		return currentState;
 	}
@@ -74,6 +87,7 @@ public class PartialCoalescentState4BackForwardKernel{
 	{
 		return (this.parent != null);
 	}
+	
 	
 	public static double forwardDensity(PartialCoalescentState4BackForwardKernel thisState, PartialCoalescentState4BackForwardKernel newState)
 	{

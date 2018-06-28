@@ -215,6 +215,7 @@ public class InteractingParticleGibbs4K2P {
 		CTMC currentctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);		
 		PartialCoalescentState init = PartialCoalescentState.initFastState(
 				dataset, currentctmc, isGS4Clock);
+		//try to modify this part, include the BF kernel.
 		LazyParticleKernel kernel = (isGS4Clock ? new PriorPriorKernel(init)
 				: new NCPriorPriorKernel(init));
 		ParticleFilter<PartialCoalescentState> pf = new ParticleFilter<PartialCoalescentState>();
