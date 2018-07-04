@@ -31,10 +31,12 @@ import pty.smc.LazyParticleFilter.ParticleFilterOptions;
 import pty.smc.NCPriorPriorKernel;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleFilter;
+import pty.smc.ParticleKernel;
 import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
 import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
+//import smcsampler.SMCSampler;
 import ev.ex.PhyloSamplerMain;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
@@ -139,6 +141,8 @@ public class PGSExperiments implements Runnable {
 	
 	@Option
 	public boolean sampleTrans2tranv=true;
+	
+	@Option public ParticleFilter.ResamplingStrategy resamplingStrategy = ParticleFilter.ResamplingStrategy.ESS;
 	
 	private double marginalLogLike = 0;
 	
@@ -304,13 +308,21 @@ public class PGSExperiments implements Runnable {
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
 				PartialCoalescentState init = PartialCoalescentState.initFastState(dataset, ctmc);
 				LazyParticleKernel pk2 = new PriorPriorKernel(init);
-				LazyParticleFilter<PartialCoalescentState> lpf = new LazyParticleFilter<PartialCoalescentState>(pk2,
-						options);
+				LazyParticleFilter<PartialCoalescentState> lpf = new LazyParticleFilter<PartialCoalescentState>(pk2, options);
+//				ParticleKernel pk2 = new PriorPriorKernel(init);
+//				ParticleFilter<PartialCoalescentState> lpf = new ParticleFilter<PartialCoalescentState>();
+//				lpf.N = (int) (iterScale * instance.nThousandIters * 1000);
+//				lpf.nThreads = instance.nThreads;
+//				lpf.rand = instance.mainRand;
+//				lpf.resamplingStrategy = instance.resamplingStrategy;
+//				lpf.essRatioThreshold = instance.essRatioThreshold;
+				
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 
 				if (instance.useTopologyProcessor) {
 					TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
 					final double zHat = lpf.sample(tdp, trTopo);
+					//lpf.sample(pk2, tdp);
 
 					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
 					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
@@ -321,13 +333,16 @@ public class PGSExperiments implements Runnable {
 					
 					String methodname = "SMC4K2P";				
 					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					//instance.logZout.println(CSV.body(treeName,methodname,lpf.estimateNormalizer()));
 					instance.logZout.flush();
 					
 				} else {
 					final double zHat = lpf.sample(tdp);
+					//lpf.sample(pk2, tdp);
 					// LogInfo.logsForce("Norm:" + zHat);
 					String methodname = "SMC4K2P";				
 					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					//instance.logZout.println(CSV.body(treeName,methodname,lpf.estimateNormalizer()));
 					instance.logZout.flush();
 				}
 				return tdp;
@@ -374,14 +389,21 @@ public class PGSExperiments implements Runnable {
 				PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);
 				PartialCoalescentState4BackForwardKernel init = new PartialCoalescentState4BackForwardKernel(init0, init0, init0, null, 0,new int[]{-1,-1});
 				LazyParticleKernel pk2 = new BackForwardKernel(init);
-				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(
-						pk2, options);
+				LazyParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new LazyParticleFilter<PartialCoalescentState4BackForwardKernel>(pk2, options);
+//				ParticleKernel pk2 = new BackForwardKernel(init);
+//				ParticleFilter<PartialCoalescentState4BackForwardKernel> lpf = new ParticleFilter<PartialCoalescentState4BackForwardKernel>();
+//				lpf.N = (int) (iterScale * instance.nThousandIters * 1000);
+//				lpf.nThreads = instance.nThreads;
+//				lpf.rand = instance.mainRand;
+//				lpf.resamplingStrategy = instance.resamplingStrategy;
+//				lpf.essRatioThreshold = instance.essRatioThreshold;
 
 				TreeDistancesProcessor tdp = new TreeProcessorBFState();
 
 				if (instance.useTopologyProcessor) {
 					TreeTopologyProcessor trTopo = new TreeTopologyProcessor();
 					final double zHat = lpf.sample(tdp, trTopo);
+					//lpf.sample(pk2, tdp);
 
 					Counter<UnrootedTree> urtCounter = trTopo.getUrtCounter();
 					LogInfo.logsForce("\n Number of unique unrooted trees: " + urtCounter.keySet().size());
@@ -391,14 +413,16 @@ public class PGSExperiments implements Runnable {
 					}
 					
 					String methodname = "SMC4K2PBF";				
-					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					//instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					//instance.logZout.println(CSV.body(treeName,methodname,lpf.estimateNormalizer()));
 					instance.logZout.flush();
 					
 				} else {
 					final double zHat = lpf.sample(tdp);
-					
+					//lpf.sample(pk2,tdp);
 					String methodname = "SMC4K2PBF";				
-					instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					//instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					//instance.logZout.println(CSV.body(treeName,methodname,lpf.estimateNormalizer()));
 					instance.logZout.flush();
 					// LogInfo.logsForce("Norm:" + zHat);
 				}
