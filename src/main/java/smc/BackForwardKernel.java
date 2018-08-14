@@ -1,11 +1,8 @@
 package smc;
 import java.util.List;
 import java.util.Random;
-
 import nuts.math.Sampling;
-import nuts.util.Arbre;
 import pty.smc.LazyParticleFilter.LazyParticleKernel;
-import pty.smc.PartialCoalescentState.CoalescentNode;
 import pty.smc.PartialCoalescentState;
 import pty.smc.ParticleKernel;
 import fig.basic.Option;
