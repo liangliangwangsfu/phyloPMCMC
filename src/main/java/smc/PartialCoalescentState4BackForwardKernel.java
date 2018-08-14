@@ -1,22 +1,11 @@
 package smc;
 
 import static nuts.util.CollUtils.list;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import fig.basic.Pair;
-import goblin.Taxon;
 import nuts.math.Sampling;
-import nuts.util.Arbre;
-import nuts.util.Arbre.ArbreMap;
-import pty.RootedTree;
-import pty.UnrootedTree;
 import pty.io.Dataset;
 import pty.smc.PartialCoalescentState;
-import pty.smc.ParticleKernel;
-import pty.smc.PartialCoalescentState.CoalescentNode;
 import pty.smc.models.CTMC;
 
 public class PartialCoalescentState4BackForwardKernel{
@@ -53,11 +42,7 @@ public class PartialCoalescentState4BackForwardKernel{
 	private PartialCoalescentState4BackForwardKernel parent = null;
 	private double delta = 0;
 	private int[] indxState=new int[2];
-	
-//	public void setCTMC(CTMC ctmc)
-//	{
-//		
-//	}	
+		
 
 	public PartialCoalescentState4BackForwardKernel(PartialCoalescentState currentState,
 			PartialCoalescentState midState, PartialCoalescentState previousState,			
@@ -96,15 +81,20 @@ public class PartialCoalescentState4BackForwardKernel{
 //		System.out.println("parentOfthisState "+parentOfthisState.toString());
 		if(thisState.getMidState() == newState.getPreviousState())
 		{
-	//		System.out.println("EQUAL!!");
+		//	System.out.println("EQUAL!!");
 		//	System.out.print("grandmaOfNewState.equals(parentOfthisState): ");
 			double numRootPairs0=BackForwardKernel.nChoose2(thisState.getMidState().nRoots());
 			double param0= 0.1 / numRootPairs0;				
 			final double delta0 = thisState.getDelta();
 			double logExpDensityDeltaOld = Sampling.exponentialLogDensity(param0, delta0);
+//			result=newState.getCurrentState().logLikelihoodRatio()
+//					+ newState.getMidState().logLikelihoodRatio()
+//					- thisState.getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld- Math.log(numRootPairs0);
+			
 			result=newState.getCurrentState().logLikelihoodRatio()
 					+ newState.getMidState().logLikelihoodRatio()
-					- thisState.getCurrentState().logLikelihoodRatio() - logExpDensityDeltaOld- Math.log(numRootPairs0);	        
+					- thisState.getCurrentState().logLikelihoodRatio();	        
+
 		}
 		//else
 		//	System.out.println("NOT EQUAL!!");
