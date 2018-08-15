@@ -162,10 +162,11 @@ public class PGAS4K2PBF {
 		{
 			if(sampleTrans2tranv) {
 			ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), trans2tranv);
-			PartialCoalescentState init0 = PartialCoalescentState
-					.initFastState(dataset, ctmc, true);
-			 init = new PartialCoalescentState4BackForwardKernel(init0, null, null, null,  0, new int[] {-1,-1});
+            PartialCoalescentState init0 = PartialCoalescentState.initFastState(dataset, ctmc, true);			
+            init = new PartialCoalescentState4BackForwardKernel(init0, null, null, null,  0, new int[] {-1,-1});			 
 			}
+		
+			
 			ParticleKernel<PartialCoalescentState4BackForwardKernel> kernel = new BackForwardKernel(
 					init);
 			PGASParticleFilter<PartialCoalescentState4BackForwardKernel> pf = new PGASParticleFilter<PartialCoalescentState4BackForwardKernel>();

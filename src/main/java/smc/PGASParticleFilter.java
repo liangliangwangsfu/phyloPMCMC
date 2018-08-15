@@ -275,7 +275,7 @@ public final class PGASParticleFilter<S> {
 					NumUtils.expNormalize(normalizedForwardDensityWeights);
 					int sampledIndx = SampleUtils.sampleMultinomial(rand, normalizedForwardDensityWeights);
 					logWeights[0] = logWeights[sampledIndx]; //forwardDensityWeights[sampledIndx];
-						System.out.println("sampledIndx "+sampledIndx);
+					//	if(sampledIndx!=0)System.out.println("sampledIndx "+sampledIndx);
 					if(logWeights[0]==Double.NEGATIVE_INFINITY)	System.out.println(forwardDensityWeights[0]+" "+"t "+t+" weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
 					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
 							.get(sampledIndx);					
