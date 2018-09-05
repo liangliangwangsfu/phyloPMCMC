@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import ma.MSAParser;
 import ma.MSAPoset;
 import ma.SequenceType;
 import nuts.io.CSV;
@@ -38,6 +40,7 @@ import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
 //import smcsampler.SMCSampler;
 import ev.ex.PhyloSamplerMain;
+import ev.ex.TreeGenerators;
 import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
 import ev.to.MrBayes;
@@ -46,6 +49,7 @@ import fig.basic.IOUtils;
 import fig.basic.LogInfo;
 import fig.basic.Option;
 import fig.exec.Execution;
+import goblin.Taxon;
 
 
 public class PGSExperiments implements Runnable {
@@ -178,6 +182,10 @@ public class PGSExperiments implements Runnable {
 			this.data = f;
 			final String treeName = f.getName();
 			LogInfo.track("Current tree:" + treeName);
+			
+			// evaluate the likelihood of the inferred tree
+			//Dataset dataset = DatasetUtils.fromAlignment(this.data, sequenceType);
+			//CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(),csmc_trans2tranv);
 
 			UnrootedTree goldut = (generator.useGutellData || !useDataGenerator)
 					? (refTree == null ? null
@@ -202,6 +210,7 @@ public class PGSExperiments implements Runnable {
 //								treeNameCurrentRep = treeNameCurrentRep + ".Rep" + j;
 
 							LogInfo.track("Repeat " + (j + 1) + "/" + repPerDataPt);
+							
 							// LogInfo.forceSilent = true;
 							long time = System.currentTimeMillis();
 							TreeDistancesProcessor processor = m.doIt(this, iterScale, goldut, treeNameCurrentRep);
@@ -654,6 +663,7 @@ public class PGSExperiments implements Runnable {
 				options.maxNUniqueParticles = instance.maxNUniqueParticles;
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
+				
 				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); 
 				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType);
@@ -666,8 +676,9 @@ public class PGSExperiments implements Runnable {
 				File output = new File(resultFolder);
 				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
 				RootedTree initTree = null;
+				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
 				if (nPMMH == 0)
-					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, leaves, 10);
 				options.nThreads = instance.nThreads;
 				
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2);
@@ -738,8 +749,9 @@ public class PGSExperiments implements Runnable {
 				File output = new File(resultFolder);
 				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
 				RootedTree initTree = null;
+				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
 				if (nPMMH == 0)
-					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, leaves, 10);
 				options.nThreads = instance.nThreads;
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2);
 				PartialCoalescentState init0 = PartialCoalescentState
@@ -796,6 +808,7 @@ public class PGSExperiments implements Runnable {
 				options.maxNUniqueParticles = instance.maxNUniqueParticles;
 				options.rand = instance.mainRand;
 				options.verbose = instance.verbose;
+				
 				double alpha = Sampling.nextDouble(instance.mainRand, 0.1, 0.9); 
 				MSAPoset align = MSAPoset.parseAlnOrMsfFormats(instance.data);
 				Dataset dataset = DatasetUtils.fromAlignment(align, instance.sequenceType);
@@ -808,23 +821,36 @@ public class PGSExperiments implements Runnable {
 				File output = new File(resultFolder);
 				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
 				RootedTree initTree = null;
+				
+				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
+				//UnrootedTree initTree2 = initTree(new Random(3), leaves);
+				
 				if (nPMMH == 0)
-					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, leaves, 10);
+					//initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
+				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2.0);	
+				//UnrootedTreeState ncs = UnrootedTreeState.initFastState(UnrootedTree.fromRooted(initTree), dataset, ctmc);	
+				UnrootedTreeState ncs = UnrootedTreeState.initFastState(initTree.getUnrooted(), dataset, ctmc);	
+				//bug in the next line...
+				System.out.println("..............."+ ncs.logLikelihood());
+				
 				PGS4K2P pg = new PGS4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
+				
 				pg.setSampleTrans2tranv(instance.sampleTrans2tranv);
 				pg.setSaveTreesFromPMCMC(instance.saveTreesFromPMCMC);
+				
 				String allTreeFilename="allTrees-PGS4K2P.trees";
 				pg.setNameOfAllTrees(allTreeFilename);
 				int i = 0;
 				final int nPGSburnin = (int) (nPGS * instance.burninPercent);
 				while (i < nPGS) {
 					i++;
-				//	System.out.println(i);
 					if (i > nPGSburnin)
 						pg.setProcessTree(true);
 					pg.next(instance.mainRand);
+					
 				}
 				if (instance.saveTreesFromPMCMC) {
 					IO.call("bash -s", "echo 'END;' >> " + allTreeFilename, output);
@@ -1357,6 +1383,10 @@ public class PGSExperiments implements Runnable {
 		};
 			abstract TreeDistancesProcessor doIt(PGSExperiments instance, double iterScale, UnrootedTree goldut,
 				String treeName);
+	}
+	
+	public static  UnrootedTree initTree(Random rand, List<Taxon> leaves){	
+		return UnrootedTree.fromRooted(TreeGenerators.sampleExpNonclock(rand,leaves, 10.0));				
 	}
 
 	@SuppressWarnings("unchecked")
