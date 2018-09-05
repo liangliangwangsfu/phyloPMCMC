@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+
+import conifer.trees.StandardNonClockPriorDensity;
 import nuts.io.IO;
 import nuts.math.Sampling;
 import nuts.util.Arbre;
@@ -31,6 +33,7 @@ import ev.poi.processors.TreeDistancesProcessor;
 import ev.poi.processors.TreeTopologyProcessor;
 import fig.basic.Pair;
 import fig.exec.Execution;
+import fig.prob.Gamma;
 import gep.util.OutputManager;
 import goblin.Taxon;
 
@@ -107,11 +110,15 @@ public class PGS4K2P {
 
 	private double MHTrans2tranv(double currentTrans2tranv, Random rand) {
 		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
-		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
+		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);	
 		double proposedTrans2tranv=proposed.getFirst();		
-		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);			
+		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);	
+
 		UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);	
+		//bug in the next line...
+		System.out.println("..............."+ncs.logLikelihood());
 		double logratio = ncs.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
+		
 		double acceptPr = Math.min(1, Math.exp(logratio));
 		final boolean accept = Sampling.sampleBern(acceptPr, rand);
 		if (accept) {
@@ -143,8 +150,9 @@ public class PGS4K2P {
 
 	public void next(Random rand)
 	{
-		iter++;
-		RootedTree previousSample = currentSample;		
+		iter++;	
+		RootedTree previousSample = currentSample;	
+		System.out.println("..............."+sampleTrans2tranv);
 		if(sampleTrans2tranv) MHTrans2tranv(trans2tranv,  rand);
 		// sample from PF
 		StoreProcessor<PartialCoalescentState> pro = new StoreProcessor<PartialCoalescentState>();		 
