@@ -38,6 +38,7 @@ import pty.smc.PriorPriorKernel;
 import pty.smc.models.CTMC;
 import smc.BackForwardKernel;
 import smc.PartialCoalescentState4BackForwardKernel;
+import smcsampler.SMCSamplerExperiments;
 //import smcsampler.SMCSampler;
 import ev.ex.PhyloSamplerMain;
 import ev.ex.TreeGenerators;
@@ -832,8 +833,6 @@ public class PGSExperiments implements Runnable {
 				CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), 2.0);	
 				//UnrootedTreeState ncs = UnrootedTreeState.initFastState(UnrootedTree.fromRooted(initTree), dataset, ctmc);	
 				UnrootedTreeState ncs = UnrootedTreeState.initFastState(initTree.getUnrooted(), dataset, ctmc);	
-				//bug in the next line...
-				System.out.println("..............."+ ncs.logLikelihood());
 				
 				PGS4K2P pg = new PGS4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter);
@@ -867,6 +866,51 @@ public class PGSExperiments implements Runnable {
 						LogInfo.logsForce(urtCounter.getCount(urt));
 					}
 				}
+				return tdp;
+			}
+		},
+		MB {
+			@Override
+			public TreeDistancesProcessor doIt(PGSExperiments instance,
+					double iterScale,  UnrootedTree goldut, String treeName)
+			{
+				MrBayes mb = MrBayes.instance;
+				mb.nChains = 1;
+				mb.seed = mainRand.nextInt();
+				mb.nMCMCIters = (int) (iterScale * instance.nThousandIters * 1000);
+				//mb.setToK2P = true;
+				//mb.mb_trans2tranv=2.0;
+				//mb.fixtratioInMb = true;
+				mb.treePrior = "clock:coalescence";
+				mb.setFixCoalescentPr = true;
+				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
+
+				//UnrootedTree initTree = initTree(new Random(5),  leaves);
+				String outName="startTree.newick";
+				File file = new File(instance.output, outName);
+				//writeToDisk(file, initTree.toNewick());
+				String cmdStr="cat " +outName + "  | sed 's/internal_[0-9]*//g' > " + "start-tree.newick";                    
+//				LogInfo.logs(cmdStr);
+                IO.call("bash -s",cmdStr,instance.output);          
+//				mb.setStartTree(IO.f2s(new File(instance.output,"start-tree.newick")));
+				
+				if(leaves.size()<4) mb.useNNI=false;
+				if(mb.fixGTRGammaPara)
+				{
+					mb.alpha=instance.generator.alpha;
+					mb.subsRates=instance.generator.subsRates;
+					mb.stationaryDistribution=instance.generator.stationaryDistribution;
+				}
+				mb.computeSamples(MSAParser.parseMSA(instance.data), instance.sequenceType);
+				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
+				mb.processMrBayesTrees(tdp,1);
+				mb.seed = mainRand.nextInt();
+				mb.nMCMCIters = (int) (iterScale * instance.nThousandIters * 1000);
+				String marginalLike= mb.computeMarginalLike(MSAParser.parseMSA(instance.data), instance.sequenceType);
+				//				mb.cleanUpMrBayesOutput();
+				instance.logZout.println(CSV.body(treeName,"MB", "NA",
+						marginalLike));
+				instance.logZout.flush();
 				return tdp;
 			}
 		},

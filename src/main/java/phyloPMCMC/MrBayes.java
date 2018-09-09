@@ -1,4 +1,4 @@
-package smcsampler;
+package phyloPMCMC;
 import static nuts.io.IO.i;
 import static nuts.io.IO.writeToDisk;
 import static nuts.util.CollUtils.map;

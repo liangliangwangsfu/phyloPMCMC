@@ -115,8 +115,7 @@ public class PGS4K2P {
 		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);	
 
 		UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);	
-		//bug in the next line...
-		System.out.println("..............."+ncs.logLikelihood());
+		
 		double logratio = ncs.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
 		
 		double acceptPr = Math.min(1, Math.exp(logratio));
