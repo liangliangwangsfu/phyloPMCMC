@@ -150,6 +150,9 @@ public class PGSExperiments implements Runnable {
 	
 	@Option public ParticleFilter.ResamplingStrategy resamplingStrategy = ParticleFilter.ResamplingStrategy.ESS;
 	
+	@Option public double mbRate = 1.0;
+	@Option public boolean setToK2P = true; 
+	
 	private double marginalLogLike = 0;
 	
 	private PrintWriter logZout = null;
@@ -879,7 +882,7 @@ public class PGSExperiments implements Runnable {
 				mb.nChains = 1;
 				mb.seed = mainRand.nextInt();
 				mb.nMCMCIters = (int) (iterScale * instance.nThousandIters * 1000);
-				//mb.setToK2P = true;
+				mb.setToK2P = true;
 				//mb.mb_trans2tranv=2.0;
 				//mb.fixtratioInMb = true;
 				mb.treePrior = "clock:coalescence";

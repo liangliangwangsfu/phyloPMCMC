@@ -205,7 +205,7 @@ public class MrBayes implements Runnable
 						"set autoclose=yes nowarn=yes;\n" +
 						(setstarttree?"":"execute " + NEX_FILE + ";\n") +
 						"prset brlenspr=" + treePrior + (mbRate == 1.0  ? "" : "(" + mbRate + ")" ) + ";\n" +
-						(setFixCoalescentPr ? "prset Clockratepr =fixed(10.0);\n" : "") +
+						//(setFixCoalescentPr ? "prset Clockratepr =fixed(10.0);\n" : "") +
 						"mcmcp ngen=" +  ngenNum + ";\n" +						
 						"mcmcp Nchains=" + nChains + ";\n" +
 //						"mcmcp seed=" + Math.abs(seed) + ";\n" +
