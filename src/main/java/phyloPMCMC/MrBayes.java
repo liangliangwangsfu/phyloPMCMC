@@ -69,7 +69,7 @@ public class MrBayes implements Runnable
 		NexusWriter.writeNexus(alignment, nexusFile, st);
 		writeMrBayesCmd(mrBayesCmd);    
 		String msg = IO.call("" + mrBayesPath + " " + mrBayesCmd.getName(), null, workingDir);
-		System.out.println(msg);
+		//System.out.println(msg);
 		writeToDisk(new File(workingDir, "mrbayes-stdout"), msg);
 		return workingDir;
 	}
@@ -205,7 +205,7 @@ public class MrBayes implements Runnable
 						"set autoclose=yes nowarn=yes;\n" +
 						(setstarttree?"":"execute " + NEX_FILE + ";\n") +
 						"prset brlenspr=" + treePrior + (mbRate == 1.0  ? "" : "(" + mbRate + ")" ) + ";\n" +
-						//(setFixCoalescentPr ? "prset Clockratepr =fixed(10.0);\n" : "") +
+						//(setFixCoalescentPr ? "prset Clockratepr =fixed(1.0);\n" : "") +
 						"mcmcp ngen=" +  ngenNum + ";\n" +						
 						"mcmcp Nchains=" + nChains + ";\n" +
 //						"mcmcp seed=" + Math.abs(seed) + ";\n" +
@@ -213,8 +213,13 @@ public class MrBayes implements Runnable
 						"set scientific=no;\n"+					
 						(setJC?"lset nst=1 rates=equal;\n":
 							  (setGTRGammaI?" lset nst=6 rates="+(setInv?"invgamma":"gamma")+" ngammacat=4;\n"+"prset tratiopr = beta(1, 1);\n":"")+
-								(set2nst?"lset nst=2;\n"+"prset tratiopr = beta(1, 1);\n":"lset nst=6;\n")+						        
-								(setToK2P ? "prset revmatpr=fixed(" + b4 +"," + a4 + "," + b4 + "," + b4 +"," + a4 + "," + b4 + ");\n":"")+
+								(set2nst?"lset nst=2;\n"+"prset tratiopr = beta(1, 1);\n":"lset nst=6;\n")+		
+						        (setToK2P ? 
+						                "lset nst=6;\n" +
+						                "prset statefreqpr=fixed(0.25,0.25,0.25,0.25);\n" +
+						                "prset revmatpr=fixed(" + b4 +"," + a4 + "," + b4 + "," + b4 +"," + a4 + "," + b4 + ");\n"
+						                : "") +
+								//(setToK2P ? "prset revmatpr=fixed(" + b4 +"," + a4 + "," + b4 + "," + b4 +"," + a4 + "," + b4 + ");\n":"")+
 								(fixtratioInMb? "prset tratiopr = fixed("+mb_trans2tranv+");\n":"prset tratiopr = beta(1.0,1.0);\n")+
 								//(fixtratioInMb? "prset tratiopr = beta(1.0,1.0);\n":"")+
 								(fixGTRGammaPara?fixGtrGammaStr:""))+
@@ -229,7 +234,9 @@ public class MrBayes implements Runnable
 //						"propset ParsSPR(Tau,V)$prob=0; \n"+
 //						"propset ExtTBR(Tau,V)$prob=0; \n"+														
 					(setSSinMB?" ss alpha=0.3 nsteps=50;\n":"mcmc;\n" +
-								"sumt burnin="+((int)(ngenNum*0.05))+";\n")+								 
+								"sumt burnin="+((int)(ngenNum*0.05))+";\n")+
+					 "mcmc;\n" +
+				     "sumt;\n" +
 				"end;\n");
 		out.close();
 	}

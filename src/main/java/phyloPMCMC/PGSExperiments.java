@@ -229,6 +229,7 @@ public class PGSExperiments implements Runnable {
 								Dataset dataset = DatasetUtils.fromAlignment(this.data, sequenceType);
 								CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites());
 								UnrootedTreeState ncs = UnrootedTreeState.initFastState(inferred, dataset, ctmc);
+								System.out.println(inferred);
 								out.println(CSV.body(m, iterScale, j, "ConsensusLogLL", ncs.logLikelihood(), treeName, time));
 							}
 							{
@@ -882,11 +883,14 @@ public class PGSExperiments implements Runnable {
 				mb.nChains = 1;
 				mb.seed = mainRand.nextInt();
 				mb.nMCMCIters = (int) (iterScale * instance.nThousandIters * 1000);
-				mb.setToK2P = true;
+				mb.setToK2P = false;
+				mb.set2nst = true;
 				//mb.mb_trans2tranv=2.0;
 				//mb.fixtratioInMb = true;
 				mb.treePrior = "clock:coalescence";
+				mb.mbRate = instance.mbRate;
 				mb.setFixCoalescentPr = true;
+				mb.st = SequenceType.DNA;
 				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
 
 				//UnrootedTree initTree = initTree(new Random(5),  leaves);
