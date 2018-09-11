@@ -46,8 +46,6 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 		if(delta < Math.pow(10, -10)){
 			delta = Math.pow(10, -10);
 		}
-		
-		System.out.println("increment of height is: "+ delta);
 
 		// 2- sample a random pair (without replacement)
 		List<Integer> sampledIndices = Sampling.sampleWithoutReplacement(rand,
