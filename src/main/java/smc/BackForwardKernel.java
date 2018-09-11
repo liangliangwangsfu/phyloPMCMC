@@ -40,8 +40,14 @@ LazyParticleKernel<PartialCoalescentState4BackForwardKernel>,ParticleKernel<Part
 			PartialCoalescentState4BackForwardKernel current,
 			boolean isPeek) {
 
-		final double delta = Sampling.sampleExponential(rand,
+	    double delta = Sampling.sampleExponential(rand,
 				(initial.getCurrentState().isClock() ? 0.1 : 0.05) / nChoose2(current.getCurrentState().nRoots()));
+		
+		if(delta < Math.pow(10, -10)){
+			delta = Math.pow(10, -10);
+		}
+		
+		System.out.println("increment of height is: "+ delta);
 
 		// 2- sample a random pair (without replacement)
 		List<Integer> sampledIndices = Sampling.sampleWithoutReplacement(rand,
