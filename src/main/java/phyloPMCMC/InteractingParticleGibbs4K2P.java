@@ -222,7 +222,7 @@ public class InteractingParticleGibbs4K2P {
 		pf.N = options.nParticles;
 		pf.rand = rand;
 		pf.resamplingStrategy = ResamplingStrategy.ALWAYS;
-		System.out.print(onesample);
+		//System.out.print(onesample);
 		if(isconditional){
 		List<Pair<PartialCoalescentState, Double>> restorePCS = restoreSequence(
 				kernel, onesample, isGS4Clock);
@@ -231,9 +231,9 @@ public class InteractingParticleGibbs4K2P {
 		for (int i = 0; i < restorePCS.size(); i++) {
 			path.add(restorePCS.get(i).getFirst());
 			weights[i] = restorePCS.get(i).getSecond();
-				System.out.print(weights[i] + "	");
+				//System.out.print(weights[i] + "	");
 		}
-			System.out.println();
+			//System.out.println();
 		// set the conditioning and its weights
 			pf.setConditional(path, weights); // here weights are in log scale.
 			
@@ -268,29 +268,29 @@ public class InteractingParticleGibbs4K2P {
 			logMargLikeVec[i] = re.getSecond();
 		}
 		for (int i = 0; i < this.nCSMC; i++) {
-			System.out.println("Number " + i + "CSMC");
+			//System.out.println("Number " + i + "CSMC");
 			Pair<PartialCoalescentState, Double> re = oneiPmcmcStep(rand, true,
 					conditionedSamples.get(i));
 			logMargLikeVec[this.nUCSMC] = re.getSecond();
 			resultUnCondiPlusOne.add(this.nUCSMC, re.getFirst());
 			final double[] normalizedWeights0 = logMargLikeVec.clone();
 			for (int k = 0; k < this.nUCSMC + 1; k++) {
-				System.out.print(normalizedWeights0[k] + "		");
+				//System.out.print(normalizedWeights0[k] + "		");
 
 			}
-			System.out.println();
+			//System.out.println();
 			NumUtils.expNormalize(normalizedWeights0);
 			List<Double> w = new ArrayList<Double>(this.nUCSMC + 1);
 			for (int k = 0; k < this.nUCSMC + 1; k++)
  {
 				w.add(k, normalizedWeights0[k]);
-				System.out.print(w.get(k) + "		");
+				//System.out.print(w.get(k) + "		");
 
 			}
-			System.out.println();
+			//System.out.println();
 
 			final int idx = Sampling.sample(rand, w);
-			System.out.println("idx is " + idx);
+			//System.out.println("idx is " + idx);
 			result.add(resultUnCondiPlusOne.get(idx).getFullCoalescentState());
 		}
 		return result;
