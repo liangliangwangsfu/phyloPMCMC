@@ -151,7 +151,6 @@ public class PGS4K2P {
 	{
 		iter++;	
 		RootedTree previousSample = currentSample;	
-		System.out.println("..............."+sampleTrans2tranv);
 		if(sampleTrans2tranv) MHTrans2tranv(trans2tranv,  rand);
 		// sample from PF
 		StoreProcessor<PartialCoalescentState> pro = new StoreProcessor<PartialCoalescentState>();		 

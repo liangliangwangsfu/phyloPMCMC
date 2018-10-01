@@ -883,12 +883,14 @@ public class PGSExperiments implements Runnable {
 				mb.nChains = 1;
 				mb.seed = mainRand.nextInt();
 				mb.nMCMCIters = (int) (iterScale * instance.nThousandIters * 1000);
-				mb.setToK2P = false;
-				mb.set2nst = true;
+				mb.setToK2P = instance.setToK2P;
+				//mb.set2nst = false;
 				//mb.mb_trans2tranv=2.0;
 				//mb.fixtratioInMb = true;
+				//mb.treePrior = "unconstrained:exp(10.0)";
+				//mb.treePrior = "clock:uniform";
 				mb.treePrior = "clock:coalescence";
-				mb.mbRate = instance.mbRate;
+				//mb.mbRate = instance.mbRate;
 				mb.setFixCoalescentPr = true;
 				mb.st = SequenceType.DNA;
 				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
@@ -902,22 +904,22 @@ public class PGSExperiments implements Runnable {
                 IO.call("bash -s",cmdStr,instance.output);          
 //				mb.setStartTree(IO.f2s(new File(instance.output,"start-tree.newick")));
 				
-				if(leaves.size()<4) mb.useNNI=false;
-				if(mb.fixGTRGammaPara)
-				{
-					mb.alpha=instance.generator.alpha;
-					mb.subsRates=instance.generator.subsRates;
-					mb.stationaryDistribution=instance.generator.stationaryDistribution;
-				}
+//				if(leaves.size()<4) mb.useNNI=false;
+//				if(mb.fixGTRGammaPara)
+//				{
+//					mb.alpha=instance.generator.alpha;
+//					mb.subsRates=instance.generator.subsRates;
+//					mb.stationaryDistribution=instance.generator.stationaryDistribution;
+//				}
 				mb.computeSamples(MSAParser.parseMSA(instance.data), instance.sequenceType);
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 				mb.processMrBayesTrees(tdp,1);
 				mb.seed = mainRand.nextInt();
 				mb.nMCMCIters = (int) (iterScale * instance.nThousandIters * 1000);
-				String marginalLike= mb.computeMarginalLike(MSAParser.parseMSA(instance.data), instance.sequenceType);
+				//String marginalLike= mb.computeMarginalLike(MSAParser.parseMSA(instance.data), instance.sequenceType);
 				//				mb.cleanUpMrBayesOutput();
-				instance.logZout.println(CSV.body(treeName,"MB", "NA",
-						marginalLike));
+//				instance.logZout.println(CSV.body(treeName,"MB", "NA",
+//						marginalLike));
 				instance.logZout.flush();
 				return tdp;
 			}

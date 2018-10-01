@@ -35,7 +35,7 @@ public class MrBayes implements Runnable
 	@Option
 	public String treePrior = "clock:coalescence"; // unconstrained:exp(10.0)
 	@Option public double mbRate = 1.0;
-	@Option public boolean setToK2P = false;  
+	@Option public boolean setToK2P = true;  
 	@Option public boolean setFixCoalescentPr = true;
 	@Option public boolean fixNucleotideFreq = false;
 	@Option public boolean set2nst = false;
@@ -51,6 +51,7 @@ public class MrBayes implements Runnable
 	//@Option public boolean setSSinMB=false;
 	@Option public boolean fixtratioInMb=false;
 	@Option public boolean useNNI=true; 	
+	@Option public boolean setSSinMB = false;
 
 	// the next two can also be provided directly as arguments in computeSamples
 	@Option public SequenceType st = SequenceType.RNA;
@@ -205,7 +206,7 @@ public class MrBayes implements Runnable
 						"set autoclose=yes nowarn=yes;\n" +
 						(setstarttree?"":"execute " + NEX_FILE + ";\n") +
 						"prset brlenspr=" + treePrior + (mbRate == 1.0  ? "" : "(" + mbRate + ")" ) + ";\n" +
-						//(setFixCoalescentPr ? "prset Clockratepr =fixed(1.0);\n" : "") +
+						(setFixCoalescentPr ? "prset Clockratepr =fixed(1);\n" : "") +
 						"mcmcp ngen=" +  ngenNum + ";\n" +						
 						"mcmcp Nchains=" + nChains + ";\n" +
 //						"mcmcp seed=" + Math.abs(seed) + ";\n" +
