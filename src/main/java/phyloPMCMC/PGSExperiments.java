@@ -663,7 +663,7 @@ public class PGSExperiments implements Runnable {
 				options.nThreads = instance.nThreads;
 				//	options.nThreads = 1; // TODO: solve the problems of using
 				// multiple threads in pmmh.
-				options.resampleLastRound = true;
+				options.resampleLastRound = false;
 				options.parallelizeFinalParticleProcessing = true;
 				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
 				options.maxNUniqueParticles = instance.maxNUniqueParticles;
@@ -737,7 +737,7 @@ public class PGSExperiments implements Runnable {
 				options.nThreads = instance.nThreads;
 				//	options.nThreads = 1; // TODO: solve the problems of using
 				// multiple threads in pmmh.
-				options.resampleLastRound = true;
+				options.resampleLastRound = false;
 				options.parallelizeFinalParticleProcessing = true;
 				options.finalMaxNUniqueParticles = instance.finalMaxNUniqueParticles;
 				options.maxNUniqueParticles = instance.maxNUniqueParticles;
@@ -883,27 +883,28 @@ public class PGSExperiments implements Runnable {
 				mb.nChains = 1;
 				mb.seed = mainRand.nextInt();
 				mb.nMCMCIters = (int) (iterScale * instance.nThousandIters * 1000);
-				mb.setToK2P = instance.setToK2P;
-				//mb.set2nst = false;
+				mb.setToK2P = false;
+			    mb.set2nst = true;
 				//mb.mb_trans2tranv=2.0;
 				//mb.fixtratioInMb = true;
 				//mb.treePrior = "unconstrained:exp(10.0)";
 				//mb.treePrior = "clock:uniform";
+			    //mb.treePrior = "clock:speciestree";
 				mb.treePrior = "clock:coalescence";
-				//mb.mbRate = instance.mbRate;
 				mb.setFixCoalescentPr = true;
 				mb.st = SequenceType.DNA;
 				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
 
 				//UnrootedTree initTree = initTree(new Random(5),  leaves);
+				RootedTree initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, leaves, 10);
 				String outName="startTree.newick";
 				File file = new File(instance.output, outName);
-				//writeToDisk(file, initTree.toNewick());
+//				writeToDisk(file, initTree.toNewick());
 				String cmdStr="cat " +outName + "  | sed 's/internal_[0-9]*//g' > " + "start-tree.newick";                    
 //				LogInfo.logs(cmdStr);
                 IO.call("bash -s",cmdStr,instance.output);          
-//				mb.setStartTree(IO.f2s(new File(instance.output,"start-tree.newick")));
-				
+				//mb.setStartTree(IO.f2s(new File(instance.output,"start-tree.newick")));
+               
 //				if(leaves.size()<4) mb.useNNI=false;
 //				if(mb.fixGTRGammaPara)
 //				{
@@ -912,6 +913,7 @@ public class PGSExperiments implements Runnable {
 //					mb.stationaryDistribution=instance.generator.stationaryDistribution;
 //				}
 				mb.computeSamples(MSAParser.parseMSA(instance.data), instance.sequenceType);
+				
 				TreeDistancesProcessor tdp = new TreeDistancesProcessor();
 				mb.processMrBayesTrees(tdp,1);
 				mb.seed = mainRand.nextInt();
