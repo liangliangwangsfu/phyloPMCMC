@@ -163,25 +163,56 @@ public final class PGASParticleFilter<S> {
 //		});
 		
 		
-		BriefParallel.process(N, nThreads, x ->		{
-				if (((x + 1) % 5 == 0))
-					if (verbose) 
-						LogInfo.logs("Particle " + (x + 1) + "/" + N);
-				Random rand = new Random(seeds[x]);
-				if (x == 0 && isConditional()) {
-					samples.set(x, conditional.get(t));
-					logWeights[x] = conditionalUnnormWeights[t];
-				} else {
-					final Pair<S, Double> current = kernel.next(rand, samples.get(x));
-					if (current == null) {
-						samples.set(x, null);
-						logWeights[x] = Double.NEGATIVE_INFINITY;
-					} else {
-						samples.set(x, current.getFirst());
-						logWeights[x] = Math.log(normalizedWeights[x]) + current.getSecond();
-					}
-				}
-			});
+//		BriefParallel.process(N, nThreads, x ->		{
+//				if (((x + 1) % 5 == 0))
+//					if (verbose) 
+//						LogInfo.logs("Particle " + (x + 1) + "/" + N);
+//				Random rand = new Random(seeds[x]);
+//				if (x == 0 && isConditional()) {
+//					samples.set(x, conditional.get(t));
+//					logWeights[x] = conditionalUnnormWeights[t];
+//				} else {
+//					final Pair<S, Double> current = kernel.next(rand, samples.get(x));
+//					if (current == null) {
+//						samples.set(x, null);
+//						logWeights[x] = Double.NEGATIVE_INFINITY;
+//					} else {
+//						samples.set(x, current.getFirst());
+//						logWeights[x] = Math.log(normalizedWeights[x]) + current.getSecond();
+//					}
+//				}
+//			});
+		
+	      Parallelizer<Integer> parallelizer = new Parallelizer<Integer>(nThreads);
+	      parallelizer.setPrimaryThread();
+	      parallelizer.process(CollUtils.ints(N), new Parallelizer.Processor<Integer>() {
+	        public void process(Integer x, int _i, int _n, boolean log) {
+	          if (log && ((x+1) % 5 ==0)) if (verbose) LogInfo.logs("Particle " + (x+1) + "/" + N);
+	          Random rand = new Random(seeds[x]);
+	          if (x == 0 && isConditional())
+	          {
+	            samples.set(x, conditional.get(t));
+	            logWeights[x] = conditionalUnnormWeights[t];
+	          }
+	          else
+	          {
+	            final Pair<S,Double> current = kernel.next(rand, samples.get(x));
+	            if (current == null)
+	            {
+	              samples.set(x, null);
+	              logWeights[x] = Double.NEGATIVE_INFINITY;   
+	            }
+	            else
+	            {
+	              samples.set(x, current.getFirst());              
+	              logWeights[x] = current.getSecond();
+	              
+	              
+	            }
+	          }
+	        }
+	      }); 
+		
 		
 		if (verbose)
 			LogInfo.end_track();
@@ -257,32 +288,36 @@ public final class PGASParticleFilter<S> {
 			newProcess(t, normalizedWeights, processor, T);
 			if (t < T - 1 && (hasNulls(samples) || resamplingStrategy.needResample(normalizedWeights))) {
 
-				if (usePGAS && isConditional()
-						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel) {					
-					double[] forwardDensityWeights = new double[N];
-					PartialCoalescentState4BackForwardKernel conditionedState = (PartialCoalescentState4BackForwardKernel) conditional
-							.get(t+1);
-					double[] logweightWithNewAncestor =new double[N];
-					for (int k = 0; k < N; k++) {						 
-						//forwardDensityWeights[k]
-						logweightWithNewAncestor[k] = PartialCoalescentState4BackForwardKernel.forwardDensity(
-								(PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
-						//if(forwardDensityWeights[k]!=Double.NEGATIVE_INFINITY) 
-						forwardDensityWeights[k]=logweightWithNewAncestor[k]+logWeights[k];													
-						//		if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
-					}					
-					double[] normalizedForwardDensityWeights =forwardDensityWeights.clone();
-					NumUtils.expNormalize(normalizedForwardDensityWeights);
-					int sampledIndx = SampleUtils.sampleMultinomial(rand, normalizedForwardDensityWeights);
-					logWeights[0] = logWeights[sampledIndx]; //forwardDensityWeights[sampledIndx];
-					//	if(sampledIndx!=0)System.out.println("sampledIndx "+sampledIndx);
-					if(logWeights[0]==Double.NEGATIVE_INFINITY)	System.out.println(forwardDensityWeights[0]+" "+"t "+t+" weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
-					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
-							.get(sampledIndx);					
-					samples.set(0, samples.get(sampledIndx));							
-					conditionedState.setParent(newAncestor);			
-					conditionalUnnormWeights[t+1]=logweightWithNewAncestor[sampledIndx];
-				}
+//				if (usePGAS && isConditional()
+//						&& conditional.get(t) instanceof PartialCoalescentState4BackForwardKernel) {					
+//					double[] forwardDensityWeights = new double[N];
+//					PartialCoalescentState4BackForwardKernel conditionedState = (PartialCoalescentState4BackForwardKernel) conditional
+//							.get(t+1);
+//					double[] logweightWithNewAncestor =new double[N];
+//					for (int k = 0; k < N; k++) {						 
+//						//forwardDensityWeights[k]
+//						logweightWithNewAncestor[k] = PartialCoalescentState4BackForwardKernel.forwardDensity(
+//								(PartialCoalescentState4BackForwardKernel) samples.get(k), conditionedState);
+//		
+//						//System.out.println("K is: "+ k + "weights is: " + logweightWithNewAncestor[k]);
+//						//if(forwardDensityWeights[k]!=Double.NEGATIVE_INFINITY) 
+//						forwardDensityWeights[k] = logweightWithNewAncestor[k]+logWeights[k];	
+//						//forwardDensityWeights[k]=logweightWithNewAncestor[k];
+//						//		if(forwardDensityWeights[k]!=0)System.out.print(k+": "+forwardDensityWeights[k]+"	"+tmp);
+//					}					
+//					double[] normalizedForwardDensityWeights =forwardDensityWeights.clone();
+//					NumUtils.expNormalize(normalizedForwardDensityWeights);
+//					int sampledIndx = SampleUtils.sampleMultinomial(rand, normalizedForwardDensityWeights);
+//					
+//					logWeights[0] = logWeights[sampledIndx]; //forwardDensityWeights[sampledIndx];
+//					//	if(sampledIndx!=0)System.out.println("sampledIndx "+sampledIndx);
+//					if(logWeights[0]==Double.NEGATIVE_INFINITY)	System.out.println(forwardDensityWeights[0]+" "+"t "+t+" weight 0: "+logWeights[0]+" normalized: "+normalizedForwardDensityWeights[sampledIndx]);
+//					PartialCoalescentState4BackForwardKernel newAncestor = (PartialCoalescentState4BackForwardKernel) samples
+//							.get(sampledIndx);					
+//					samples.set(0, samples.get(sampledIndx));							
+//					conditionedState.setParent(newAncestor);			
+//					conditionalUnnormWeights[t+1]=logweightWithNewAncestor[sampledIndx];
+//				}
 				normalizedWeights = logWeights.clone();
 				NumUtils.expNormalize(normalizedWeights);
 				samples = resample(samples, normalizedWeights, rand);

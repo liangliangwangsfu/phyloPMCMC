@@ -214,7 +214,7 @@ public class MrBayes implements Runnable
 						"prset Treeagepr =  fixed(0.1);\n"+ 
 						//(setFixCoalescentPr ? "prset Clockratepr = Exponential(0.1) ;\n" : "") +
 						(setFixCoalescentPr ? "prset Clockratepr =  fixed(1.0)  ;\n" : "") +
-						"prset  popsizepr = fixed(0.001);\n"+ 
+						"prset  popsizepr = fixed(0.0014);\n"+ 
 						"mcmcp ngen=" +  ngenNum + ";\n" +						
 						"mcmcp Nchains=" + nChains + ";\n" +
 //						"mcmcp seed=" + Math.abs(seed) + ";\n" +

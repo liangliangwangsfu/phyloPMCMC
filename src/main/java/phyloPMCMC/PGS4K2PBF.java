@@ -194,6 +194,7 @@ public class PGS4K2PBF {
 			// do the sampling			
 			pf.sample(kernel, pro);
 			sampled = pro.sample(rand);			
+			//System.out.println(sampled.parentState().parentState().parentState().getCurrentState().getLogLikelihood());
 			currentSample=sampled.getCurrentState().getFullCoalescentState();
      		//previousLogLLEstimate=sampled.logLikelihood();
 			UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
