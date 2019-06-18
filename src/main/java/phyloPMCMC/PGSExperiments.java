@@ -428,7 +428,7 @@ public class PGSExperiments implements Runnable {
 					}
 					
 					String methodname = "SMC4K2PBF";				
-					//instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					instance.logZout.println(CSV.body(treeName,methodname,zHat));
 					//instance.logZout.println(CSV.body(treeName,methodname,lpf.estimateNormalizer()));
 					instance.logZout.flush();
 					
@@ -436,7 +436,7 @@ public class PGSExperiments implements Runnable {
 					final double zHat = lpf.sample(tdp);
 					//lpf.sample(pk2,tdp);
 					String methodname = "SMC4K2PBF";				
-					//instance.logZout.println(CSV.body(treeName,methodname,zHat));
+					instance.logZout.println(CSV.body(treeName,methodname,zHat));
 					//instance.logZout.println(CSV.body(treeName,methodname,lpf.estimateNormalizer()));
 					instance.logZout.flush();
 					// LogInfo.logsForce("Norm:" + zHat);
