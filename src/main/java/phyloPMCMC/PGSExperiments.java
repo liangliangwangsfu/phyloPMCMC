@@ -1473,7 +1473,8 @@ public class PGSExperiments implements Runnable {
 			File dataDir = new File(Execution.getFile(dataDirName));
 			LogInfo.logsForce("Copying data to " + dataDir);
 			dataDir.mkdir();
-			String str = IO.call("/bin/cp " + dataFile + " " + dataDir + "/" + dataFile.getName());
+			String str =IO.call("/cvmfs/soft.computecanada.ca/nix/var/nix/profiles/16.09/bin/cp " +  dataFile +" "+ dataDir+"/"+dataFile.getName());  
+			//String str = IO.call("/bin/cp " + dataFile + " " + dataDir + "/" + dataFile.getName());
 			LogInfo.logs(str);
 		}
 
