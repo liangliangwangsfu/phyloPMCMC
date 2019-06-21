@@ -51,6 +51,7 @@ public class InteractingParticleGibbs4K2PBF {
 	private boolean useTopologyProcessor = false;
 	private final TreeTopologyProcessor trTopo;
 	private double[] previousLogLLEstimate; // = Double.NEGATIVE_INFINITY;
+	private double LogLL;
 	private List<RootedTree> currentSample = null;
 	private double trans2tranv=2;
 	public double a=1.25;
@@ -208,7 +209,7 @@ public class InteractingParticleGibbs4K2PBF {
 				tSize,
 				"trans2tranv",
 				trans2tranv,
-				"LogLikelihood", previousLogLLEstimate);
+				"LogLikelihood", LogLL);
 	}
 
 	private Pair<PartialCoalescentState4BackForwardKernel, Double> oneiPmcmcStep(Random rand,
@@ -335,10 +336,22 @@ public class InteractingParticleGibbs4K2PBF {
 		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
 		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
 		double proposedTrans2tranv=proposed.getFirst();
+		RootedTree sampledTree = currentSample.get(rand.nextInt(nCSMC));
+		CTMC currentctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), currentTrans2tranv);
+		UnrootedTreeState ncs = UnrootedTreeState.initFastState(sampledTree.getUnrooted(), dataset, currentctmc);
+		double previouslogLL = ncs.logLikelihood();
+//		double previouslogLL = UnrootedTreeState.initFastState(
+//				sampledTree.getUnrooted(), dataset, currentctmc)
+//				.logLikelihood();
+		LogLL = previouslogLL;
+		
 		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);			
+		double Loglikelihood = UnrootedTreeState.initFastState(
+				sampledTree.getUnrooted(), dataset, ctmc)
+				.logLikelihood();
 		//UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
-		//double logratio = ncs.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
-		double logratio = sumLogLikelihood(ctmc) - sumPreviousLogLLEstimate() + proposed.getSecond();
+		double logratio = Loglikelihood - previouslogLL+proposed.getSecond();
+		//double logratio = sumLogLikelihood(ctmc) - sumPreviousLogLLEstimate() + proposed.getSecond();
 		double acceptPr = Math.min(1, Math.exp(logratio));
 		final boolean accept = Sampling.sampleBern(acceptPr, rand);
 		if (accept) {

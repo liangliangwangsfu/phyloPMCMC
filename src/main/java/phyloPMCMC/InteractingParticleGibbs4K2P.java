@@ -49,6 +49,7 @@ public class InteractingParticleGibbs4K2P {
 	private boolean useTopologyProcessor = false;
 	private final TreeTopologyProcessor trTopo;
 	private double[] previousLogLLEstimate; // = Double.NEGATIVE_INFINITY;
+	private double LogLL;
 	private List<RootedTree> currentSample = null;
 	private double trans2tranv=2;
 	public double a=1.25;
@@ -205,7 +206,7 @@ public class InteractingParticleGibbs4K2P {
 				tSize,
 				"trans2tranv",
 				trans2tranv,
-				"LogLikelihood", previousLogLLEstimate);
+				"LogLikelihood", LogLL);
 	}
 
 	private Pair<PartialCoalescentState, Double> oneiPmcmcStep(Random rand,
@@ -274,18 +275,12 @@ public class InteractingParticleGibbs4K2P {
 			logMargLikeVec[this.nUCSMC] = re.getSecond();
 			resultUnCondiPlusOne.add(this.nUCSMC, re.getFirst());
 			final double[] normalizedWeights0 = logMargLikeVec.clone();
-			for (int k = 0; k < this.nUCSMC + 1; k++) {
-				//System.out.print(normalizedWeights0[k] + "		");
 
-			}
 			//System.out.println();
 			NumUtils.expNormalize(normalizedWeights0);
 			List<Double> w = new ArrayList<Double>(this.nUCSMC + 1);
-			for (int k = 0; k < this.nUCSMC + 1; k++)
- {
+			for (int k = 0; k < this.nUCSMC + 1; k++){
 				w.add(k, normalizedWeights0[k]);
-				//System.out.print(w.get(k) + "		");
-
 			}
 			//System.out.println();
 
@@ -328,6 +323,33 @@ public class InteractingParticleGibbs4K2P {
 		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
 		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
 		double proposedTrans2tranv=proposed.getFirst();
+		RootedTree sampledTree = currentSample.get(rand.nextInt(nCSMC));
+		CTMC currentctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), currentTrans2tranv);	
+		double previouslogLL = UnrootedTreeState.initFastState(
+				sampledTree.getUnrooted(), dataset, currentctmc)
+				.logLikelihood();
+		LogLL = previouslogLL;
+		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);			
+		double Loglikelihood = UnrootedTreeState.initFastState(
+				sampledTree.getUnrooted(), dataset, ctmc)
+				.logLikelihood();
+		//UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
+		double logratio = Loglikelihood - previouslogLL+proposed.getSecond();
+		//double logratio = sumLogLikelihood(ctmc) - sumPreviousLogLLEstimate() + proposed.getSecond();
+		double acceptPr = Math.min(1, Math.exp(logratio));
+		final boolean accept = Sampling.sampleBern(acceptPr, rand);
+		if (accept) {
+			trans2tranv = proposedTrans2tranv;
+		//	previousLogLLEstimate = ncs.logLikelihood();			
+		}
+		return acceptPr;
+	}
+
+	
+/*	private double MHTrans2tranv(double currentTrans2tranv, Random rand) {
+		Trans2tranvProposal kappaProposal=new Trans2tranvProposal(a,rand);
+		Pair<Double,Double> proposed=kappaProposal.propose(currentTrans2tranv);		
+		double proposedTrans2tranv=proposed.getFirst();
 		CTMC ctmc = CTMC.SimpleCTMC.dnaCTMC(dataset.nSites(), proposedTrans2tranv);			
 		//UnrootedTreeState ncs = UnrootedTreeState.initFastState(currentSample.getUnrooted(), dataset, ctmc);
 		//double logratio = ncs.logLikelihood() - previousLogLLEstimate+proposed.getSecond();
@@ -339,7 +361,7 @@ public class InteractingParticleGibbs4K2P {
 		//	previousLogLLEstimate = ncs.logLikelihood();			
 		}
 		return acceptPr;
-	}
+	}*/
 
 
 	public static double height(Map<Taxon, Double> branchLengths,

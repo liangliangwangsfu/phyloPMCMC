@@ -954,8 +954,12 @@ public class PGSExperiments implements Runnable {
 				File output = new File(resultFolder);
 				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
 				RootedTree initTree = null;
+				
+				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
+				
 				if (nPMMH == 0)
-					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, leaves, 10);
+					//initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
 				InteractingParticleGibbs4K2P pg = new InteractingParticleGibbs4K2P(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter, instance.nCSMC, instance.nUCSMC);
@@ -1018,8 +1022,14 @@ public class PGSExperiments implements Runnable {
 				File output = new File(resultFolder);
 				LogInfo.logsForce(" # particles: " + options.nParticles + "; nMCMC:" + nMCMC);
 				RootedTree initTree = null;
+				
+				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();
+				
 				if (nPMMH == 0)
-					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
+					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, leaves, 10);
+				
+//				if (nPMMH == 0)
+//					initTree = RandomRootedTrees.sampleCoalescent(instance.mainRand, align.nTaxa(), 10);
 				options.nThreads = instance.nThreads;
 				InteractingParticleGibbs4K2PBF pg = new InteractingParticleGibbs4K2PBF(dataset, options, tdp, instance.useTopologyProcessor, trTopo, initTree,  
 						false, instance.isPMCMC4clock, instance.sampleTreeEveryNIter, instance.nCSMC, instance.nUCSMC);
@@ -1473,8 +1483,8 @@ public class PGSExperiments implements Runnable {
 			File dataDir = new File(Execution.getFile(dataDirName));
 			LogInfo.logsForce("Copying data to " + dataDir);
 			dataDir.mkdir();
-			String str =IO.call("/cvmfs/soft.computecanada.ca/nix/var/nix/profiles/16.09/bin/cp " +  dataFile +" "+ dataDir+"/"+dataFile.getName());  
-			//String str = IO.call("/bin/cp " + dataFile + " " + dataDir + "/" + dataFile.getName());
+			//String str =IO.call("/cvmfs/soft.computecanada.ca/nix/var/nix/profiles/16.09/bin/cp " +  dataFile +" "+ dataDir+"/"+dataFile.getName());  
+			String str = IO.call("/bin/cp " + dataFile + " " + dataDir + "/" + dataFile.getName());
 			LogInfo.logs(str);
 		}
 
