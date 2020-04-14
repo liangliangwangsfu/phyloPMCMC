@@ -56,4 +56,10 @@ Usage
 
 ### Quick start
 
+-useDataGenerator true
+  -treeRate 10 -nThousandIters 1 -nTax 10 -len  100 -sequenceType DNA -generateDNAdata true   -useNonclock false -useSlightNonclock false -nThousandIters 1 -iterScalings  300  -methods   PGS4K2PBF -nCSMC 2  -nUCSMC 2 -resamplingStrategy ESS  -essRatioThreshold 0.5 
+ -sampleTrans2tranv true -nReplica 1 -mainRand  289 -gen.rand  16   -saveTreesFromPMCMC true -nThreads 2  -nParticlesEachStep 300 -repPerDataPt  1
+-mrBayesPath /Users/oudomame/Dropbox/phyloSoftware/mrbayes-3.2.6/src//mb  -neighborPath /Users/oudomame/Dropbox/phyloSoftware/phylip-3.69/exe//neighbor
+
+For settings in our experimental results, please refers to folder ``setups''.
 ...
