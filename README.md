@@ -62,4 +62,4 @@ Usage
 -mrBayesPath /Users/oudomame/Dropbox/phyloSoftware/mrbayes-3.2.6/src//mb  -neighborPath /Users/oudomame/Dropbox/phyloSoftware/phylip-3.69/exe//neighbor
 
 For settings in our experimental results, please refers to folder ``setups''.
-...
+
