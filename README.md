@@ -3,9 +3,11 @@ Summary
 
 <!-- [![Build Status](https://travis-ci.org/alexandrebouchard/phyloPMCMC.png?branch=master)](https://travis-ci.org/alexandrebouchard/phyloPMCMC) -->
 
-phyloPMCMC is ...
+phyloPMCMC is a novel  combinatorial  sequential Monte Carlo (CSMC) method by  proposing a more efficient proposal  distribution.
+We combine the CSMC and MCMC in the framework of the particle Gibbs (PG) sampler to jointly estimate the phylogenetic trees and evolutionary parameters. The new algorithm can be easily parallelized by allocating samples over different computing cores.
+We validate that the developed CSMC can sample trees more efficiently in various particle Gibbs samplers  via numerical experiments.
 
-phyloPMCMC stands for ...
+
 
 
 Installation
