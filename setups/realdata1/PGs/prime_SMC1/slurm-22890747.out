@@ -1,0 +1,455 @@
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+N E X T F L O W  ~  version 0.30.2
+Launching `prime.nf` [chaotic_curran] - revision: ebfb8ee792
+WARN: It seems you never run this project before -- Option `-resume` is ignored
+[warm up] executor > local
+[warm up] executor > slurm
+[c4/59e32d] Submitted process > buildCode
+[fe/bec736] Submitted process > summarizePipeline
+[c2/decb3b] Submitted process > analysisCode
+[80/a96820] Submitted process > run (1)
+/project/6028761/shijia57/Cedar/June19/prime_SMC1/work/80/a968208e8b4addafc1390d89323806
+main() {
+  Execution directory: /project/6028761/shijia57/Cedar/June19/prime_SMC1/work/80/a968208e8b4addafc1390d89323806/state/execs/0.exec
+  Copying data to /project/6028761/shijia57/Cedar/June19/prime_SMC1/work/80/a968208e8b4addafc1390d89323806/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/10 {
+         # particles: 1000; nMCMC:5000
+        WARNING: Fix bug (leaf branch lengths not taken into account
+internal6
+|        
++----------------------------------------------------------------+---------------+
+|                                                                |               |               
+internal5:0.03965                                                s-monkey:0.2296 internal2:0.0382
+|                                                                                |               
++------------------+                                                             +----------------------------+
+|                  |                                                             |                            |               
+orang-utan:0.03245 internal4:0.02035                                             internal0:0.0338             internal1:0.0295
+                   |                                                             |                            |               
+                   +--------------+                                              +-------------+              +------------+
+                   |              |                                              |             |              |            |                
+                   gorilla:0.0121 internal3:0.0015                               gibbon:1.0E-4 tarsier:1.0E-4 lemur:0.0044 ce-macaque:0.0044
+                                  |                                                                                                         
+                                  +-----------------+                                                                      
+                                  |                 |           
+                                  chimpanzee:0.0106 human:0.0106
+                                                                
+                                                    
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:6.0
+          Current RobinsonFouldsMetric:1.135
+          Current KuhnerFelsenstein:0.12135030500000003
+        }
+      } [39m4s, cum. 39m4s]
+    } [39m4s, cum. 39m4s]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 2/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++------------------------------+----------------+
+|                              |                |               
+internal5:0.01205              s-monkey:0.01635 internal4:8.0E-4
+|                                               |               
++------------+                                  +-------------------------------+
+|            |                                  |                               |              
+lemur:0.0043 orang-utan:0.0043                  internal0:0.0085                internal3:0.065
+                                                |                               |              
+                                                +---------------+               +--------------+
+                                                |               |               |              |                
+                                                gorilla:0.00865 tarsier:0.00865 gibbon:0.01025 internal2:0.00635
+                                                                                               |                
+                                                                                               +------------+
+                                                                                               |            |               
+                                                                                               human:0.0039 internal1:3.5E-4
+                                                                                                            |               
+                                                                                                            +------------------+
+                                                                                                            |                  |                 
+                                                                                                            chimpanzee:0.00355 ce-macaque:0.00355
+                                                                                                                                                 
+                                                                                                                               
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.3685
+          Current KuhnerFelsenstein:0.16372420500000004
+        }
+      } [39m51s, cum. 39m51s]
+    } [39m51s, cum. 1h18m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 3/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++------------------------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                                  |                |            
+internal5:0.01735                                                                                                  s-monkey:0.00375 human:0.00375
+|                                                                                                                                                
++------------+                                                                                                                      
+|            |                
+lemur:0.0211 internal4:0.04265
+             |                
+             +---------------+
+             |               |                
+             tarsier:0.06375 internal3:0.15025
+                             |                
+                             +------------------------------+
+                             |                              |                
+                             internal0:0.03025              internal2:0.01975
+                             |                              |                
+                             +---------------+              +------------------+
+                             |               |              |                  |                
+                             gorilla:0.00145 gibbon:0.00145 chimpanzee:0.01195 internal1:0.01175
+                                                                               |                
+                                                                               +-----------------+
+                                                                               |                 |                
+                                                                               orang-utan:2.0E-4 ce-macaque:2.0E-4
+                                                                                                                  
+                                                                                                 
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.5033500000000002
+          Current KuhnerFelsenstein:0.17553955749999997
+        }
+      } [40m5s, cum. 40m5s]
+    } [40m5s, cum. 1h59m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 4/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++-------------------------------------------------------------------------------------------------------------+---------------+
+|                                                                                                             |               |                
+internal5:0.00465                                                                                             s-monkey:9.5E-4 chimpanzee:9.5E-4
+|                                                                                                                                              
++-----------------+                                                                                                           
+|                 |                
+ce-macaque:0.0056 internal4:0.00835
+                  |                
+                  +---------------+
+                  |               |               
+                  tarsier:0.01395 internal3:0.0379
+                                  |               
+                                  +--------------+
+                                  |              |               
+                                  gibbon:0.14645 internal2:3.5E-4
+                                                 |               
+                                                 +------------+
+                                                 |            |               
+                                                 lemur:0.0515 internal1:0.0441
+                                                              |               
+                                                              +----------------------------------+
+                                                              |                                  |           
+                                                              internal0:0.00135                  human:0.0074
+                                                              |                                              
+                                                              +---------------+                  
+                                                              |               |                 
+                                                              gorilla:0.00605 orang-utan:0.00605
+                                                                                                
+                                                                              
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.2470500000000004
+          Current KuhnerFelsenstein:0.14210653250000005
+        }
+      } [40m27s, cum. 40m27s]
+    } [40m27s, cum. 2h39m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 5/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++----------------------------------------------+----------------+
+|                                              |                |                
+internal5:0.0041                               s-monkey:0.00805 internal3:0.07655
+|                                                               |                
++-------------+                                                 +----------------------------------+
+|             |                                                 |                                  |               
+human:0.00395 internal4:3.0E-4                                  internal0:0.08015                  internal2:0.0523
+              |                                                 |                                  |               
+              +-------------+                                   +---------------+                  +-----------------+
+              |             |                                   |               |                  |                 |              
+              lemur:0.00365 chimpanzee:0.00365                  gorilla:0.00235 orang-utan:0.00235 ce-macaque:0.0302 internal1:0.018
+                                                                                                                     |              
+                                                                                                                     +-------------+
+                                                                                                                     |             |             
+                                                                                                                     gibbon:0.0122 tarsier:0.0122
+                                                                                                                                                 
+                                                                                                                                   
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.4917500000000001
+          Current KuhnerFelsenstein:0.16920932250000004
+        }
+      } [40m37s, cum. 40m37s]
+    } [40m37s, cum. 3h20m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 6/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++-------------------------------------------------------------------------------------------------------+---------------+
+|                                                                                                       |               |                
+internal5:0.0452                                                                                        s-monkey:9.0E-4 chimpanzee:9.0E-4
+|                                                                                                                                        
++------------------------------+                                                                                        
+|                              |               
+internal0:0.0011               internal4:0.0856
+|                              |               
++-------------+                +--------------------------+
+|             |                |                          |               
+gorilla:0.045 ce-macaque:0.045 internal1:0.0637           internal3:0.0596
+                               |                          |               
+                               +------------+             +------------------------------+
+                               |            |             |                              |             
+                               lemur:0.0101 gibbon:0.0101 internal2:0.0035               tarsier:0.0142
+                                                          |                                            
+                                                          +-----------------+            
+                                                          |                 |           
+                                                          orang-utan:0.0107 human:0.0107
+                                                                                        
+                                                                            
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.45005
+          Current KuhnerFelsenstein:0.16311101250000007
+        }
+      } [40m8s, cum. 40m8s]
+    } [40m8s, cum. 4h0m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 7/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++--------------------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                              |                |                 
+internal5:0.00275                                                                                              s-monkey:0.01435 orang-utan:0.01435
+|                                                                                                                                                 
++-----------------+                                                                                                             
+|                 |                
+chimpanzee:0.0171 internal4:0.00295
+                  |                
+                  +-----------------------------+
+                  |                             |               
+                  internal0:0.0164              internal3:0.0084
+                  |                             |               
+                  +-------------+               +-------------------------------------------+
+                  |             |               |                                           |                 
+                  lemur:0.00365 gorilla:0.00365 internal2:0.02625                           ce-macaque:0.02845
+                                                |                                                             
+                                                +------------+                              
+                                                |            |                
+                                                human:0.0851 internal1:0.05285
+                                                             |                
+                                                             +--------------+
+                                                             |              |              
+                                                             gibbon:0.00185 tarsier:0.00185
+                                                                                           
+                                                                            
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.3639000000000001
+          Current KuhnerFelsenstein:0.158514675
+        }
+      } [40m48s, cum. 40m48s]
+    } [40m48s, cum. 4h41m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 8/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++--------------------------+----------------+
+|                          |                |                
+internal5:0.01405          s-monkey:0.02575 internal4:0.00115
+|                                           |                
++------------+                              +--------------+
+|            |                              |              |                
+lemur:0.0117 gibbon:0.0117                  tarsier:0.0269 internal3:0.01615
+                                                           |                
+                                                           +------------------+
+                                                           |                  |                
+                                                           chimpanzee:0.04305 internal2:0.01265
+                                                                              |                
+                                                                              +----------------+
+                                                                              |                |                
+                                                                              ce-macaque:0.252 internal1:0.04525
+                                                                                               |                
+                                                                                               +--------------------------------+
+                                                                                               |                                |            
+                                                                                               internal0:0.00865                human:0.01045
+                                                                                               |                                             
+                                                                                               +--------------+                 
+                                                                                               |              |                
+                                                                                               gorilla:0.0018 orang-utan:0.0018
+                                                                                                                               
+                                                                                                              
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.2077
+          Current KuhnerFelsenstein:0.126252035
+        }
+      } [41m13s, cum. 41m13s]
+    } [41m13s, cum. 5h22m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 9/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------------------+---------------+
+|                                                                                                                 |               |           
+internal5:0.05365                                                                                                 s-monkey:0.0088 human:0.0088
+|                                                                                                                                             
++------------------+                                                                                                              
+|                  |                
+orang-utan:0.06245 internal4:0.02455
+                   |                
+                   +--------------------------------------------------------------+
+                   |                                                              |               
+                   internal2:0.15945                                              internal3:0.0837
+                   |                                                              |               
+                   +-------------+                                                +-------------+
+                   |             |                                                |             |                
+                   lemur:0.11495 internal1:0.0873                                 gibbon:0.0033 ce-macaque:0.0033
+                                 |                                                                               
+                                 +---------------+                                              
+                                 |               |               
+                                 gorilla:0.02765 internal0:0.0276
+                                                 |               
+                                                 +-----------------+
+                                                 |                 |             
+                                                 chimpanzee:5.0E-5 tarsier:5.0E-5
+                                                                                 
+                                                                   
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.5458500000000004
+          Current KuhnerFelsenstein:0.1791842625
+        }
+      } [39m34s, cum. 39m34s]
+    } [39m34s, cum. 6h1m]
+    Current method:PGS4K2P with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 10/10 {
+         # particles: 1000; nMCMC:5000
+internal6
+|        
++---------------+-------------------------------------------------------------------------------------------------------------+
+|               |                                                                                                             |               
+gorilla:0.02145 internal5:0.01725                                                                                             s-monkey:0.02145
+                |                                                                                                                             
+                +--------------------------+                                                                                  
+                |                          |               
+                internal4:0.0073           internal3:2.0E-4
+                |                          |               
+                +------------+             +---------------------------------------------------------------------+
+                |            |             |                                                                     |           
+                lemur:0.0314 gibbon:0.0314 internal2:0.08655                                                     human:0.0389
+                                           |                                                                                 
+                                           +------------------+                                                  
+                                           |                  |                
+                                           orang-utan:0.00685 internal1:0.00475
+                                                              |                
+                                                              +--------------------------------+
+                                                              |                                |                
+                                                              internal0:0.002                  ce-macaque:0.0021
+                                                              |                                                 
+                                                              +-----------------+              
+                                                              |                 |             
+                                                              chimpanzee:1.0E-4 tarsier:1.0E-4
+                                                                                              
+                                                                                
+
+        Score for current block of repeats (Method=PGS4K2P,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:1.3032500000000002
+          Current KuhnerFelsenstein:0.15350279250000004
+        }
+      } [39m58s, cum. 39m58s]
+    } [39m58s, cum. 6h41m]
+  } [6h41m, cum. 6h41m]
+  Execution directory: /project/6028761/shijia57/Cedar/June19/prime_SMC1/work/80/a968208e8b4addafc1390d89323806/state/execs/0.exec
+} [6h41m]
+[07/928400] Submitted process > aggregate
+ERROR ~ Error executing process > 'createPlot'
+
+Caused by:
+  Unknown variable 'aggregated2' -- Make sure you didn't misspell it or define somewhere in the script before use it
+
+Source block:
+  """
+  #!/usr/bin/env Rscript
+  require("ggplot2")
+  
+  library(SparkR, lib.loc = c(file.path(Sys.getenv("SPARK_HOME"), "R", "lib")))
+  sparkR.session(master = "local[*]", sparkConfig = list(spark.driver.memory = "4g")) 
+  
+  data <- read.df("$aggregated", "csv", header="true", inferSchema="true")
+  head(data)
+  data <- collect(data)
+  nR <- nrow(data)
+  nrow <- which(data[,2] == 'MCMC')
+  data2 <- data[-nrow,]
+  
+  
+  gname = c("logZ1.eps",sep="")  
+  postscript(gname,width=7,height=4,horizontal = FALSE, onefile = FALSE, paper = "special")
+  par(mfrow=c(1,1),oma=c(0.2,1.5,0.2,1.5),mar=c(3,2,0.2,2),cex.axis=1,las=1,mgp=c(1,0.5,0),adj=0.5)
+  
+  p <- ggplot(data2, aes(Method, logZ))
+  p + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1) + geom_boxplot(aes(color = logZ))+ theme(legend.title=element_blank())+theme_bw()
+  dev.off()
+  
+  require("Sleuth2")
+  require("ggpubr")
+  results <- read.df("$aggregated2", "csv", header="true", inferSchema="true")
+  results <- collect(results)
+  head(results)
+  head(results[-which(results[,c("Metric")] == 'BestSampledLogLL'),])
+  results2 <- data.frame(results[-which(results[,c("Metric")] == 'BestSampledLogLL'),])
+  results2[,2] <- paste(results2[,1], results2[,2])
+  head(results2)
+  
+  p <- ggplot(results2[which(results2[,7] == 'ConsensusLogLL'),], aes(Adaptive, Value))
+  
+  p2 <- ggplot(results2[which(results2[,7] == 'PartitionMetric'),], aes(Adaptive, Value))
+  
+  p3 <- ggplot(results2[which(results2[,7] == 'RobinsonFouldsMetric'),], aes(Adaptive, Value))
+  
+  p4 <- ggplot(results2[which(results2[,7] == 'KuhnerFelsenstein'),], aes(Adaptive, Value))
+  
+  gname = c("treeDistance.eps",sep="")  
+  postscript(gname,width=8,height=4,horizontal = FALSE, onefile = FALSE, paper = "special")
+  #par(mfrow=c(1,1),oma=c(0.2,1.5,0.2,1.5),mar=c(3,2,0.2,2),cex.axis=1,las=1,mgp=c(1,0.5,0),adj=0.5)
+  
+  ggarrange(p + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab")+rremove("legend")+ geom_boxplot(aes(color = Adaptive))+ xlab('ConsensusLogLL')
+          ,p2 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Adaptive))+ xlab('PartitionMetric')
+          ,p3 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Adaptive))+ xlab('RobinsonFouldsMetric')
+          ,p4 + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "red", outlier.shape = 1)+rremove("x.text")+rremove("ylab") + geom_boxplot(aes(color = Adaptive))+ xlab('KuhnerFelsenstein')
+          ,ncol = 4, nrow = 1, common.legend = TRUE)
+  
+  dev.off()
+  getwd()
+  
+  """
+
+Tip: you can try to figure out what's wrong by changing to the process work dir and showing the script file named `.command.sh`
+
+ -- Check '.nextflow.log' file for details

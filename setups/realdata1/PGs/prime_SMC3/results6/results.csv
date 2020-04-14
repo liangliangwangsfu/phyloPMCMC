@@ -1,0 +1,6 @@
+#Method,IterScale,Repeat,Metric,Value,TreeName,Time
+PGS4K2P,5000.0,0,ConsensusLogLL,-8778.395104657619,mtprim9.phy.alter.msf,11110921
+PGS4K2P,5000.0,0,BestSampledLogLL,-Infinity,mtprim9.phy.alter.msf,11110921
+PGS4K2P,5000.0,0,PartitionMetric,12.0,mtprim9.phy.alter.msf,11110921
+PGS4K2P,5000.0,0,RobinsonFouldsMetric,1.3943,mtprim9.phy.alter.msf,11110921
+PGS4K2P,5000.0,0,KuhnerFelsenstein,0.16379021000000002,mtprim9.phy.alter.msf,11110921

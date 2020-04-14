@@ -1,0 +1,20 @@
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+N E X T F L O W  ~  version 0.30.2
+Launching `prime.nf` [elegant_mercator] - revision: a32141840c
+[warm up] executor > local
+[warm up] executor > slurm
+[8e/5d0eef] Submitted process > buildCode
+[43/82dca6] Submitted process > summarizePipeline
+[d8/81b328] Submitted process > analysisCode
+[ad/f7ea2b] Submitted process > run (2)
+[98/aaef55] Submitted process > run (3)
+[e5/c18b9f] Submitted process > run (1)

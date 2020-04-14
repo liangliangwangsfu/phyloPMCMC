@@ -1,0 +1,563 @@
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+N E X T F L O W  ~  version 0.30.2
+Launching `prime.nf` [jolly_kalman] - revision: 81930d52f3
+WARN: It seems you never run this project before -- Option `-resume` is ignored
+[warm up] executor > local
+[warm up] executor > slurm
+[8d/a370ad] Submitted process > summarizePipeline
+[40/d8f613] Submitted process > analysisCode
+[18/2a14b7] Submitted process > buildCode
+[14/739e14] Submitted process > run (3)
+[79/e22d18] Submitted process > run (4)
+[9b/84517e] Submitted process > run (2)
+[d2/ef4261] Submitted process > run (1)
+[ff/8d4c36] Submitted process > run (5)
+[3c/a01092] Submitted process > run (6)
+[4a/7334de] Submitted process > run (7)
+[fd/d69632] Submitted process > run (8)
+[63/b119ca] Submitted process > run (9)
+[9c/67e3b5] Submitted process > run (10)
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/4a/7334deb32faf7da209543dd41371b6
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/4a/7334deb32faf7da209543dd41371b6/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/4a/7334deb32faf7da209543dd41371b6/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                     |                |                
+internal5:0.03567                                                                                     s-monkey:0.13933 internal0:0.10667
+|                                                                                                                      |                
++------------------+                                                                                                   +-------------+
+|                  |                                                                                                   |             |              
+ce-macaque:0.10753 internal4:0.05472                                                                                   lemur:0.16692 tarsier:0.16858
+                   |                                                                                                                                
+                   +--------------+                                                                                                  
+                   |              |                
+                   gibbon:0.04834 internal3:0.01175
+                                  |                
+                                  +------------------+
+                                  |                  |                
+                                  orang-utan:0.03675 internal2:0.02051
+                                                     |                
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01597 internal1:0.00213
+                                                                     |                
+                                                                     +------------------+
+                                                                     |                  |            
+                                                                     chimpanzee:0.01371 human:0.01359
+                                                                                                     
+                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.44266000000000005
+          Current KuhnerFelsenstein:0.023104847
+        }
+      } [10h50m, cum. 10h50m]
+    } [10h50m, cum. 10h50m]
+  } [10h50m, cum. 10h50m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/4a/7334deb32faf7da209543dd41371b6/state/execs/0.exec
+} [10h50m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/3c/a010924e718a45d63339376e684909
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/3c/a010924e718a45d63339376e684909/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/3c/a010924e718a45d63339376e684909/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                     |                |                
+internal5:0.03699                                                                                     s-monkey:0.13981 internal0:0.10704
+|                                                                                                                      |                
++------------------+                                                                                                   +-------------+
+|                  |                                                                                                   |             |              
+ce-macaque:0.10714 internal4:0.05335                                                                                   lemur:0.16725 tarsier:0.16855
+                   |                                                                                                                                
+                   +--------------+                                                                                                  
+                   |              |                
+                   gibbon:0.04895 internal3:0.01246
+                                  |                
+                                  +------------------+
+                                  |                  |                
+                                  orang-utan:0.03642 internal2:0.02089
+                                                     |                
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01543 internal1:0.00172
+                                                                     |                
+                                                                     +------------------+
+                                                                     |                  |            
+                                                                     chimpanzee:0.01365 human:0.01355
+                                                                                                     
+                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.44053000000000003
+          Current KuhnerFelsenstein:0.023065143300000007
+        }
+      } [11h24m, cum. 11h24m]
+    } [11h24m, cum. 11h24m]
+  } [11h24m, cum. 11h24m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/3c/a010924e718a45d63339376e684909/state/execs/0.exec
+} [11h24m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/63/b119ca0afeb870bca07642feb68302
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/63/b119ca0afeb870bca07642feb68302/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/63/b119ca0afeb870bca07642feb68302/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++--------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                  |                |                
+internal5:0.03647                                                                                  s-monkey:0.13942 internal0:0.10713
+|                                                                                                                   |                
++------------------+                                                                                                +-------------+
+|                  |                                                                                                |             |              
+ce-macaque:0.10686 internal4:0.05319                                                                                lemur:0.16681 tarsier:0.16799
+                   |                                                                                                                             
+                   +--------------+                                                                                               
+                   |              |                
+                   gibbon:0.04917 internal3:0.01208
+                                  |                
+                                  +------------------+
+                                  |                  |               
+                                  orang-utan:0.03677 internal2:0.0214
+                                                     |               
+                                                     +--------------+
+                                                     |              |                
+                                                     gorilla:0.0158 internal1:0.00195
+                                                                    |                
+                                                                    +-----------------+
+                                                                    |                 |           
+                                                                    chimpanzee:0.0137 human:0.0136
+                                                                                                  
+                                                                                      
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.43957
+          Current KuhnerFelsenstein:0.023033762300000007
+        }
+      } [11h30m, cum. 11h30m]
+    } [11h30m, cum. 11h30m]
+  } [11h30m, cum. 11h30m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/63/b119ca0afeb870bca07642feb68302/state/execs/0.exec
+} [11h30m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/ff/8d4c368ea4558c00af888211d06067
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/ff/8d4c368ea4558c00af888211d06067/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/ff/8d4c368ea4558c00af888211d06067/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                     |                |                
+internal5:0.03612                                                                                     s-monkey:0.13931 internal0:0.10729
+|                                                                                                                      |                
++------------------+                                                                                                   +------------+
+|                  |                                                                                                   |            |             
+ce-macaque:0.10706 internal4:0.05344                                                                                   lemur:0.1664 tarsier:0.1676
+                   |                                                                                                                              
+                   +--------------+                                                                                                 
+                   |              |                
+                   gibbon:0.04921 internal3:0.01225
+                                  |                
+                                  +------------------+
+                                  |                  |                
+                                  orang-utan:0.03716 internal2:0.02126
+                                                     |                
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01587 internal1:0.00153
+                                                                     |                
+                                                                     +------------------+
+                                                                     |                  |            
+                                                                     chimpanzee:0.01414 human:0.01416
+                                                                                                     
+                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.43783000000000005
+          Current KuhnerFelsenstein:0.022920336100000004
+        }
+      } [11h31m, cum. 11h31m]
+    } [11h31m, cum. 11h31m]
+  } [11h31m, cum. 11h31m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/ff/8d4c368ea4558c00af888211d06067/state/execs/0.exec
+} [11h31m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/fd/d6963242dcc3679e362e7f3bf522cb
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/fd/d6963242dcc3679e362e7f3bf522cb/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/fd/d6963242dcc3679e362e7f3bf522cb/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                     |                |                
+internal5:0.03629                                                                                     s-monkey:0.13932 internal0:0.10733
+|                                                                                                                      |                
++------------------+                                                                                                   +-------------+
+|                  |                                                                                                   |             |              
+ce-macaque:0.10674 internal4:0.05435                                                                                   lemur:0.16665 tarsier:0.16795
+                   |                                                                                                                                
+                   +--------------+                                                                                                  
+                   |              |                
+                   gibbon:0.04847 internal3:0.01148
+                                  |                
+                                  +------------------+
+                                  |                  |                
+                                  orang-utan:0.03662 internal2:0.02109
+                                                     |                
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01573 internal1:0.00162
+                                                                     |                
+                                                                     +------------------+
+                                                                     |                  |            
+                                                                     chimpanzee:0.01397 human:0.01393
+                                                                                                     
+                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.44206999999999996
+          Current KuhnerFelsenstein:0.023197305900000003
+        }
+      } [11h34m, cum. 11h34m]
+    } [11h34m, cum. 11h34m]
+  } [11h34m, cum. 11h34m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/fd/d6963242dcc3679e362e7f3bf522cb/state/execs/0.exec
+} [11h34m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/14/739e14e935a6802465ce84b98559ad
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/14/739e14e935a6802465ce84b98559ad/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/14/739e14e935a6802465ce84b98559ad/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++--------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                  |                |                
+internal5:0.03597                                                                                  s-monkey:0.13971 internal0:0.10664
+|                                                                                                                   |                
++------------------+                                                                                                +-------------+
+|                  |                                                                                                |             |              
+ce-macaque:0.10781 internal4:0.05433                                                                                lemur:0.16675 tarsier:0.16825
+                   |                                                                                                                             
+                   +--------------+                                                                                               
+                   |              |                
+                   gibbon:0.04877 internal3:0.01133
+                                  |                
+                                  +------------------+
+                                  |                  |               
+                                  orang-utan:0.03745 internal2:0.0216
+                                                     |               
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01594 internal1:0.00191
+                                                                     |                
+                                                                     +-----------------+
+                                                                     |                 |          
+                                                                     chimpanzee:0.0138 human:0.014
+                                                                                                  
+                                                                                       
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.43872999999999995
+          Current KuhnerFelsenstein:0.022806388100000005
+        }
+      } [11h35m, cum. 11h35m]
+    } [11h35m, cum. 11h35m]
+  } [11h35m, cum. 11h35m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/14/739e14e935a6802465ce84b98559ad/state/execs/0.exec
+} [11h35m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/79/e22d18eed225cfcb8c13b8ab712d02
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/79/e22d18eed225cfcb8c13b8ab712d02/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/79/e22d18eed225cfcb8c13b8ab712d02/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                     |                |                
+internal5:0.03502                                                                                     s-monkey:0.13837 internal0:0.10863
+|                                                                                                                      |                
++------------------+                                                                                                   +-------------+
+|                  |                                                                                                   |             |              
+ce-macaque:0.10761 internal4:0.05423                                                                                   lemur:0.16655 tarsier:0.16765
+                   |                                                                                                                                
+                   +--------------+                                                                                                  
+                   |              |                
+                   gibbon:0.04839 internal3:0.01202
+                                  |                
+                                  +------------------+
+                                  |                  |                
+                                  orang-utan:0.03661 internal2:0.02069
+                                                     |                
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01599 internal1:0.00176
+                                                                     |                
+                                                                     +------------------+
+                                                                     |                  |            
+                                                                     chimpanzee:0.01389 human:0.01401
+                                                                                                     
+                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.44375000000000003
+          Current KuhnerFelsenstein:0.02325573230000001
+        }
+      } [11h36m, cum. 11h36m]
+    } [11h36m, cum. 11h36m]
+  } [11h36m, cum. 11h36m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/79/e22d18eed225cfcb8c13b8ab712d02/state/execs/0.exec
+} [11h36m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9b/84517ea1077fc27470ba23beca8896
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9b/84517ea1077fc27470ba23beca8896/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9b/84517ea1077fc27470ba23beca8896/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++---------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                   |                |                
+internal5:0.03638                                                                                   s-monkey:0.13917 internal0:0.10708
+|                                                                                                                    |                
++-----------------+                                                                                                  +-------------+
+|                 |                                                                                                  |             |              
+ce-macaque:0.1069 internal4:0.05372                                                                                  lemur:0.16685 tarsier:0.16805
+                  |                                                                                                                               
+                  +--------------+                                                                                                 
+                  |              |                
+                  gibbon:0.04883 internal3:0.01242
+                                 |                
+                                 +-----------------+
+                                 |                 |                
+                                 orang-utan:0.0365 internal2:0.02051
+                                                   |                
+                                                   +---------------+
+                                                   |               |                
+                                                   gorilla:0.01583 internal1:0.00182
+                                                                   |                
+                                                                   +------------------+
+                                                                   |                  |            
+                                                                   chimpanzee:0.01369 human:0.01371
+                                                                                                   
+                                                                                      
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.44098999999999994
+          Current KuhnerFelsenstein:0.02316717550000001
+        }
+      } [11h37m, cum. 11h37m]
+    } [11h37m, cum. 11h37m]
+  } [11h37m, cum. 11h37m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9b/84517ea1077fc27470ba23beca8896/state/execs/0.exec
+} [11h37m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/d2/ef4261f508b7c5403ce1114c9d3a58
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/d2/ef4261f508b7c5403ce1114c9d3a58/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/d2/ef4261f508b7c5403ce1114c9d3a58/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                     |                |                
+internal5:0.03587                                                                                     s-monkey:0.13908 internal0:0.10772
+|                                                                                                                      |                
++------------------+                                                                                                   +------------+
+|                  |                                                                                                   |            |             
+ce-macaque:0.10765 internal4:0.05383                                                                                   lemur:0.1671 tarsier:0.1684
+                   |                                                                                                                              
+                   +--------------+                                                                                                 
+                   |              |               
+                   gibbon:0.04854 internal3:0.0122
+                                  |               
+                                  +------------------+
+                                  |                  |                
+                                  orang-utan:0.03665 internal2:0.02087
+                                                     |                
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01574 internal1:0.00166
+                                                                     |                
+                                                                     +------------------+
+                                                                     |                  |            
+                                                                     chimpanzee:0.01404 human:0.01366
+                                                                                                     
+                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.44214
+          Current KuhnerFelsenstein:0.023115567
+        }
+      } [11h42m, cum. 11h42m]
+    } [11h42m, cum. 11h42m]
+  } [11h42m, cum. 11h42m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/d2/ef4261f508b7c5403ce1114c9d3a58/state/execs/0.exec
+} [11h42m]
+/project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9c/67e3b558574ff180cd769d2c172b1f
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9c/67e3b558574ff180cd769d2c172b1f/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9c/67e3b558574ff180cd769d2c172b1f/state/execs/0.exec/output
+  
+  Current tree:mtprim9.phy.alter.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------+----------------+
+|                                                                                                     |                |                
+internal5:0.03629                                                                                     s-monkey:0.13921 internal0:0.10724
+|                                                                                                                      |                
++------------------+                                                                                                   +-------------+
+|                  |                                                                                                   |             |              
+ce-macaque:0.10686 internal4:0.05379                                                                                   lemur:0.16674 tarsier:0.16796
+                   |                                                                                                                                
+                   +--------------+                                                                                                  
+                   |              |                
+                   gibbon:0.04882 internal3:0.01195
+                                  |                
+                                  +------------------+
+                                  |                  |                
+                                  orang-utan:0.03709 internal2:0.02108
+                                                     |                
+                                                     +---------------+
+                                                     |               |                
+                                                     gorilla:0.01541 internal1:0.00164
+                                                                     |                
+                                                                     +------------------+
+                                                                     |                  |            
+                                                                     chimpanzee:0.01389 human:0.01361
+                                                                                                     
+                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=mtprim9.phy.alter.msf) {
+          Current PartitionMetric:0.0
+          Current RobinsonFouldsMetric:0.44093000000000004
+          Current KuhnerFelsenstein:0.0231242185
+        }
+      } [11h45m, cum. 11h45m]
+    } [11h45m, cum. 11h45m]
+  } [11h45m, cum. 11h45m]
+  Execution directory: /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/9c/67e3b558574ff180cd769d2c172b1f/state/execs/0.exec
+} [11h45m]
+[8b/401837] Submitted process > aggregate
+ERROR ~ Error executing process > 'aggregate'
+
+Caused by:
+  Process `aggregate` terminated with an error exit status (2)
+
+Command executed:
+
+  ./code/bin/csv-aggregate     --experimentConfigs.managedExecutionFolder false     --experimentConfigs.saveStandardStreams false     --experimentConfigs.recordExecutionInfo false     --argumentFileName state/execs/0.exec/options.map     --argumentsKeys    gen.rand  PGSExperiments.iterScalings PGSExperiments.methods PGSExperiments.mainRand PGSExperiments.nParticlesEachStep    --dataPathInEachExecFolder state/execs/0.exec/results/logZout.csv     --outputFolderName aggregated
+
+Command exit status:
+  2
+
+Command output:
+  (empty)
+
+Command error:
+    --dataPathInEachExecFolder state/execs/0.exec/results/logZout.csv    # <String> (mandatory)
+  #   description: Comma separated value (cvs) file in each exec containing the data to be aggregated.
+  
+  # --execFoldersPrefix <String> (default value: exec_)
+  #   description: Prefix of the directories, each containing stored command line arguments stored in tab separated values as well data in csv format.
+  
+  # --experimentConfigs.configFile <File> (optional)
+  #   description: If set, use those arguments in provided file that do not appear in the provided arguments.
+  
+    --experimentConfigs.managedExecutionFolder false    # <boolean> (default value: true)
+  #   description: Automatically organize results into subdirectories of 'results/all'?
+  
+    --experimentConfigs.recordExecutionInfo false    # <boolean> (default value: true)
+  #   description: Record information such as timing, main class, code version, etc for this run?
+  
+    --experimentConfigs.saveStandardStreams false    # <boolean> (default value: true)
+  #   description: Save combined standard out and err into a file?
+  
+  # --keys <String> (mandatory)
+  #   description: Command line arguments stored in tab separated values for each exec. Syntax: comma separated list of (<key> [as <transformed-key>] )* from [optional] <tsv-file-in-each-exec>
+  # ! Did not instantiate <java.lang.String> because of missing input
+  
+    --outputFolderName aggregated    # <String> (default value: aggregated)
+  
+  ### Errors:
+  
+  #   error @ argumentFileName
+  # ! Unknown input
+  
+  #   error @ argumentsKeys
+  # ! Unknown input
+
+Work dir:
+  /project/6003576/shijia57/Cedar/June22/prime4_IPGS/work/8b/401837aa4e477900bd40fdac747fcf
+
+Tip: you can try to figure out what's wrong by changing to the process work dir and showing the script file named `.command.sh`
+
+ -- Check '.nextflow.log' file for details
