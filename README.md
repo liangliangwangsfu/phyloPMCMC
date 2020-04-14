@@ -18,7 +18,7 @@ There are several options available to install the package:
 
 ### Integrate to a gradle script
 
-Simply add the following lines (replacing 1.0.0 by the current version (see git tags)):
+Simply add the following lines (replacing 1.0.1 by the current version (see git tags)):
 
 ```groovy
 repositories {
@@ -30,7 +30,7 @@ repositories {
 }
 
 dependencies {
-  compile group: 'ca.sfu.stat', name: 'phyloPMCMC', version: '1.0.0'
+  compile group: 'ca.sfu.stat', name: 'phyloPMCMC', version: '1.0.1'
 }
 ```
 
