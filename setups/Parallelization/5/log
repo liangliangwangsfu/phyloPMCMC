@@ -1,0 +1,533 @@
+main() {
+  Execution directory: /Users/shijiawang/eclipse-workspace/PGS/state/execs/25.exec
+  Generating data...
+  Creating replicon 0/1 {
+    internal_28
+    |          
+    +------------------------------------------------------+
+    |                                                      |                              
+    internal_24:0.31858133350648316                        internal_27:0.12034441320882394
+    |                                                      |                              
+    +--------------------------+                           +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |                          |                           |                                                                                                                                                                                                                                                                                                 |                              
+    leaf_8:0.05297286919461276 leaf_13:0.05297286919461276 internal_26:0.1638366950570562                                                                                                                                                                                                                                                                    internal_25:0.18298136672712645
+                                                           |                                                                                                                                                                                                                                                                                                 |                              
+                                                           +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+                                                                                                                  +---------------------------------------------------------+
+                                                           |                                                                                                                                                                              |                                                                                                                  |                                                         |                              
+                                                           internal_17:0.07511360062339843                                                                                                                                                internal_20:0.07328965266526893                                                                                    internal_6:0.06376759247408256                            internal_23:0.03692282555611723
+                                                           |                                                                                                                                                                              |                                                                                                                  |                                                         |                              
+                                                           +--------------------------------------------------------------------------------------------------------------------+                                                         +---------------------------------------------------------+                                                        +----------------------------+                            +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+                                                           |                                                                                                                    |                                                         |                                                         |                                                        |                            |                            |                                                                                                                                                                                                                                                                                                                          |                                
+                                                           internal_16:6.839091012579394E-4                                                                                     internal_11:0.006920790976752049                          internal_10:0.008791922213543146                          internal_7:0.009419675588346796                          leaf_20:0.004460830291062956 leaf_10:0.004460830291062956 internal_21:0.0076931534259437676                                                                                                                                                                                                                                                                                          internal_22:0.0028036038193863418
+                                                           |                                                                                                                    |                                                         |                                                         |                                                                                                                  |                                                                                                                                                                                                                                                                                                                          |                                
+                                                           +-----------------------------------------------------------+                                                        +----------------------------+                            +----------------------------+                            +---------------------------+                                                                                      +--------------------------------------------------------------------------------------------------------------------+                                                                                                                                                                                                     +----------------------------+
+                                                           |                                                           |                                                        |                            |                            |                            |                            |                           |                                                                                      |                                                                                                                    |                                                                                                                                                                                                     |                            |                              
+                                                           internal_5:0.010255200536096035                             internal_8:0.006728721695411031                          leaf_26:0.005338702835065283 leaf_14:0.005338702835065283 leaf_18:0.005291519556403678 leaf_16:0.005291519556403678 leaf_1:0.004663766181600028 leaf_23:0.004663766181600028                                                           internal_15:0.013192613933959586                                                                                     internal_19:0.010144323850612766                                                                                                                                                                      leaf_15:0.028501993389641943 internal_4:0.027424952640942874
+                                                           |                                                           |                                                                                                                                                                                                                                                                                               |                                                                                                                    |                                                                                                                                                                                                                                  |                              
+                                                           +-----------------------------+                             +---------------------------+                                                                                                                                                                                                                                                                   +-----------------------------------------------------------+                                                        +---------------------------+                                                                                                                                                                                                      +----------------------------------------------------------+
+                                                           |                             |                             |                           |                                                                                                                                                                                                                                                                   |                                                           |                                                        |                           |                                                                                                                                                                                                      |                                                          |                               
+                                                           leaf_24:0.0013203841744633574 leaf_28:0.0013203841744633574 leaf_0:0.004846863015148362 leaf_17:0.004846863015148362                                                                                                                                                                                                                                        internal_2:0.009961593681059559                             internal_14:0.0015001632509142881                        leaf_5:0.013468119932471751 internal_18:2.2345433076662556E-4                                                                                                                                                                      internal_1:9.209704549467724E-4                            internal_0:0.0010680303719720514
+                                                                                                                                                                                                                                                                                                                                                                                                                       |                                                           |                                                                                    |                                                                                                                                                                                                      |                                                          |                               
+                                                                                                                                                                                                                                                                                                                                                                                                                       +-----------------------------+                             +----------------------------+                                                       +----------------------------------------------------------------------------------------------------------------+                                                                                     +-----------------------------+                            +---------------------------+
+                                                                                                                                                                                                                                                                                                                                                                                                                       |                             |                             |                            |                                                       |                                                                                                                |                                                                                     |                             |                            |                           |                           
+                                                                                                                                                                                                                                                                                                                                                                                                                       leaf_29:4.5823616806537395E-4 leaf_12:4.5823616806537395E-4 leaf_22:0.008919666598210644 leaf_6:0.008919666598210644                             internal_13:0.004390742506288606                                                                                 internal_9:0.008319961005391435                                                       leaf_19:1.5607029375229735E-4 leaf_7:1.5607029375229735E-4 leaf_3:9.010376727018272E-6 leaf_25:9.010376727018272E-6
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                |                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +------------------------------------------------------------------------------------+                           +---------------------------+                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                    |                           |                           |                           
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        internal_12:0.0010285634709409474                                                    leaf_11:0.00885392309541652 leaf_4:0.004924704596313691 leaf_21:0.004924704596313691
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +--------------------------------------------------------+                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                        |                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        internal_3:0.007329220707819528                          leaf_2:0.007825359624475572
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +---------------------------+                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                           |                           
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        leaf_9:4.961389166560448E-4 leaf_27:4.961389166560448E-4
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    leaf_0 |CCCTGAGACCTGTCCTTCGAGTAGGGACCCACTAAATCACGTAGGGACTCGCTGATGTTCTTTTATACGTGCCTCGTCAATGCCTTGTCATTCGACGTGGACCTAATATCACCAAGTCTACATATACCGTCAGTGTGGATCTCATTTTATCTAAAATAGATGCCAAAGCGTCAGACATAAACGAGGGAGAGTATCAGCGCGGCAAGGAGAATCTTTCATCATACAACGGGGACCACGTGCTATAGAGCCGGGTCGCAGCAAATGACCGCACTCTATGCCCCCACGATAAGATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCCTTATTGCCATAGTGCAGCCAGGAATCGGCTGGCATTTAATCACTGATTCTATATCCTATGGCTAAGGAGCATGGCGTGTATCTCTCAAAGCTGCCGCTGTGTCCCAACCGGCCCGCACAGCGCTGGCTATTCACTAGGTTGTATGCACTTTAACTTCGCCAATGGACCGCGCTTATATCGCTAAATGGCGATTAGAAAGGGGGGCAAACGGCTGCGCTGACCAACCATCGAAGTAATAGACCGAATGTATATCAAATCTCCATGATCCAGGGCACCAGTTTGTTACATGTATCGCCGCTTGGTTGGAATTTAGATGTCGACGTCTTAAACAACAATGTGAATTGTCACGGGCCGGACATGCTAGACATCTGGGCGCCCCACGTATCACTGAGCAACTGGCTCATGAAGGAGAATTGGTTCACCAGCGAACCTTCAACTCTATATGCCCCATGCGACCTGTCACATTGCGGGGATCTGAACGGTTTCTACTCTTTGAGTTAGCAGAAAGCGTGGGGAGAGGCACCCGTTTAGAACCATGGGGAACGGACATGTCAGATCTTCCCCCAGCAACTGCAACAGGAAGGTTGGGACAACAATTAGTCGTCCCAAGTACGGTTATTTATTCAATCGTCACTATAAAAAAGGGTATTAGTACACCAGGATGTGCGAAAA
+    leaf_1 |CCCTGAGACCTGTCCTTCGAGTAACGACCTACTTAATCACGTAGGGAATCGCTGATGTTCTTTTGTACGTGCCTCGACAGTGCCTTGTCAGCCGATGTGACCCTAATCTCACCAAGTTTACGTATACCGTTAGTGTAGATTTCATTTTATCTAGAATAGATGCCGAGGCGTAACACATAAACGGAGGAGTCCATCAGCGCGGCAAAGAGAATCTTTCATCATACAACGGCGGCCACGTGCTATAGAGCAGGGGCGCAGCAAATTACCGCACTCTATGCCCCTACGATAACATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCGTTATTGTCATAGTGCCGCTAGGAATCGGCTGGCATTTAATCACTGAATCTACATCCTCGGGCTAAGGAAGATGGCGTGCATCTCTCAATGCTACGGCTGAGTGCTAGCCGGCCCGCACACCGCTGGTTTTTCACTAGGTTGTAGGCACTTTAGCTTCGCCAACATACCGCGCTTATATCGCTAAATGGCGATTAGAAAGAGGGGTAACCGGGTGCGCTGACCAGCCATAGAAGTAATAGACCGAACGTAAACCAAAGCTCCTTGATCCAGAGCACCAGTTTGTTACATGTATCGCCGACTGGTCGGAATTTAGATGTCAAAGTCCTAAACAACAATGTAAATTATCATTGGCCGGACATGCTGGACTTCTGGGAGTCCCACCTAGCACTAAAGAACTAGCTCATCGAGGAGAAGTGGTTCACGAGCGAACCTTCAAATCTATATGCCCCATGCTACCAATCACATAGCGGGGATCTGACCGGTTTCTACTCTTTGAGTTGGCAGAAAGCGTGGGGAGAAGCACCTGTTGAGTACCATGGGGAAGGCACCTGTCAGATCATCCCCCAGCAACTGTAACAGAAAGGTTGGGCCACCAATTAGCCGTTCCAAGTAAAGCTGTTTATTGAATCGTTATTATAAAAAAATGCATTATTACACCAGGATGTGCGAAAG
+    leaf_10|CCCTGCGCACGTGCCTACAAATGGTGCTCTACCTAGGCACATAAGGAAACGCAGATGTGTTTTCAGACGTATTTGGATATTGCCTCGTGATTCGACGGACATCTAACATGTCCCAGGTTAAAATGACTGTTAGAGCAGATTAAATCCTCTGAAGACTGGTTGCCGAGCCTTAAACTACGACGTGATGAGGGTACGCGGGCGACAAAGACTGGTAGTTAACATAGAACGGGGGCCGCGTGCAACAGAGCCAAATTGCAGTAAGTTACCACACTCCACACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAAAGCTCACTGCATCAGTATCGTCATAATCCAGCCAGGAATCGGTAGGCGTTGAATGTCTGGCTCTATATCGTATAGCTAAATAAGGTGGTCTGTACCTCTCCAGGGTACTGCAGTGTAGGAGCTTGCCCGCACAAATCTAGATCTACGATAGGTTCTACGCGCTCGAACGTCTGCAATGAATGGCGTTTATGGTACACAAGGCCGAGGGCAGGAAGAGGCAAACGGCTGGAGTGGTCGGCCATTAAAATAATAGACCAAATCGTAACTTAATCGCTTTGATCCCGTGCACCAAGGTCCAATGCGTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGGTCTTAGACAACTAAGAAAATTATCTTTGGCGGGACGTGCCGGACATTTGGGTCCCCCACCGAGTACTCGACAATAGACTGAACTAGGAGAATCGGTTCACAAATGCTCCTTCCTTTACATCTATTCCATGCTATCCATCACCTAGTGGCGGTGTACTATCTATCTACATCCTAGATTAGCATTAGGAGTGGGGGGGAACAGCTGTTAAGACCCAAGGGGAAGGCCCTAGGCTTATAATCCCCCAGCAACTGAAGCATCAAGGTTGGAGCAAAAGTCCGTAAGTGCAGACCCGGGTGATTGTAGAATTCTTCCTAGGGAAAAAGTTCCTACTACCCCGGGGCATGCAAACT
+    leaf_11|CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGAGGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATTAAATCCTCTCTAGACTGGTTGGCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATTGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACGCTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGCAATGCTCACTACATCAGTATCGCCATAATACAGCCAGGAATCGGTAAGCATTGTATACCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCTGTACCTCTTCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAATGTTAGATCTACGATAGGTTCTCGGCGCTCCAACGTCCCCAATGAATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAACCGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAACCGCATTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTAAACTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCCGTAAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGACCGTCGGTGCAGACCTGGGTGAATATGTAATTCTTACTACAGAAAAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_12|CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCTGGGTGTGAATGACTGTTTGTCCAGATTAAATCCTCTCTAGACTGGTTGCCGAGCCTTAAACTACGAACGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTTGCCACGTGCAATATTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGCTAGCTTGCGTAATGCTCACTGCATCAGTATCGTCATAATTCAGCCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCCGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACTATGTTGGATCTACGATAGGTTCGCGGCGCTCTAACGTCCCCAATGAATCGCGTTTATAGTATACAAGAGCGAGGGCAGGAAGAGGCGAACGGCTGGAGTGGTCGGCCGTTGAAATAATACGTCGAATCTTAACCTAATCGCTTTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTTGACGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTGAATTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCTTACTACCCCCGGACATGTAAACG
+    leaf_13|CCCTGTGGCTCTTTCGTAGAGTGTTGCTCTATTTAGCCGCATGCGGAAGCGCCTCTCTATTATTAGGTGTTCCCAAATAATGCGTCCTAATGCGAGGGGGATCTAATGTCACTGAGTTTCTATTTACTGCTAGTAAGGTTTAGATTTAACTTAGAATAATTGCTGCAGCGTATTGACGTAACTGTAAAGAGGACGTACGCGCCAGATAAAGTTTTGAAGCGCGTAACGGCGAACACGAGCATTGGAGTTGGACCACCGAAATTCACCCCACACCATGCACCTTCGCTAATCTCGTGCCCACACAGCTGGCTTGAGACTCACTGCCTCACAACCATCATGATGCAGCTGGGGATCAGCTGGCAATCCATGACAAATTACATATCTACCTGCAAACGAAGATCGGTAGTATATCTCATTCGCGGAGCTGCGGATGGGTCAAGCTCGACACGCCGGCTTCTTCGATAGGTCAGAGTCTTTTTAGCGACAGCGATGAAACGCGGTTATAGCGCTCAATGGCTATTGTGAGAAGAGTCAAATGCCCAAGCTGCTGGCGATTCGTCCCAAAAGATACAGTGTAACCTAAACCCTTGTAATTGGGAGCTCCCGAGAGTGACACGTCCTGCGGAATCGTGCGCCTTCAGAAGTCACGGTCTGATACTACATAATAAGTTAGTACTCACCGGACGTCCCCTAAGTTTAAGCCACTAATTTAGCATTTACCCAGGGATTGCAGGAAGAGAGCGAGTACCGAGGCCGTTCCACACTTCCTTTATTCCCTCGCTTTATAGCACATAGTGCAAATATATACGGCTTCCGCGGTATTACAGAGAAGGAAGGCTGAGACCGAGTACTGGCCGCAAACCAAGAGGAGCATCGCATTCAGCTCTGACTCCAGTCGCTGAAGTTAAGAGGCGGGAACGAAGGTTGATCACTTGACCTCTAGGCGGAAATGGAAAGCTAACCGGAATAAAGGCCCAGTTTTCCACAGGATAGGTAAAAG
+    leaf_14|CCCTGAGACCTGTCCTTCGAGTAGGGACCCACTAAATCACGTAGGGAATCGCTGATGTTCTTTTATACGTGCCTCGTCAATGCCTTGTCATTCGACGTGGACCTAATATCACCAAGTCTACATATACCGTCAGTGTGGATTTCATTTTATCTAAAATAGATGCCAAAGCGTCAGACATAAACGAGGGAGAGAATCTGCGCGGCAAGGAGAATCTTTCATCATACAACGGCGACCACGTGCTATAGAGCCGGGTCGCAGCAAATGACCGCACTCTATGCCCCCACGATAAGATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCCTTATTGCCATAGTGCAGCTAGGAATCGGCTGGCATTTAATCACTGATTCTATATCCTATGGCTAAGGAGCATGGCGTGTATCTCTCAATGCTGCCGCTGTGTGCCAACCGGCCCGCACAGCGCTGGCTATTCACTAGGTTGTATGCACTTTAACTTCGCCAATGGACCGCGCTTATATCGCTAAATGGCGATTAGAAAGGGGGGCAAACGGCTGCGCTGACCAGCCATCGAAGTAATAGACCGAATGTATATCAAATCTCCATGATCCAGGGCACCAGTTTGTTACATGTATCGCCGATGGGTTGGAATTTAGATGTCGACGTCTTAAACAACAATGTGAATTGTCACGGGCCGGACATGCTAGACATCTGGGCGCCCCACGTATCACTGAGCAACTGGCTCATGAAGGAGGATTGGTTCACCAGCGAACCTTCAACTCTATATGCCCCATGCGACCTGTCACATTGCGGGGATCTGAACCGTTTCTACTCTTTGAATTAGCAGAAAGCGTGGGGAGAGGCACCCGTTGAGAACCATGGGGAACGGACATGTCAGATCTTCCCCCAGCAACTGCAACAGGAAGGTTGGGACAACAATTAGTCGTTCCAAGTACGGTTATTTATTCAAGCGTCACTATAAAAAAGGGTATTAGTACACCAGGATGTGCGAAAA
+    leaf_15|CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTAGGCACATAAGGAAACGCTGATGTGTTTTTAGACGTATCTGGATATTACTCCGTGATTCTACGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATTAAATCCTCTCTAGACTGGTTGCCGAGCCTTAAACTACGAAGGCATAAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTGGCCACGTGCATTAGTACCAAATTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAGGATTGCGCTCAGAAAGTTTGCGTAATGCTCACTGCATCAGTATCGTCATAATGCAGCCAGGAAGCGGTAAGCATTGTATGCCTGGATCTATATCCTATAACTAAAAAAGGTGGTCTGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAAAGTTAGATCTACGATAGGTTCTGGGCGCTCTAACGTCCCCAATGAATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTACTCGGATTGATGCCGTGCCCCAGGGTACAATTAGTTTCGCGAACTGGTGAGCTCTTTGATGACCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACGTTTGGGTCCCCCACCGAGTACTTGACAACAGACTGAACTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGCTAAGAGCCAAGGGGAAGGCCCTAGGCACATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCTTTCTACCCCCGGACATGTAAACT
+    leaf_16|CCCTGAGACCTGTCCTTCGAGTAGCGACCTACTTAATCACGTAGGGAATCGCTGATGTTCTTTTATACGTGCCTCGACAGTGCCTTGTCATCCCATGTGACCCTAATCTCACCAAGTTTACGTATACCGTTAGTGTAGATTTCATTTTATCTAGAATAGATGCCGAGGCGTATCACATAAACGGAGGAGACCATCAGCGCGGCAAAGAGAATCTTTCATCATACAACGGCGGCCACGCGCTATAGAGCAGGGCCGCAGCAAATTACCGCACGCTATGCCCCTACGATAACATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCGTTATTGTCATAGTGCCGCTAGGAATCGGCTGGCATTTAATCACTGAATCTACATCCTCGGGCTAAGGAAGATGGCGTGCATCTCTCAATGCTACGGCTGAGTGCTAGCCGGCCCGCACACCGCTGGTTTTTCACTAGGTTGTAGGCACTTTAGCTTCGCCAACATACCGCGCTTATATCGCTAAATGGCGATTAGAAAGAGGGGTAACCGGGTGCGCTGACCAGCCATAGAAGTAATAGACCGAACGTAAACCAAAGCTCCTTAATCCAGAGCACCAGTTTGTTACATGTATCGCCGACTGGTCGGAATTTAGATGTCAAAGTCCTAAACAACAATGTAAATTATCATTGGCCGGACATGCTGGACTTCTGGGAGTCCCACCTAGCACTAAAGAACTAGCTCATCGAGGAGAAGTGGTTCACGAGCGAACCTTCAAATCTATATGCCCCATGCTACCTATCACATAGCGGGGATCTGACCGGTTTCTACTCTTTGAGTTGGCAGAAAGCGTGGGGAGAAGCACCTGTTGAGTACCATGGGGAAGGCTCCTGTCAGATCATCCCCCAGCAACTGTAACAGAAAGGTTGGGCCACCAATTAGCCGTCCCAAGTAAAGCTATTTATTGAATCGTTATTATAAAAAAATGCATTATTACACCAGGATGTGCGAAAG
+    leaf_17|CCCTGAGACCTGTCCTTCGAGTAGGGACCCACTAAATCACGTAGGGAATCGCTGATGTTCTTTTATACGTGCCTCGTCAATGCCTTGTCATTCGCCGTGGACCTAATATCACCAAGTCTACATATACCGTCAGTGTGGATCTCATTTTATCTAATATAGATGCCAAAGCGTCAGACATAAACGAGGGAGAGTATCAGCGCGGCAAGGAGAATCTTTCATCATACAACGGGGACCACGTGCTATAGAGCCGGGTCGCAGCAAATGACCGCACTCTATGCCCCCACGATAAGATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCCTTATTGCCATAGTGCAGCCAGGAATCGGCTGGCATTTAATCACTGATTCTATATCCTATGGCTAAGGAGCATGGCGTGTATCTCTCAATGCTGCCGCTGTGTCCCAACCGGCCCGCACAGCGCTGGCTATTCACTAGGTTGTATGCACTTTAACTTCGCCAATGGACCGCGCTTATATCGCTAAATGGCGATTAGAAAGGTGGGCAAACGGCTGCGCTGACCAACCATCGAAGTAATAGACCGAATGTATATCAAATCTCCATGATCCAGGGCACCAGTTTGTTACATGTATCGCCGCTTGGTTGGAATTTAGATGTCGACGTCTTAAACAACAATGTGAATTGTCACGGGCCGGACATGCTAGACATCTGGGCGCCCCACGTATCACTGAGCAACTGGCTCATGAAGGAGAATTGGTTCACCAGCGAACCTTCAACTCTATATGCCCCATGCGACCTGTCACATTGCGGGGATCTGGACGGTTTCTACTCTTTGAGTTAGCAGAAAGCGTGGGGAGAGGCACCCGTTGAGAACCATGGGGAACGGACATGTCAGATCTTCCCCCAGCAACTGCAACAGGAAGGTTGGGACAACAATTAGTCGTCCCAAGTACGGTTATTTATTCAATCGTCACTATAAAAAAGGGTATTAGTACACCAGGATGTGTGAAAA
+    leaf_18|CCCTGAGACCTGTCCTTCGAGTAGTGACCTACTAAATCACGTAGGGAATCGCTGATGTTCTTTTATACGTGCCTCGACAGTGCCTTGTCATCCGATGTGACCCTAATCTCACCAAGTTTACGTATACCGTTAGTGTAGATTTCATTTTATCTAGAATAGATGCCGAGGCGTATCACATAAACGGAGGAGACCATCAGCGCGGCAAAGAGAATCTTTCATCATACAACGGCGGCCACGCGCTATAGAGCAGGGCCGCAGCAAATTACCGCACGCTATGCCCCTACGATAACATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCGTTATTGTCATAGTGCCGCTAGGAATCGGCTGGCATTTAATCACTGAATCTACATCCTCGGGCTAAGGAAGATGGCGTGCATCTCTCAATGCTACGGCTGAGTGCTAGCCGGCCCGCACACCGCTGGTTTTTCACTAGGTTGTAGGCACTTTAGCTTCGCCAACATACCGCGCTTATATCGCTAAATGGCGATTAGAAAGAGGGGTAACCGGGTGCGCTGACCAGCCATAGAAGTAATAGACCGAACGTAAACCAAAGCTCCTTGATCCAGAGCACCAGTTTGTTACATGTATCGCCGACTGGTCGGAATTTAGATGTCAAAGTCCTAAACAACAATGTAAATTATCATTGGCCGGACATGCTGGACTTCTGGGAGTCCCACCTAGCACTAAAGAACTAGCTCATCGAGGAGAAGTGGTTCACGAGCGAACCTTCAAATCTATATGCCCCATGCTACCTATCACATAGCGGGGATCTGACCGGTTTCTACTCTTTGAGTTGGCAGAAAGCGTGGGGAGAAGCACCTGTTGAGTACCATGGGGAAGGCTCCTGTCAGATCATCCCCCAGCAACTGTAACAGAAAGGTTGGGCCACCAATTAGCCGTTCCAAGTAAAGCCATTTATTGAATCGTTATTATAAAAAAATGCATTATTACACCAGGATGTGCGAAAG
+    leaf_19|CCCTGCGCACGTTCCTCCAAATGGTTCTTCACTTAGGCACATAAGGAAACGCTGATGTGTTTTTAGTCGTATCTGGATATTACCCCATGATTCGATGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATCAAATCCTCTCGAGACTGGTTGCCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTTGTAGTTGAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTTCTGGAAGATTGCGCCCAGATAGCTTGCGTAATACTCACTGCATCAGTATCGTCATAATGCAGCCAGGACTCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGCGGTCGGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAAAGTTAGATCTACGATAGGTTCTCGGCGCTCTAACGTCCCCAATGGATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAATCCCTTTGATCCAGTGCCCCAGGGTACAATTACTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGATCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTTGGGTCCCACACCGAGTACTTGACAACAGACTGAACTACGAGGATTGGTTCACAAATGCGCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGAGGTGTACTGAAAATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAATGTCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCAGGGTTAGTATGTAATTCTTACTCCAGAAGAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_2 |CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATATGTTTTTAAACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATTAAATCCTCTCTAGACTGGTTGGCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTGGCCACGTGCAATAGTGCCAAAGTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAATGCTCACTACATCAGTATCGCCATAATGCAGCCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCTGTACCTCTCAAGGGTCCTGCTGTCTAGGAGGCTGCCCGCACAATGTTAGATCTACGATAGGTTCTCGGCGCTCCAACGTCCCCAATGAATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCCTAACCTAACCGCTTTGATCCAGTGCCCCAGGGGACTATTGGTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCCAGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTAAACTAGGAGGCTTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGGGGGAAGAGTGGGGAGGAACAGCCGTAAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTCGGTGCAGACCTGGGTGATTATGAAATTCTTACTACAGAAAAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_20|CCCTGCGCACGTGCCTCCAAATGGTGCTCTACCTAGGCACATAAGGAAACGCAGATGTGTTTTCAGACGTATTTGGATATTGCCTCGTGATTCGACGGACATCTAACGTGTCCCAGGTTAAAATGACTGTTAGAGCAGATTAAATCCTCTGTAGACTGGTTGCCGAGCCTTAAACTACGACTTGATGAGGGTACGCGGGCGACAAAGACTGGTAGTTAACATAGAACGGGGGCCGCGTGCAACAGAGCCAAATTGCAGGAAGTTACCACACTCCACACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAAAGCTCACTGCATCAGTATCGTCATAATGCAGCCAGGAATCGGTAGGCGTTGAATGTCTGGATCTATATCGTATAGCTAAATAAGGTGGTCTGTACCTCTCCAGGGTACTGCAGTGTAGGAGCTTGCCCGCACAAATCTAGATCTACGATAGGTTCTCGGCGCTCTAACGTCTGCAATGAATGGCGTTTATGGTACACAAGGCCGAGGGCAGGAAGAGGCAAACGGCTGGAGTGGTCGGCCATTAAAATAATAGACCAAATCGTAACTTAATCGCTTTGATCCCGTGCACCAAGGTCCAATGCGTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGGTCTTAGACAACTAAGAAAATTATCTTTGGCGGGACGTGCCGGACATTTAGGTCCCCCACCGAGTACTCGACAATAGACTGAACTAGGAGAATCGGTTCACAAATGCTCCTTCCTTCACATCTATTCCATGCTATCCATCACCTAGTGGCGGTGTACTATCTATCTACATCCTAGATTAGCATTAGGAGTGGGGGGGAACAGCTGTTAAGACCCAAGGGGAAGGCCCTAGGCTTATAATCCCCCAGCAACTGAAGCATCAAGGTTGGAGCAAAAGTCCGTAAGTGCAGACCCGGGTGATTGTAGAATTCTTCCTAGGGAAAAAGTTCCTACTACCCCGGGGCATGCAAACT
+    leaf_21|CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTTTCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCAGGGTATGAATGACTGTTAGTGCAGATTAAATCCTCTCTAGACTGGTTGGCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAATGCTCACTACATCAGTATCGCCATAATGCAGCCAGGAAGCGGTGAGCATTGTATGCCTGGATCTATCTCCTATAGCTAAAAAAGGTGGTCTGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAATGTTAGATCTACGAAAGGTTCTTGGCGCTCTAACGTCCCCAATGAATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAACCGCTTTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCAAGTACTTGACAACAGACTAAACTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTAAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGCCGGTGCAGACCTGGGTGATTATGTACTTCTTACTACAGAAAAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_22|CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAGTATGTCCTGGGTGTGAATGACTGTTAGTGCAGATTAAATCCTCTCTAGACTGGTTGCCGAGCCTTAAACTACGAACGGATGAGAGTATGCGGGCGACAAAGACTGGTCGTTAAGATAGAACGGTTGCCACGTGCAATAGTGCCAAATTGCAGTAAGCTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGTGTAATGCTCACTGCATCAGTATCGTCATAATGCAGCCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCCGTACCTCTCCAGGGTCCTGCTGCTTAGGAGGCTGCCCGCACTATGTTGGATCTACGATAGGTTCGCGGCGCTCTAACGTCCCCAATGACTCGCGTTTATAGTATACAAGAGCGAGGGCAGGAAGAGGCGAACGGCTGGAGTGGTCGGCCGTTGAAATAATAGGTCGAATCTTAACCTAATCGCTTTCATCCAGTGCCCCAGGGGACAATTAGTTTTGCGAACTGGTGAGCTCCTTGACGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTGAACTACGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCTTACTACCCCCGGACATGTAAACG
+    leaf_23|CCCTGAGACCTGTCCTTCGAGTAACGACCTACTTAATCACGTAGGGAATCGCTGATGTTCTTTTGTACGTGCCTCGACAGTGCCTTGTCAGCCGATGTGACCCTAATCTCACCAAGTTTACGTATACCGTTAGTGTAGATTTCATTTTATCTAGAATAGATGCCGAGGCGTAACACATAAACGGAGGAGTCCATCAGCGCGGCAAAGAGAATCTTTCATCATACAACGGCGGCCACGTGCTATAGAGCAGGGGCGCAGCAAATTACCGCACTCTATGCCTCTACGATAACATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCGTTATTGTCATAGTGCCGCTAGGAATCGGCTGGCATTTAATCACTGAATCTACATCCTCGGGCTAAGGAAGATGGCGTGCATCTCTCAATGCTACGGCTGAGTGCTAGCCGGCCCGCACACCGCTGGTTTTTCACTAGGTTGTAGGCACTTTAGCTTCGCCAACATACCGCGCTTATATCGCTAAATGGCGATTAGAAAGAGGGGTAACCGGGTGCGCTGACCAGCCATAGAAGTAATAGACCGAACGTAAACCAAAGCTCCTTGATCCAGAGCACCAGTTTGTTACATGTATCGCCGACTGGTCGGAATTTAGATGTCAAAGTCCTAAACAACAATGTAAATTATCATTGGCCGGACATGCTGGACTTCTGGGAGTCCCACCTAGCACTAAAGAACTACCTCATCGAGGAGAAGTGGTTCACGAGCGAACCTTCAAATCTATATGCCCCATGCTACCAATCACATAGCGGGGATCTGACCGGTTTCTACTCTTTGAGTTGGCAGAAAGCGTGGGGAGAAGCACCTGTTGAGTACCATGGGGAAGGCACCTGTCAGATCATCCCCCAGCAACTGTAACAGAAAGGTTGGGCCACCAATTAGCCGTTCCAAGTAAAGCTGTTTATTGAATCGTTATTATAAAAAAATGCATTATTACACCAGGATGTGCGAAAG
+    leaf_24|CCCTGAGACCTGTCCTTCGAGTAGGGACCCACTAAAGCACGTAGGGAATCGCTGATGTTCTTTTATACGTGCCTCGTCAATGCCTTGTCATTCGACGTGGACCTAATATCACCAAGTCTACATATACCGTCAGTGTGGATTTCATTTTATCTAAAATAGATGCCAAAGCGTCAGACATAAACGAGGGAGAGTATCAGCGCGGCAAGGAGAATCTTTCATCATACAACGGCGACCACGTGCTATAGAGCCGGGTCGCAGCAAATGACCGCACTCTATGCCCCCACGATAAGATCGCGCTTAGATAACCTGCTTAGGGCTCAGTACATCCTTATTGCCATAGTGCAGCTAGGAATCGGCTGGCATTTAATCACTGATTCTATATCCTATGGCTAAGGAGCATGGCGTGTTTCTCTCAATGCTGCCGCTGTGTCCCAACCGGCCCGCATAGCGCTGGCTATTCACTAGGTTGTATACACTTTAACTTCGCCAATGGACCGCGCTGATATCGCTAAATGGCGATTAGAAAGGGGGGCAAACGGCGGCGCGGACCAGCCATCGAAGTAATAGACCGAATGTATATCAAATCTCCATGATCCAGGGCACTAGTTTGTTACATGTATCGCCGATTGGTTGGAATTTAGATGTCGACGTCTTAAACAACAATGTGAATTGTCACGGGCCGGACATGCTAGACATCTGGGCGCCCCACGTATCACTGAGCAACTGGCTCATGATGGAGAATTGGTTCACCAGCGAACCTTCAACTCTATATGCCCCATGCGACCTGTCACATTGCGGGGATCTGAACGGTTTCTACTCTTTGAGTTAGCAGAAAGCGTGGGGAGAGGCACCCGTTGAGAACCATGGGGAACGGACATGTCAGATCTCCCCCCAGCAACTGCAACAGGAAGGCTGGGACAACAATTAGTCGTTCCAAGTACGGTTATTTACTCAATCGTCACTATAAAAAAGGGTATTAGTACACCAGGATGTGCGAAAA
+    leaf_25|CCCTGCGCACGTTCCTCCAAATGGTTCTTCACTTAGGCACATAAGGAAACGCTGATGTGTTTTTAGTCGTATCTGGATATTACCCCATGATTCGATGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATCAAATCCTCTCTAGACTGGTTGCCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTTGTAGTTGAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTTCTGGAAGATTGCGCCCAGATAGCTTGCGTAATACTCACTGCATCAGTATCGTCATAATGCAGCCAGGACTCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGCGGTCGGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAAAGTTAGATCTACGATAGGTTCTCGGCGCTCTAACGTCCCCAATGGATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAATCCCTTTGATCCAGTGCCCCAGGGTACAATTACTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGATCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTTGGGTCCCACACCGAGTACTTGACAACAGACTGAACTACGAGGATTGGTTCACAAATGCGCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGAGGTGTACTGAAAATCTACATCCTAGATCAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAATGTCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCAGGGTTAGTATGTAATTCTTACTACAGAAGAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_26|CCCTGAGACCTGTCCTTCGAGTAGGGACCCACTAAATCACGTAGGGAATCGCTGATGTTCTTTTATACGTGCCTCGTCAATGCCTTGTCATTCGACGTGGACCTAATATCACCAAGTCTACATATACCGTCAGTGTGGATTTCATTTTATCTAAAATAGATGCCAAAGCGTCAGACATAAACGAGGGAGAGTATCTGCGCGGCAAGGAGAATCTTTCATCATACAACGGCGACCACGTGCTATAGAGCCGGGTCGCAGCAAATGACCGCACTCTATGCCCCCACGATAAGATCGCGCTTAGATAACTTGCTTAGGGCTCAGTACATCCTTATTGCCATAGTGCAGCTAGGAATCGGCTGGCATTTAATCACTGATTCTATATCCTATGGCTAAGGAGCATGGCGTGTATCTCTCAATGCTGCCGCTGTGTGCCAACCGGCCCGCACAGCGCTGGCTATTCACTAGGTTGTATGCACTTTAACTTCGCCAATGGACCGCGCTTATATCGCTAAATGGCGATTAGAAAGGGGGGCAAACGGCTGCGCTGACCCGCCATCGAAGTAATAGCCCGAATGTATATCAAATCTCCATGATCCAGGGCACCAGTTTGTTACATGTATCGCCGATTGCTTGGAATTTAGATGTCGACGTCTTAAACAACAATGTGAATTTTCACGGGCCGGACATGCTAGACATCTGGGCGCCCCACGTATCACTGAGCAACTGGCTCATGAAGGAGAATTGGTTCACCAGCGAACCTTCAACTCTATATGCCCCATGCGACCTGTCACATTGCGGGGATCTGAACGGTTTCTACTCTTTGAATTAGCAGAAAGCGTGGGGAGAGGCACCCGTTGAGAACCATGGGGAACGGACATGTCAGATCTTCCCCCAGCAACTGCAACAGGAAGGTTGGGACAACAATTAGTCGTTCCAAGTACGGTTATTTATTCAATCGTCACTATAAAAAAGGGTATTAGTACACCAGGATGTGCGAAAA
+    leaf_27|CCCTGCGCACGTTCCTCCAAATGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATTAAATCCTCTCTAGACTGGTTGGCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAATGCTCACTACATCAGTATCGCCATAATGCAGCCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCTGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAATGTTAGATCTACGATAGGTTCTCGGCGCTCCAACGTCCCCGATGAATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAACCGCTTTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTCGATGTCCAGGTCTTAGACAAAAAAGAAAATTTTCTTTGGCCGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTAAACTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGTGGAGGAACAGCCGTAAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGACCAAAAGTCCGTCGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_28|CCCTGAGACCTGTCCTTCGAGTAGGGACCCACTAAATCACGTAGGGAATCGCTGATGTTCTTTTATACGTGCCTCGTCAATGCCTTGTCATTCGACGTGGACCTAATATCACCAAGTCTACATATACCGTCAGTGTGGATTTCATTTTATCTAAAATAGATGCCAAAGCGTCAGACATAAACGAGGGAGAGTATCAGCGCGGCAAGGAGAATCTTTCATCATACAACGGCGACCACGTGCTATAGAGCCGGGTCGCAGCAAATGACCGCACTCTATGCCCCCACGATAAGATCGCGCTTAGATAACCTGCTTAGGGCTCAGTACATCCTTATTGCCATAGTGCAGCTAGGAATCGGCTGGCATTTAATCACTGATTCTATATCCTATGGCTAAGGAGCATGGCGTGTTTCTCTCAATGCTGCCGCTGTGTCCCAACCGGCCCGCATAGCGCTGGCTATTCACTAGGTTGTATACACTTTAACTTCGCCAATGGACCGCGCTGATATCGCTAAATGGCGATTAGAAAGGGGGGCAAACGGCGGCGCGGACCAGCCATCGAAGTAATAGACCGAATGTATATCAAATCTCCATGATCCAGGGCACTAGTTTGTTACATGTATCGCCGATTGGTTGGAATTTAGATGTCGACGTCTTAAACAACAATGTGAATTGTCACGGGCCGGACATGCTAGACATCTGGGCGCCCCACGTATCACTGAGCAACTGGCTCATGATGGAGAATTGGTTCACCAGCGAACCTTCAACTCTATATGCCCCATGCGACCTGTCACATTGCGGGGATCTGAACGGTTTCTACTCTTTGAGTTAGCAGAAAGCGTGGGGAGAGGCACCCGTTGAGAACCATGGGGAACGGACATGTCAGATCTTCCCCCAGCAACTGCAACAGGAAGGCTGGGACAACAATTAGTCGTTCCAAGTACGGTTATTTACTCAATCGTCACTATAAAAAAGGGTATTAGTACACCAGGATGTGCGAAAA
+    leaf_29|CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCTGGGTGTGAATGACTGTTTGTCCAGATTAAATCCTCTCTAGACTGGTTGCCGAGCCTTAAACTACGAACGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTTGCCACGTGCAATATTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGCTAGCTTGCGTAATGCTCACTGCATCAGTATCGTCATAATTCAGCCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCCGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACTATGTTGGATCTACGATAGGTTCGCGGCGCTCTAACGTCCCCAATGAATCGCGTTTATAGTATACAAGAGCGAGGGCAGGAAGAGGCGAACGGCTGGAGTGGTCGGCCGTTGAAATAATACGTCGAATCTTAACCTAATCGCTTTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTTGACGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTGAACTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCTTACTACCCCCGGACATGTAAACG
+    leaf_3 |CCCTGCGCACGTTCCTCCAAATGGTTCTTCACTTAGGCACATAAGGAAACGCTGATGTGTTTTTAGTCGTATCTGGATATTACCCCATGATTCGATGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATCAAATCCTCTCTAGACTGGTTGCCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTTGTAGTTGAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTTCTGGAAGATTGCGCCCAGATAGCTTGCGTAATACTCACTGCATCAGTATCGTCATAATGCAGCCAGGACTCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGCGGTCGGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAAAGTTAGATCTACGATAGGTTCTCGGCGCTCTAACGTCCCCAATGGATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAATCCCTTTGATCCAGTGCCCCAGGGTACAATTACTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGATCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTTGGGTCCCACACCGAGTACTTGACAACAGACTGAACTACGAGGATTGGTTCACAAATGCGCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGAGGTGTACTGAAAATCTACATCCTAGATCAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAATGTCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCAGGGTTAGTATGTAATTCTTACTACAGAAGAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_4 |CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTTTCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCAGGGTATGAATGACTGTTAGTGGAGATTAAATCCTCTCTAGACTGGTTGGCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAATGCTCACTACATCAGTATCGCCATAATGCAGCCAGGACGCGGTAAGCATTGTATGCCTGGATCTATCTCCTATAGCTAGAAAAGGTGGTCTGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGACCGCACAATGTTAGATCTACGATAGGTTCTTGGCGCTCTAACGTCCCCAATGAATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAACCGCTTTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCAAGTACTTGACAACAGACTAAACTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTAACGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGCCGGTGCAGACCTGGGTGATTATGTACTTCTTACTACAGAAAAAGTTCCTACTACCCCTGGACATGTAAACT
+    leaf_5 |CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTATGCACATAAGGCAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGAAGATTAAATCCTCTCTAGACTGGTTGGCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTCCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAATGCTCACTACATCAGTATCGCCATAATGCAACCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAGAAAGGTGGTCTGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAATGTTAGATCTACGATAGGTTCTCGGCGCTCTAACGTCCCCAATGACTCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAACCGCTTTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTAAACTATGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATCACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTATAGAGCCAAGGGGAAGGCCCTAGGAAAATAATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTCGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_6 |CCCTGCGCACGTTCCTCCAAGTGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCTGGGTGTGAATGACTGTTAGTGCAGATTAAGTCCTCTCTAGACTGGTTGCCGAGCCTTAAACTACGAACGGATGAGAGTATGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTTGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATGCCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAATGCTCACTGCATCAGTATCGTCATAATGCAGCCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCCGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACTATGTTGGATCTACGATAGGTTCGCGGCGCTCTAACGTCCCCAATGACTCGCGTTTATAGTATACAAGAGCGAGGGCAGGAAGAGGCGAACGGCTGGAGTGGTCGGCCGTTGAAATCATAGGTCGAATCTTAACCTAATCGCTTTTATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTTGACCTCCAGGTCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTTAACTCGGAGGATTGGTTCACAAGTGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCTTACTACCCCCGGACATGTAAACG
+    leaf_7 |CCCTGCGCACGTTCCTCCAAATGGTTCTTCACTTAGGCACATAAGGAAACGCTGATGTGTTTTTAGTCGTATCTGGATATTACCCCATGATTCGATGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATCAAATCCTCTCGAGACTGGTTGCCGAGCCTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTTGTAGTTGAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTTCTGGAAGATTGCGCCCAGATAGCTTGCGTAATACTCACTGCATCAGTATCGTCATAATGCAGCCAGGACTCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGCGGTCGGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAAAGTTAGATCTACGATAGGTTCTCGGCGCTCTAACGTCCCCAATGGATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAATCCCTTTGATCCAGTGCCCCAGGGTACAATTACTTTCGCGAACTGGTGAGCTCTTTGATGTCCAGATCTTAGACAACAAAGAAAATTTTCTTTGGCGGGACGTACCGGACATTTGGGTCCCACACCGAGTACTTGACAACAGACTGAACTACGAGGATTGGTTCACAAATGCGCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGAGGTGTACTGAAAATCTACATCCTAGATTAGCGGGAAGAGTGGGGAGGAACAGCTGTTAAGAGCCAAGGGGAATGTCCTAGGCAAATGATCCCCAATCAACTGAAGCATTAAGGTTGGAGCAAAAGTCCGTAGGTGCAGACCAGGGTTAGTATGTAATTCTTACTCCAGAAGAAGTTCCTACTACCCCCGGACATGTAAACT
+    leaf_8 |CCTTGTAGCTCTTTCGTAGAGTGTTGCTCTATTTAGCCACTCGCGGAAGCGCCGCTCTATTATTAGGTGTACCCCAATAATGCCTCCTAATTCGAGGGGGATCTAGTATCTCTGAGTTTCTATTTACTGCTAATAAGGTTTAGATTTAACTTAGAATAGTTGCTGCACCGTATTGAAGTAGCTGGAAAGAGGACATACGCGTCAAATAAAGTTTTGAAGCGCGTAACGGCGAACACGAGCGTTGGAGTAGAACCACCGAAATTCACCCCACATCATGCACCATCGCTAATCTCGCGCCCACATAGCTGGCTTGAGACTCACTGCATCACAACCATCATGATGCAGCTAGGGATCAGCTGGCACTCCATGACAAATTATATATCTACCTGCAAACGAAGATCGATAGTATATCTCATACGCTGCGCTGCGGATGGGTCAAGCTCGACACGCCGGCTTCTTCGATAGGTCATAGTCTTGTTAGCGAAAGCAATGAAGCGGGGGTATAGCGCTCAATGGCTATTGTGCGAGGAGTCAAATGCCCAAGCTGATGGCGATTCGTCCCAAAAGATACAGTGCAACCTAAACCCGTGTAATTAAGAGCTCCAGAGTGTGACACGTCCCGCAGAATCGTGCTCCTTGAGAAATCACGGTCTATTACTACATCATATGTTAGTACTCACCGGACGTCCTCTATGTCTAAGCCACTAATTTAGCATTTAACAAGGGATTGCAGGAAGAGAGCGAGTACCGAGGCCGTGCCACACTTCCGTTATTCCCCCGCTATATAGCACATAGTGCAAATATATACCGCTTCCACGGTATTGCTGAGCAGGAAGGCTGGGACCGAGTACTGGCCGCGGAGCAAGGGGAGCATCGCATTCAGATAAGACTCCAGCCGCTGAAGTTAAGAGGCGGGAACGAAGGTTGATCGTTTGACGTCTAGGCAGATATGGAATGCTAACCGGAATAAAGGTCCATTTTTCTACAGGATAGGTAAAAG
+    leaf_9 |CCCTGCGCACGTTCCTCCAAATGGTGCTCCACTTACGCACATAAGGAAACGGTGATGTGTTTTTAGACGTATCTGGATATTACCCCGTGATTCGACGGACATCTAATATGTCCTGGGTATGAATGACTGTTAGTGCAGATTAAATCCTCTCTAGACTGGTTGGCGAGACTTAAACTACGAAGGGATGAGAGTACGCGGGCGACAAAGACTGGTAGTTAAGATAGAACGGTGGCCACGTGCAATAGTGCCAAATTGCAGTAAGTTACCACACTCCATACCCCTCCTGTAAGATTGCGCTCAGATAGCTTGCGTAATGCTCACTACATCAGTATCGCCATAATGCAGCCAGGAATCGGTAAGCATTGTATGCCTGGATCTATATCCTATAGCTAAAAAAGGTGGTCTGTACCTCTCCAGGGTCCTGCTGTTTAGGAGGCTGCCCGCACAATGTTAGATCTACGATAGGTTCTCGGCGCTCCAACGTCCCCGATGAATCGCGTTTATAGTACACAAGAGCGAGGGCAGGAAGAGGCAAACGGCTGGACTGGTCGGCCGTTGAAATAATAGGTCAAATCTTAACCTAACCGCTTTGATCCAGTGCCCCAGGGGACAATTAGTTTCGCGAACTGGTGAGCTCTTCGATGTCCAGGTCTTAGACAAAAAAGAAAATTTTCTTTGGCCGGACGTACCGGACATTGGGGTCCCCCACCGAGTACTTGACAACAGACTAAACTAGGAGGATTGGTTCACAAATGCTCCCTCCTTTCCATCTATTCCATGCTATCCATTACCTGGTGGCGGTGTACTGAATATCTACATCCTAGATTAGCGGGAAGAGTGTGGAGGAACAGCCGTAAAGAGCCAAGGGGAAGGCCCTAGGCAAATGATCCCCAATCAACTGAAGCATTGAGGTTGGACCAAAAGTCCGTCGGTGCAGACCTGGGTGATTATGTAATTCTTACTACAGAAAAAGTTCCTACTACCCCCGGACATGTAAACT
+  } [1.8s, cum. 6.9s]
+  Current tree:  sim-1835442223.msf {
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 1/50 {
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.24015582416531206
+          Current KuhnerFelsenstein:0.0033137554571439362
+        }
+      } [9.3s, cum. 9.3s]
+    } [9.3s, cum. 9.3s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 2/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:0.23290117208923097
+          Current KuhnerFelsenstein:0.002484404294328003
+        }
+      } [9.9s, cum. 9.9s]
+    } [9.9s, cum. 19s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 3/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.2054599461668172
+          Current KuhnerFelsenstein:0.0025631989357015163
+        }
+      } [9.8s, cum. 9.8s]
+    } [9.8s, cum. 29s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 4/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.21521385427171394
+          Current KuhnerFelsenstein:0.001612239105653149
+        }
+      } [9.8s, cum. 9.8s]
+    } [9.8s, cum. 38s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 5/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.24546392999111413
+          Current KuhnerFelsenstein:0.005160484283738922
+        }
+      } [9.8s, cum. 9.8s]
+    } [9.8s, cum. 48s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 6/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.21098611779025056
+          Current KuhnerFelsenstein:0.003116252585519183
+        }
+      } [9.9s, cum. 9.9s]
+    } [9.9s, cum. 58s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 7/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.19432969177172743
+          Current KuhnerFelsenstein:0.0018469305829174622
+        }
+      } [9.9s, cum. 9.9s]
+    } [9.9s, cum. 1m8s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 8/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.21992064420707297
+          Current KuhnerFelsenstein:0.0022872952168323593
+        }
+      } [9.9s, cum. 9.9s]
+    } [9.9s, cum. 1m18s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 9/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.173990805525812
+          Current KuhnerFelsenstein:0.001884407288608143
+        }
+      } [9.9s, cum. 9.9s]
+    } [9.9s, cum. 1m28s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 10/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.23460500551679764
+          Current KuhnerFelsenstein:0.003378376898946115
+        }
+      } [9.9s, cum. 9.9s]
+    } [9.9s, cum. 1m38s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 11/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.21320146006637847
+          Current KuhnerFelsenstein:0.0018246178881990284
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 1m48s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 12/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.17906091417745515
+          Current KuhnerFelsenstein:0.0017209533851403292
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 1m58s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 13/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.20207922499441175
+          Current KuhnerFelsenstein:0.0018211851723430338
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 2m8s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 14/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.2330397203061959
+          Current KuhnerFelsenstein:0.0025096906142559492
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 2m18s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 15/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:16.0
+          Current RobinsonFouldsMetric:0.20711601552969292
+          Current KuhnerFelsenstein:0.0016991535385762265
+        }
+      } [9.9s, cum. 9.9s]
+    } [9.9s, cum. 2m28s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 16/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:16.0
+          Current RobinsonFouldsMetric:0.21081185269570352
+          Current KuhnerFelsenstein:0.0017810766396849772
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 2m39s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 17/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:0.19596430495435507
+          Current KuhnerFelsenstein:0.002703202922281911
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 2m49s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 18/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.200860218066558
+          Current KuhnerFelsenstein:0.0019662009861194357
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 2m59s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 19/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.19652316405785372
+          Current KuhnerFelsenstein:0.0021133248315776303
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 3m9s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 20/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:0.1933859419408818
+          Current KuhnerFelsenstein:0.0016357816640760474
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 3m19s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 21/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:16.0
+          Current RobinsonFouldsMetric:0.2948752855537637
+          Current KuhnerFelsenstein:0.005236005198758479
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 3m29s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 22/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.2575898089741045
+          Current KuhnerFelsenstein:0.002962776206942763
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 3m39s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 23/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.1981847390450375
+          Current KuhnerFelsenstein:0.0014641608013190395
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 3m49s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 24/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.1909021400306597
+          Current KuhnerFelsenstein:0.0017172574396248966
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 3m59s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 25/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.1950803645019868
+          Current KuhnerFelsenstein:0.0019658654005206655
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 4m10s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 26/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.21707059991745242
+          Current KuhnerFelsenstein:0.0032095865230910474
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 4m20s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 27/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.1947439435855858
+          Current KuhnerFelsenstein:0.0013734802737854278
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 4m30s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 28/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.23425365174317744
+          Current KuhnerFelsenstein:0.0026881843139648647
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 4m40s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 29/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.22535382873573997
+          Current KuhnerFelsenstein:0.002469648843667021
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 4m50s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 30/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:6.0
+          Current RobinsonFouldsMetric:0.2382865670848339
+          Current KuhnerFelsenstein:0.0026250517815534025
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 5m0s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 31/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:0.19817399691789325
+          Current KuhnerFelsenstein:0.0024452893490336395
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 5m10s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 32/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.25013357122197216
+          Current KuhnerFelsenstein:0.003545128202286749
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 5m20s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 33/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:18.0
+          Current RobinsonFouldsMetric:0.23306775275455205
+          Current KuhnerFelsenstein:0.0021750468146024475
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 5m30s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 34/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:16.0
+          Current RobinsonFouldsMetric:0.2607001390208038
+          Current KuhnerFelsenstein:0.0033939360988675324
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 5m41s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 35/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.2327782654346954
+          Current KuhnerFelsenstein:0.0025683584566158876
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 5m51s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 36/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:6.0
+          Current RobinsonFouldsMetric:0.23700188187111723
+          Current KuhnerFelsenstein:0.002922106717428201
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 6m1s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 37/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.20338114084815975
+          Current KuhnerFelsenstein:0.002320292144843987
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 6m11s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 38/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.2629144294002012
+          Current KuhnerFelsenstein:0.0033373361983197406
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 6m21s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 39/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.23432055515646008
+          Current KuhnerFelsenstein:0.002271601386855533
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 6m31s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 40/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.20695702466549998
+          Current KuhnerFelsenstein:0.0017764681604560907
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 6m41s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 41/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:18.0
+          Current RobinsonFouldsMetric:0.18914472563556523
+          Current KuhnerFelsenstein:0.0018106856570588553
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 6m51s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 42/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.21447378190784394
+          Current KuhnerFelsenstein:0.0024935888343996363
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 7m2s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 43/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.2525430295702991
+          Current KuhnerFelsenstein:0.002878420693716292
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 7m12s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 44/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.24554284224494669
+          Current KuhnerFelsenstein:0.0031133278663517446
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 7m22s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 45/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.17699339630219532
+          Current KuhnerFelsenstein:0.0016380679314767972
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 7m32s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 46/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.2082010794771538
+          Current KuhnerFelsenstein:0.0022698883393747742
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 7m42s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 47/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:10.0
+          Current RobinsonFouldsMetric:0.17381386225911036
+          Current KuhnerFelsenstein:0.00150890441782658
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 7m52s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 48/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:8.0
+          Current RobinsonFouldsMetric:0.23087005998497082
+          Current KuhnerFelsenstein:0.0035046234866755914
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 8m2s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 49/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:12.0
+          Current RobinsonFouldsMetric:0.22450190589059044
+          Current KuhnerFelsenstein:0.002159141104706131
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 8m13s]
+    Current method:SMC4K2PBF with iterScale=10.0 (i.e. 10000.0 iterations) {
+      Repeat 50/50 {
+        Score for current block of repeats (Method=SMC4K2PBF,IterScale=10.0,TreeName=sim-1835442223.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.2068721192635185
+          Current KuhnerFelsenstein:0.0014970919079433846
+        }
+      } [10s, cum. 10s]
+    } [10s, cum. 8m23s]
+  } [8m23s, cum. 8m30s]
+  Execution directory: /Users/shijiawang/eclipse-workspace/PGS/state/execs/25.exec
+} [8m30s]

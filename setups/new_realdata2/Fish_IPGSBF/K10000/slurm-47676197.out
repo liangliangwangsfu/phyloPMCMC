@@ -1,0 +1,613 @@
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+N E X T F L O W  ~  version 0.30.2
+Launching `prime.nf` [adoring_laplace] - revision: ab8808e3e5
+WARN: It seems you never run this project before -- Option `-resume` is ignored
+[warm up] executor > local
+[warm up] executor > slurm
+[4a/d78347] Submitted process > buildCode
+[af/568392] Submitted process > summarizePipeline
+[3d/42e5d7] Submitted process > analysisCode
+[71/e10d93] Submitted process > run (1)
+[37/8fbc19] Submitted process > run (2)
+[0e/9b7b67] Submitted process > run (8)
+[f9/888839] Submitted process > run (3)
+[d2/6d424a] Submitted process > run (7)
+[3c/0d149a] Submitted process > run (9)
+[1e/65bf96] Submitted process > run (10)
+[75/d879e3] Submitted process > run (11)
+[74/fa2211] Submitted process > run (4)
+[5e/1a1c21] Submitted process > run (5)
+[c1/37fbcf] Submitted process > run (6)
+[f5/c19c2d] Submitted process > run (12)
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/0e/9b7b67bb2cf9081d0adaa0837de8ae
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/0e/9b7b67bb2cf9081d0adaa0837de8ae/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/0e/9b7b67bb2cf9081d0adaa0837de8ae/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                        |                                                                                                                                   |                
+internal5:0.01                                                                                                                                                                           internal7:0.01283                                                                                                                   internal0:0.01503
+|                                                                                                                                                                                        |                                                                                                                                   |                
++-----------------------------------------------------------------+                                                                                                                      +-----------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                 |                                                                                                                      |                                                                                               |                                   |                                    |                             
+internal1:0.05054                                                 internal4:0.03136                                                                                                      internal8:0.01173                                                                               Neolamprologus_tetracanthus:0.07804 Lepidiolamprologus_elongatus:0.05145 Julidochromis_marlieri:0.05885
+|                                                                 |                                                                                                                      |                                                                                                                                                                                                      
++---------------------------------+                               +-------------------------------+                                                                                      +---------------------------------------------------------------+                                                                                                        
+|                                 |                               |                               |                                                                                      |                                                               |                              
+Ophthalmotilapia_ventralis:0.0036 Neolamprologus_brichardi:0.0036 Xenotilapia_flavipinnus:0.02144 internal3:0.00889                                                                      internal9:0.029                                                 Telmatochromis_temporalis:0.069
+                                                                                                  |                                                                                      |                                                                                              
+                                                                                                  +-----------------------+                                                              +-------------------------------+                               
+                                                                                                  |                       |                                                              |                               |                              
+                                                                                                  Xenotilapia_sima:0.0132 internal2:0.00295                                              Chalinochromis_popeleni:0.03422 Lamprologus_callipterus:0.03138
+                                                                                                                          |                                                                                                                             
+                                                                                                                          +----------------------------+                                                                 
+                                                                                                                          |                            |                                
+                                                                                                                          Callochromis_macrops:0.00865 Cardiopharynx_schoutedeni:0.00955
+                                                                                                                                                                                        
+                                                                                                                                                       
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.34968
+          Current KuhnerFelsenstein:0.007453068999999999
+        }
+      } [1d4h, cum. 1d4h]
+    } [1d4h, cum. 1d4h]
+  } [1d4h, cum. 1d4h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/0e/9b7b67bb2cf9081d0adaa0837de8ae/state/execs/0.exec
+} [1d4h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/37/8fbc198c604a7d7bfc29eb2919c0cb
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/37/8fbc198c604a7d7bfc29eb2919c0cb/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/37/8fbc198c604a7d7bfc29eb2919c0cb/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                         |                                                                                                                                    |                
+internal5:0.01017                                                                                                                                                                         internal7:0.01264                                                                                                                    internal0:0.01567
+|                                                                                                                                                                                         |                                                                                                                                    |                
++-----------------------------------------------------------------+                                                                                                                       +------------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                 |                                                                                                                       |                                                                                                |                                   |                                    |                             
+internal1:0.05039                                                 internal4:0.03106                                                                                                       internal8:0.01237                                                                                Neolamprologus_tetracanthus:0.07796 Lepidiolamprologus_elongatus:0.05155 Julidochromis_marlieri:0.05865
+|                                                                 |                                                                                                                       |                                                                                                                                                                                                       
++---------------------------------+                               +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                         
+|                                 |                               |                               |                                                                                       |                                                               |                               
+Ophthalmotilapia_ventralis:0.0035 Neolamprologus_brichardi:0.0035 Xenotilapia_flavipinnus:0.02151 internal3:0.00889                                                                       internal9:0.0293                                                Telmatochromis_temporalis:0.0683
+                                                                                                  |                                                                                       |                                                                                               
+                                                                                                  +------------------------+                                                              +-------------------------------+                               
+                                                                                                  |                        |                                                              |                               |                              
+                                                                                                  Xenotilapia_sima:0.01339 internal2:0.00291                                              Chalinochromis_popeleni:0.03366 Lamprologus_callipterus:0.03124
+                                                                                                                           |                                                                                                                             
+                                                                                                                           +----------------------------+                                                                 
+                                                                                                                           |                            |                                
+                                                                                                                           Callochromis_macrops:0.00884 Cardiopharynx_schoutedeni:0.00966
+                                                                                                                                                                                         
+                                                                                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.35106999999999994
+          Current KuhnerFelsenstein:0.0075144919
+        }
+      } [1d4h, cum. 1d4h]
+    } [1d4h, cum. 1d4h]
+  } [1d4h, cum. 1d4h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/37/8fbc198c604a7d7bfc29eb2919c0cb/state/execs/0.exec
+} [1d4h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/71/e10d933b69032552c21e5d3c26675b
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/71/e10d933b69032552c21e5d3c26675b/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/71/e10d933b69032552c21e5d3c26675b/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                        |                                                                                                                                     |                
+internal5:0.01006                                                                                                                                                                        internal7:0.01243                                                                                                                     internal0:0.01618
+|                                                                                                                                                                                        |                                                                                                                                     |                
++-------------------------------------------------------------------+                                                                                                                    +-------------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                   |                                                                                                                    |                                                                                                 |                                   |                                    |                             
+internal1:0.05034                                                   internal4:0.03106                                                                                                    internal8:0.01214                                                                                 Neolamprologus_tetracanthus:0.07813 Lepidiolamprologus_elongatus:0.05125 Julidochromis_marlieri:0.05775
+|                                                                   |                                                                                                                    |                                                                                                                                                                                                        
++----------------------------------+                                +------------------------------+                                                                                     +---------------------------------------------------------------+                                                                                                          
+|                                  |                                |                              |                                                                                     |                                                               |                                
+Ophthalmotilapia_ventralis:0.00355 Neolamprologus_brichardi:0.00355 Xenotilapia_flavipinnus:0.0216 internal3:0.00898                                                                     internal9:0.02965                                               Telmatochromis_temporalis:0.06845
+                                                                                                   |                                                                                     |                                                                                                
+                                                                                                   +------------------------+                                                            +-------------------------------+                               
+                                                                                                   |                        |                                                            |                               |                              
+                                                                                                   Xenotilapia_sima:0.01335 internal2:0.0029                                             Chalinochromis_popeleni:0.03302 Lamprologus_callipterus:0.03068
+                                                                                                                            |                                                                                                                           
+                                                                                                                            +---------------------------+                                                                
+                                                                                                                            |                           |                               
+                                                                                                                            Callochromis_macrops:0.0086 Cardiopharynx_schoutedeni:0.0097
+                                                                                                                                                                                        
+                                                                                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.34934000000000004
+          Current KuhnerFelsenstein:0.007517012800000001
+        }
+      } [1d5h, cum. 1d5h]
+    } [1d5h, cum. 1d5h]
+  } [1d5h, cum. 1d5h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/71/e10d933b69032552c21e5d3c26675b/state/execs/0.exec
+} [1d5h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f5/c19c2dcd5135e2d45375ae9e3545c1
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f5/c19c2dcd5135e2d45375ae9e3545c1/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f5/c19c2dcd5135e2d45375ae9e3545c1/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                         |                                                                                                                                     |                
+internal5:0.00997                                                                                                                                                                         internal7:0.01258                                                                                                                     internal0:0.01593
+|                                                                                                                                                                                         |                                                                                                                                     |                
++-----------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                 |                                                                                                                       |                                                                                                 |                                   |                                    |                             
+internal1:0.05072                                                 internal4:0.03152                                                                                                       internal8:0.01143                                                                                 Neolamprologus_tetracanthus:0.07794 Lepidiolamprologus_elongatus:0.05187 Julidochromis_marlieri:0.05893
+|                                                                 |                                                                                                                       |                                                                                                                                                                                                        
++---------------------------------+                               +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                          
+|                                 |                               |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.0035 Neolamprologus_brichardi:0.0035 Xenotilapia_flavipinnus:0.02143 internal3:0.00886                                                                       internal9:0.02976                                               Telmatochromis_temporalis:0.06874
+                                                                                                  |                                                                                       |                                                                                                
+                                                                                                  +------------------------+                                                              +-------------------------------+                               
+                                                                                                  |                        |                                                              |                               |                              
+                                                                                                  Xenotilapia_sima:0.01336 internal2:0.00299                                              Chalinochromis_popeleni:0.03322 Lamprologus_callipterus:0.03078
+                                                                                                                           |                                                                                                                             
+                                                                                                                           +----------------------------+                                                                 
+                                                                                                                           |                            |                                
+                                                                                                                           Callochromis_macrops:0.00861 Cardiopharynx_schoutedeni:0.00959
+                                                                                                                                                                                         
+                                                                                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.34995999999999994
+          Current KuhnerFelsenstein:0.007555799200000002
+        }
+      } [1d6h, cum. 1d6h]
+    } [1d6h, cum. 1d6h]
+  } [1d6h, cum. 1d6h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f5/c19c2dcd5135e2d45375ae9e3545c1/state/execs/0.exec
+} [1d6h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/c1/37fbcf0fde710fc2805411454d49d4
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/c1/37fbcf0fde710fc2805411454d49d4/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/c1/37fbcf0fde710fc2805411454d49d4/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                         |                                                                                                                                  |                
+internal5:0.01028                                                                                                                                                                         internal7:0.01276                                                                                                                  internal0:0.01568
+|                                                                                                                                                                                         |                                                                                                                                  |                
++-----------------------------------------------------------------+                                                                                                                       +-----------------------------------------------------------------------------------------------+                                  +------------------------------------+
+|                                                                 |                                                                                                                       |                                                                                               |                                  |                                    |                             
+internal1:0.05019                                                 internal4:0.03123                                                                                                       internal8:0.01215                                                                               Neolamprologus_tetracanthus:0.0779 Lepidiolamprologus_elongatus:0.05139 Julidochromis_marlieri:0.05851
+|                                                                 |                                                                                                                       |                                                                                                                                                                                                     
++---------------------------------+                               +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                       
+|                                 |                               |                               |                                                                                       |                                                               |                              
+Ophthalmotilapia_ventralis:0.0035 Neolamprologus_brichardi:0.0035 Xenotilapia_flavipinnus:0.02115 internal3:0.00861                                                                       internal9:0.0295                                                Telmatochromis_temporalis:0.068
+                                                                                                  |                                                                                       |                                                                                              
+                                                                                                  +------------------------+                                                              +-------------------------------+                               
+                                                                                                  |                        |                                                              |                               |                              
+                                                                                                  Xenotilapia_sima:0.01336 internal2:0.00289                                              Chalinochromis_popeleni:0.03313 Lamprologus_callipterus:0.03097
+                                                                                                                           |                                                                                                                             
+                                                                                                                           +----------------------------+                                                                 
+                                                                                                                           |                            |                                
+                                                                                                                           Callochromis_macrops:0.00861 Cardiopharynx_schoutedeni:0.00969
+                                                                                                                                                                                         
+                                                                                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.35095
+          Current KuhnerFelsenstein:0.0075584408999999995
+        }
+      } [1d10h, cum. 1d10h]
+    } [1d10h, cum. 1d10h]
+  } [1d10h, cum. 1d10h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/c1/37fbcf0fde710fc2805411454d49d4/state/execs/0.exec
+} [1d10h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f9/8888393f6dc584ed3bc576aab1c4d8
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f9/8888393f6dc584ed3bc576aab1c4d8/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f9/8888393f6dc584ed3bc576aab1c4d8/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                         |                                                                                                                                     |                
+internal5:0.01018                                                                                                                                                                         internal7:0.01215                                                                                                                     internal0:0.01631
+|                                                                                                                                                                                         |                                                                                                                                     |                
++-----------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                 |                                                                                                                       |                                                                                                 |                                   |                                    |                             
+internal1:0.05037                                                 internal4:0.03102                                                                                                       internal8:0.01214                                                                                 Neolamprologus_tetracanthus:0.07816 Lepidiolamprologus_elongatus:0.05153 Julidochromis_marlieri:0.05807
+|                                                                 |                                                                                                                       |                                                                                                                                                                                                        
++---------------------------------+                               +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                          
+|                                 |                               |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.0036 Neolamprologus_brichardi:0.0036 Xenotilapia_flavipinnus:0.02163 internal3:0.00919                                                                       internal9:0.02973                                               Telmatochromis_temporalis:0.06847
+                                                                                                  |                                                                                       |                                                                                                
+                                                                                                  +------------------------+                                                              +-------------------------------+                               
+                                                                                                  |                        |                                                              |                               |                              
+                                                                                                  Xenotilapia_sima:0.01306 internal2:0.00294                                              Chalinochromis_popeleni:0.03293 Lamprologus_callipterus:0.03077
+                                                                                                                           |                                                                                                                             
+                                                                                                                           +----------------------------+                                                                 
+                                                                                                                           |                            |                                
+                                                                                                                           Callochromis_macrops:0.00856 Cardiopharynx_schoutedeni:0.00954
+                                                                                                                                                                                         
+                                                                                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.34973999999999994
+          Current KuhnerFelsenstein:0.0075373328
+        }
+      } [1d11h, cum. 1d11h]
+    } [1d11h, cum. 1d11h]
+  } [1d11h, cum. 1d11h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/f9/8888393f6dc584ed3bc576aab1c4d8/state/execs/0.exec
+} [1d11h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/d2/6d424a1998003ab0c3210d0a03c30a
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/d2/6d424a1998003ab0c3210d0a03c30a/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/d2/6d424a1998003ab0c3210d0a03c30a/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                        |                                                                                                                                  |                
+internal5:0.01007                                                                                                                                                                        internal7:0.01291                                                                                                                  internal0:0.01518
+|                                                                                                                                                                                        |                                                                                                                                  |                
++-----------------------------------------------------------------+                                                                                                                      +----------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                 |                                                                                                                      |                                                                                              |                                   |                                    |                             
+internal1:0.05047                                                 internal4:0.03086                                                                                                      internal8:0.01186                                                                              Neolamprologus_tetracanthus:0.07811 Lepidiolamprologus_elongatus:0.05138 Julidochromis_marlieri:0.05862
+|                                                                 |                                                                                                                      |                                                                                                                                                                                                     
++---------------------------------+                               +-------------------------------+                                                                                      +-------------------------------------------------------------+                                                                                                         
+|                                 |                               |                               |                                                                                      |                                                             |                               
+Ophthalmotilapia_ventralis:0.0035 Neolamprologus_brichardi:0.0035 Xenotilapia_flavipinnus:0.02171 internal3:0.00899                                                                      internal9:0.0297                                              Telmatochromis_temporalis:0.0686
+                                                                                                  |                                                                                      |                                                                                             
+                                                                                                  +-----------------------+                                                              +------------------------------+                              
+                                                                                                  |                       |                                                              |                              |                             
+                                                                                                  Xenotilapia_sima:0.0134 internal2:0.00305                                              Chalinochromis_popeleni:0.0332 Lamprologus_callipterus:0.0308
+                                                                                                                          |                                                                                                                           
+                                                                                                                          +----------------------------+                                                                
+                                                                                                                          |                            |                                
+                                                                                                                          Callochromis_macrops:0.00858 Cardiopharynx_schoutedeni:0.00972
+                                                                                                                                                                                        
+                                                                                                                                                       
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.35125999999999996
+          Current KuhnerFelsenstein:0.007540599400000003
+        }
+      } [1d11h, cum. 1d11h]
+    } [1d11h, cum. 1d11h]
+  } [1d11h, cum. 1d11h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/d2/6d424a1998003ab0c3210d0a03c30a/state/execs/0.exec
+} [1d11h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/75/d879e38ff87b3ab13f2d0b27ddc60d
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/75/d879e38ff87b3ab13f2d0b27ddc60d/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/75/d879e38ff87b3ab13f2d0b27ddc60d/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                           |                                                                                                                                    |                
+internal5:0.01018                                                                                                                                                                           internal7:0.01245                                                                                                                    internal0:0.01589
+|                                                                                                                                                                                           |                                                                                                                                    |                
++-------------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                  +------------------------------------+
+|                                                                   |                                                                                                                       |                                                                                                 |                                  |                                    |                             
+internal1:0.05053                                                   internal4:0.03106                                                                                                       internal8:0.01223                                                                                 Neolamprologus_tetracanthus:0.0781 Lepidiolamprologus_elongatus:0.05154 Julidochromis_marlieri:0.05846
+|                                                                   |                                                                                                                       |                                                                                                                                                                                                       
++----------------------------------+                                +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                         
+|                                  |                                |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.00345 Neolamprologus_brichardi:0.00345 Xenotilapia_flavipinnus:0.02163 internal3:0.00885                                                                       internal9:0.02979                                               Telmatochromis_temporalis:0.06831
+                                                                                                    |                                                                                       |                                                                                                
+                                                                                                    +------------------------+                                                              +-------------------------------+                               
+                                                                                                    |                        |                                                              |                               |                              
+                                                                                                    Xenotilapia_sima:0.01362 internal2:0.00313                                              Chalinochromis_popeleni:0.03288 Lamprologus_callipterus:0.03062
+                                                                                                                             |                                                                                                                             
+                                                                                                                             +----------------------------+                                                                 
+                                                                                                                             |                            |                                
+                                                                                                                             Callochromis_macrops:0.00865 Cardiopharynx_schoutedeni:0.00965
+                                                                                                                                                                                           
+                                                                                                                                                          
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.3512
+          Current KuhnerFelsenstein:0.007572551800000001
+        }
+      } [1d12h, cum. 1d12h]
+    } [1d12h, cum. 1d12h]
+  } [1d12h, cum. 1d12h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/75/d879e38ff87b3ab13f2d0b27ddc60d/state/execs/0.exec
+} [1d12h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/3c/0d149add885174ae1dbe63dafb8121
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/3c/0d149add885174ae1dbe63dafb8121/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/3c/0d149add885174ae1dbe63dafb8121/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                           |                                                                                                                                     |                
+internal5:0.01016                                                                                                                                                                           internal7:0.01258                                                                                                                     internal0:0.01535
+|                                                                                                                                                                                           |                                                                                                                                     |                
++-------------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                   |                                                                                                                       |                                                                                                 |                                   |                                    |                             
+internal1:0.05051                                                   internal4:0.03103                                                                                                       internal8:0.01184                                                                                 Neolamprologus_tetracanthus:0.07826 Lepidiolamprologus_elongatus:0.05171 Julidochromis_marlieri:0.05899
+|                                                                   |                                                                                                                       |                                                                                                                                                                                                        
++----------------------------------+                                +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                          
+|                                  |                                |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.00355 Neolamprologus_brichardi:0.00355 Xenotilapia_flavipinnus:0.02173 internal3:0.00912                                                                       internal9:0.02978                                               Telmatochromis_temporalis:0.06878
+                                                                                                    |                                                                                       |                                                                                                
+                                                                                                    +------------------------+                                                              +-------------------------------+                               
+                                                                                                    |                        |                                                              |                               |                              
+                                                                                                    Xenotilapia_sima:0.01328 internal2:0.00293                                              Chalinochromis_popeleni:0.03297 Lamprologus_callipterus:0.03093
+                                                                                                                             |                                                                                                                             
+                                                                                                                             +----------------------------+                                                                 
+                                                                                                                             |                            |                                
+                                                                                                                             Callochromis_macrops:0.00875 Cardiopharynx_schoutedeni:0.00965
+                                                                                                                                                                                           
+                                                                                                                                                          
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.35218
+          Current KuhnerFelsenstein:0.007587610600000002
+        }
+      } [1d12h, cum. 1d12h]
+    } [1d12h, cum. 1d12h]
+  } [1d12h, cum. 1d12h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/3c/0d149add885174ae1dbe63dafb8121/state/execs/0.exec
+} [1d12h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/74/fa22119aceca942d27dc7101514c98
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/74/fa22119aceca942d27dc7101514c98/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/74/fa22119aceca942d27dc7101514c98/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                           |                                                                                                                                     |                
+internal5:0.01019                                                                                                                                                                           internal7:0.01259                                                                                                                     internal0:0.01581
+|                                                                                                                                                                                           |                                                                                                                                     |                
++-------------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                   +-----------------------------------+
+|                                                                   |                                                                                                                       |                                                                                                 |                                   |                                   |                            
+internal1:0.05033                                                   internal4:0.03078                                                                                                       internal8:0.01142                                                                                 Neolamprologus_tetracanthus:0.07811 Lepidiolamprologus_elongatus:0.0516 Julidochromis_marlieri:0.0585
+|                                                                   |                                                                                                                       |                                                                                                                                                                                                      
++----------------------------------+                                +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                         
+|                                  |                                |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.00345 Neolamprologus_brichardi:0.00345 Xenotilapia_flavipinnus:0.02168 internal3:0.00897                                                                       internal9:0.02925                                               Telmatochromis_temporalis:0.06875
+                                                                                                    |                                                                                       |                                                                                                
+                                                                                                    +------------------------+                                                              +-------------------------------+                               
+                                                                                                    |                        |                                                              |                               |                              
+                                                                                                    Xenotilapia_sima:0.01336 internal2:0.00284                                              Chalinochromis_popeleni:0.03343 Lamprologus_callipterus:0.03097
+                                                                                                                             |                                                                                                                             
+                                                                                                                             +----------------------------+                                                                 
+                                                                                                                             |                            |                                
+                                                                                                                             Callochromis_macrops:0.00879 Cardiopharynx_schoutedeni:0.00991
+                                                                                                                                                                                           
+                                                                                                                                                          
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.34948999999999997
+          Current KuhnerFelsenstein:0.007470483099999999
+        }
+      } [1d12h, cum. 1d12h]
+    } [1d12h, cum. 1d12h]
+  } [1d12h, cum. 1d12h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/74/fa22119aceca942d27dc7101514c98/state/execs/0.exec
+} [1d12h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/1e/65bf968bd21bc48313d1ec3774acf5
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/1e/65bf968bd21bc48313d1ec3774acf5/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/1e/65bf968bd21bc48313d1ec3774acf5/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                           |                                                                                                                                     |                
+internal5:0.01025                                                                                                                                                                           internal7:0.01251                                                                                                                     internal0:0.01569
+|                                                                                                                                                                                           |                                                                                                                                     |                
++-------------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                   |                                                                                                                       |                                                                                                 |                                   |                                    |                             
+internal1:0.05031                                                   internal4:0.03099                                                                                                       internal8:0.01201                                                                                 Neolamprologus_tetracanthus:0.07821 Lepidiolamprologus_elongatus:0.05152 Julidochromis_marlieri:0.05848
+|                                                                   |                                                                                                                       |                                                                                                                                                                                                        
++----------------------------------+                                +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                          
+|                                  |                                |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.00355 Neolamprologus_brichardi:0.00355 Xenotilapia_flavipinnus:0.02164 internal3:0.00887                                                                       internal9:0.02972                                               Telmatochromis_temporalis:0.06843
+                                                                                                    |                                                                                       |                                                                                                
+                                                                                                    +------------------------+                                                              +-------------------------------+                               
+                                                                                                    |                        |                                                              |                               |                              
+                                                                                                    Xenotilapia_sima:0.01345 internal2:0.00305                                              Chalinochromis_popeleni:0.03328 Lamprologus_callipterus:0.03092
+                                                                                                                             |                                                                                                                             
+                                                                                                                             +----------------------------+                                                                 
+                                                                                                                             |                            |                                
+                                                                                                                             Callochromis_macrops:0.00863 Cardiopharynx_schoutedeni:0.00968
+                                                                                                                                                                                           
+                                                                                                                                                          
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.35127
+          Current KuhnerFelsenstein:0.0075403603
+        }
+      } [1d13h, cum. 1d13h]
+    } [1d13h, cum. 1d13h]
+  } [1d13h, cum. 1d13h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/1e/65bf968bd21bc48313d1ec3774acf5/state/execs/0.exec
+} [1d13h]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/5e/1a1c218850cdc9a0f8cb1b6202b9e4
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/5e/1a1c218850cdc9a0f8cb1b6202b9e4/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/5e/1a1c218850cdc9a0f8cb1b6202b9e4/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 2500; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                         |                                                                                                                                   |                
+internal5:0.01009                                                                                                                                                                         internal7:0.01287                                                                                                                   internal0:0.01535
+|                                                                                                                                                                                         |                                                                                                                                   |                
++-----------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                 +------------------------------------+
+|                                                                 |                                                                                                                       |                                                                                                 |                                 |                                    |                             
+internal1:0.05032                                                 internal4:0.0308                                                                                                        internal8:0.01215                                                                                 Neolamprologus_tetracanthus:0.078 Lepidiolamprologus_elongatus:0.05148 Julidochromis_marlieri:0.05872
+|                                                                 |                                                                                                                       |                                                                                                                                                                                                      
++---------------------------------+                               +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                        
+|                                 |                               |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.0035 Neolamprologus_brichardi:0.0035 Xenotilapia_flavipinnus:0.02189 internal3:0.009                                                                         internal9:0.02979                                               Telmatochromis_temporalis:0.06836
+                                                                                                  |                                                                                       |                                                                                                
+                                                                                                  +------------------------+                                                              +-------------------------------+                               
+                                                                                                  |                        |                                                              |                               |                              
+                                                                                                  Xenotilapia_sima:0.01366 internal2:0.00314                                              Chalinochromis_popeleni:0.03307 Lamprologus_callipterus:0.03083
+                                                                                                                           |                                                                                                                             
+                                                                                                                           +----------------------------+                                                                 
+                                                                                                                           |                            |                                
+                                                                                                                           Callochromis_macrops:0.00849 Cardiopharynx_schoutedeni:0.00971
+                                                                                                                                                                                         
+                                                                                                                                                        
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.35246999999999995
+          Current KuhnerFelsenstein:0.007577133700000001
+        }
+      } [1d13h, cum. 1d13h]
+    } [1d13h, cum. 1d13h]
+  } [1d13h, cum. 1d13h]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/5e/1a1c218850cdc9a0f8cb1b6202b9e4/state/execs/0.exec
+} [1d13h]
+[e2/f3e1d3] Submitted process > aggregate
+ERROR ~ Error executing process > 'aggregate'
+
+Caused by:
+  Process `aggregate` terminated with an error exit status (2)
+
+Command executed:
+
+  ./code/bin/csv-aggregate     --experimentConfigs.managedExecutionFolder false     --experimentConfigs.saveStandardStreams false     --experimentConfigs.recordExecutionInfo false     --argumentFileName state/execs/0.exec/options.map     --argumentsKeys    gen.rand  PGSExperiments.iterScalings PGSExperiments.methods PGSExperiments.mainRand PGSExperiments.nParticlesEachStep    --dataPathInEachExecFolder state/execs/0.exec/results/logZout.csv     --outputFolderName aggregated
+
+Command exit status:
+  2
+
+Command output:
+  (empty)
+
+Command error:
+    --dataPathInEachExecFolder state/execs/0.exec/results/logZout.csv    # <String> (mandatory)
+  #   description: Comma separated value (cvs) file in each exec containing the data to be aggregated.
+  
+  # --execFoldersPrefix <String> (default value: exec_)
+  #   description: Prefix of the directories, each containing stored command line arguments stored in tab separated values as well data in csv format.
+  
+  # --experimentConfigs.configFile <File> (optional)
+  #   description: If set, use those arguments in provided file that do not appear in the provided arguments.
+  
+    --experimentConfigs.managedExecutionFolder false    # <boolean> (default value: true)
+  #   description: Automatically organize results into subdirectories of 'results/all'?
+  
+    --experimentConfigs.recordExecutionInfo false    # <boolean> (default value: true)
+  #   description: Record information such as timing, main class, code version, etc for this run?
+  
+    --experimentConfigs.saveStandardStreams false    # <boolean> (default value: true)
+  #   description: Save combined standard out and err into a file?
+  
+  # --keys <String> (mandatory)
+  #   description: Command line arguments stored in tab separated values for each exec. Syntax: comma separated list of (<key> [as <transformed-key>] )* from [optional] <tsv-file-in-each-exec>
+  # ! Did not instantiate <java.lang.String> because of missing input
+  
+    --outputFolderName aggregated    # <String> (default value: aggregated)
+  
+  ### Errors:
+  
+  #   error @ argumentFileName
+  # ! Unknown input
+  
+  #   error @ argumentsKeys
+  # ! Unknown input
+
+Work dir:
+  /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/K10000/work/e2/f3e1d356c69867b30179eca1606450
+
+Tip: you can replicate the issue by changing to the process work dir and entering the command `bash .command.run`
+
+ -- Check '.nextflow.log' file for details

@@ -19,6 +19,7 @@ import nuts.io.IO;
 import nuts.lang.StringUtils;
 import pty.RootedTree;
 import pty.RootedTree.RootedTreeProcessor;
+//import smcsampler.MrBayes;
 import fig.basic.IOUtils;
 import fig.basic.LogInfo;
 import fig.basic.Option;
@@ -34,10 +35,11 @@ public class MrBayes implements Runnable
 	@Option public int seed = 1297732343;
 	@Option
 	public String treePrior = "clock:coalescence"; // unconstrained:exp(10.0)
-	@Option public double mbRate = 10.0;
-	@Option public boolean setToK2P = true;  
+	@Option public double mbRate = 1.0;
+	@Option public boolean setToK2P = false;  
+	@Option public boolean setFixCoalescentPr = true;
 	@Option public boolean fixNucleotideFreq = false;
-	@Option public boolean set2nst = true;
+	@Option public boolean set2nst = false;
 	@Option public boolean setJC=false;
 	@Option public boolean setGTRGammaI = false;
 	@Option public boolean setInv = false;
@@ -46,12 +48,10 @@ public class MrBayes implements Runnable
 	@Option public double[] stationaryDistribution=new double[]{0.2, 0.26, 0.33, 0.21};
 	@Option public double[] subsRates=new double[]{0.26, 0.18, 0.17, 0.15, 0.11, 0.13};
 	@Option public double  mb_trans2tranv=2.0; 
-	@Option public boolean setstarttree=false; 
-	@Option public boolean setFixCoalescentPr = false;
+	@Option public boolean setstarttree=false;  
 	//@Option public boolean setSSinMB=false;
 	@Option public boolean fixtratioInMb=false;
 	@Option public boolean useNNI=true; 	
-	@Option public boolean setSSinMB = false;
 
 	// the next two can also be provided directly as arguments in computeSamples
 	@Option public SequenceType st = SequenceType.RNA;
@@ -183,6 +183,7 @@ public class MrBayes implements Runnable
 	{
 		writeMrBayesCmd_(mrBayesCmd, false);
 	}
+
 	
 	private void writeMrBayesCmd_(File mrBayesCmd, boolean setSSinMB)
 	{
@@ -214,7 +215,7 @@ public class MrBayes implements Runnable
 						"prset Treeagepr =  fixed(0.1);\n"+ 
 						//(setFixCoalescentPr ? "prset Clockratepr = Exponential(0.1) ;\n" : "") +
 						(setFixCoalescentPr ? "prset Clockratepr =  fixed(1.0)  ;\n" : "") +
-						"prset  popsizepr = fixed(0.0014);\n"+ 
+						"prset  popsizepr = fixed(0.002);\n"+ 
 						"mcmcp ngen=" +  ngenNum + ";\n" +						
 						"mcmcp Nchains=" + nChains + ";\n" +
 //						"mcmcp seed=" + Math.abs(seed) + ";\n" +
@@ -249,29 +250,10 @@ public class MrBayes implements Runnable
 				     "sumt;\n" +
 				"end;\n");
 		
-//	    out.append(
-//	            "begin mrbayes;\n" +
-//	            "set autoclose=yes nowarn=yes;\n" +
-////	            "execute " + NEX_FILE + ";\n" +
-//		        (setstarttree?"":"execute " + NEX_FILE + ";\n") +
-//	            "prset brlenspr=" + treePrior + (mbRate == 1.0  ? "" : "(" + mbRate + ")" ) + ";\n" +
-//	            (setFixCoalescentPr ? 
-//	               "prset thetapr=fixed(1.0);\n" : "") +
-//	            "mcmcp ngen=" + nMCMCIters + ";\n" +
-////	            (autotune ? "" : "mcmcp Autotune=No;\n") +
-//	            "mcmcp Nchains=" + nChains + ";\n" +
-////	            (fixTopo ? "propset ExtSPR(Tau,V)$prob=0;propset ExtTBR(Tau,V)$prob=0;propset NNI(Tau,V)$prob=0;propset ParsSPR(Tau,V)$prob=0;\n" : "") + 
-//	            (setToK2P ? 
-//	                "lset nst=6;\n" +
-//	                "prset statefreqpr=fixed(0.25,0.25,0.25,0.25);\n" +
-//	                "prset revmatpr=fixed(" + b4 +"," + a4 + "," + b4 + "," + b4 +"," + a4 + "," + b4 + ");\n"
-//	                : "") +
-//				(set2nst?"lset nst=2;\n"+"prset tratiopr = beta(1, 1);\n":"lset nst=6;\n")+
-//	            "mcmc;\n" +
-//	            "sumt;\n" +
-//	            "end;\n");
 		out.close();
 	}
+	
+
 
 	public static void main(String [] args)
 	{
@@ -314,3 +296,4 @@ public class MrBayes implements Runnable
 		});
 	}
 }
+

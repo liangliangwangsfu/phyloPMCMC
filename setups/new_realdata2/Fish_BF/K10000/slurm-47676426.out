@@ -1,0 +1,29 @@
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+N E X T F L O W  ~  version 0.30.2
+Launching `prime.nf` [tiny_williams] - revision: d0ca89e8a2
+[warm up] executor > local
+[warm up] executor > slurm
+[ae/a5f403] Submitted process > buildCode
+[31/2a4190] Submitted process > analysisCode
+[aa/30a301] Submitted process > summarizePipeline
+[e2/591e21] Submitted process > run (5)
+[b2/777d52] Submitted process > run (6)
+[77/7d5061] Submitted process > run (2)
+[59/b411e5] Submitted process > run (7)
+[04/a7c2ae] Submitted process > run (8)
+[23/fd1eb0] Submitted process > run (9)
+[0b/96d4fe] Submitted process > run (10)
+[cc/65fae1] Submitted process > run (11)
+[af/00f64e] Submitted process > run (1)
+[a5/ae7183] Submitted process > run (3)
+[61/67aaea] Submitted process > run (4)
+[6b/b71a8b] Submitted process > run (12)

@@ -1,0 +1,11 @@
+#Method,IterScale,Repeat,Metric,Value,TreeName,Time
+PGS4K2P,5000.0,0,ConsensusLogLL,-6221.034585839545,fish.msf,30438869
+PGS4K2P,5000.0,0,BestSampledLogLL,-Infinity,fish.msf,30438869
+PGS4K2P,5000.0,0,PartitionMetric,18.0,fish.msf,30438869
+PGS4K2P,5000.0,0,RobinsonFouldsMetric,0.6979,fish.msf,30438869
+PGS4K2P,5000.0,0,KuhnerFelsenstein,0.030698905000000005,fish.msf,30438869
+PGS4K2P,5000.0,1,ConsensusLogLL,-6068.461875314917,fish.msf,31157364
+PGS4K2P,5000.0,1,BestSampledLogLL,-Infinity,fish.msf,31157364
+PGS4K2P,5000.0,1,PartitionMetric,16.0,fish.msf,31157364
+PGS4K2P,5000.0,1,RobinsonFouldsMetric,0.6396499999999999,fish.msf,31157364
+PGS4K2P,5000.0,1,KuhnerFelsenstein,0.0269813525,fish.msf,31157364

@@ -186,7 +186,7 @@ public class PGSExperiments implements Runnable {
 
 			this.data = f;
 			final String treeName = f.getName();
-			LogInfo.track("Current tree:" + treeName);
+			LogInfo.track("Current tree:  " + treeName);
 			
 			// evaluate the likelihood of the inferred tree
 			//Dataset dataset = DatasetUtils.fromAlignment(this.data, sequenceType);
@@ -887,10 +887,10 @@ public class PGSExperiments implements Runnable {
 			    mb.set2nst = true;
 				//mb.mb_trans2tranv=2.0;
 				//mb.fixtratioInMb = true;
-				mb.treePrior = "unconstrained:exp(10.0)";
+				//mb.treePrior = "unconstrained:exp(10.0)";
 				//mb.treePrior = "clock:uniform";
 			    //mb.treePrior = "clock:speciestree";
-				//mb.treePrior = "clock:coalescence";
+				mb.treePrior = "clock:coalescence";
 				mb.setFixCoalescentPr = true;
 				mb.st = SequenceType.DNA;
 				List<Taxon> leaves = MSAParser.parseMSA(instance.data).taxa();

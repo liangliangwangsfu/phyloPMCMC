@@ -1,0 +1,153 @@
+pcs.disableUnrooted	true
+pcs.useExtendedLogLL	false
+pcs.useStar	false
+pcs.useTemperature	false
+PGSExperiments.resampleRoot	false
+PGSExperiments.refMethod	SMC4GTRIGamma
+PGSExperiments.nThousandIters	1
+PGSExperiments.methods	SMC4K2PBF
+PGSExperiments.iterScalings	1
+PGSExperiments.refIterScaling	100
+PGSExperiments.repPerDataPt	1
+PGSExperiments.pmcmcSMCExpMix	0.6666666666666666
+PGSExperiments.treeRatePrior	10.0
+PGSExperiments.mainRand	50
+PGSExperiments.verbose	false
+PGSExperiments.nThreads	2
+PGSExperiments.maxNUniqueParticles	2147483647
+PGSExperiments.finalMaxNUniqueParticles	2147483647
+PGSExperiments.nParticlesEachStep	1
+PGSExperiments.parameter_a	1.2
+PGSExperiments.a_alpha	1.5
+PGSExperiments.a_statFreqs	100.0
+PGSExperiments.a_subsRates	100.0
+PGSExperiments.a_pInv	0.2
+PGSExperiments.pmmhPgsExpMix	0.05
+PGSExperiments.burninPercent	0.5
+PGSExperiments.sampleTreeEveryNIter	1
+PGSExperiments.RcommandDir	/Users/oudomame/phyloPMCMC/
+PGSExperiments.useDataGenerator	true
+PGSExperiments.dataFile	
+PGSExperiments.refTree	
+PGSExperiments.dataDirName	output
+PGSExperiments.sequenceType	DNA
+PGSExperiments.isPMCMC4clock	true
+PGSExperiments.useNJinfo	false
+PGSExperiments.useTopologyProcessor	false
+PGSExperiments.saveTreesFromPMCMC	false
+PGSExperiments.nameOfAllTrees	allTrees.trees
+PGSExperiments.csmc_trans2tranv	2.0
+PGSExperiments.smcmcmcMix	0.5
+PGSExperiments.betterStartVal	true
+PGSExperiments.nCSMC	2
+PGSExperiments.nUCSMC	2
+PGSExperiments.adaptiveTempDiff	false
+PGSExperiments.alphaSMCSampler	0.95
+PGSExperiments.essRatioThreshold	0.7
+PGSExperiments.sampleTrans2tranv	true
+PGSExperiments.resamplingStrategy	ESS
+PGSExperiments.mbRate	1.0
+PGSExperiments.setToK2P	true
+log.maxIndLevel	10
+log.msPerLine	1000
+log.file	/project/6003576/shijia57/Cedar/exp1/CSMCBF_30/work/78/87a8539e6d003cb84ebecf734c5cca/state/execs/0.exec/log
+log.stdout	true
+log.note	
+log.forcePrint	false
+log.maxPrintErrors	10000
+gen.nTaxa	40
+gen.nReplica	20
+gen.treeRate	10
+gen.outputDirName	output
+gen.len	5000
+gen.rand	11
+gen.useNonclock	false
+gen.useSlightNonclock	false
+gen.sdScale	0.2
+gen.useGutellData	false
+gen.gutellLocation	
+gen.useYule	false
+gen.useUnif	false
+gen.useFullGutellLocFile	false
+gen.miniTest	false
+gen.q	0.5
+gen.useDataGen4GTRGammaI	false
+gen.pInv	0.0
+gen.alpha	0.5
+gen.stationaryDistribution	[D@7ab2bfe1
+gen.subsRates	[D@497470ed
+gen.useSeqGen	false
+gen.seqGenPath	/Users/liangliang/software/Seq-Gen.v1.3.3/source/seq-gen
+gen.generateDNAdata	true
+priorprior.printBranchLengthMagnitudes	false
+mb.mrBayesPath	mb
+mb.nMCMCIters	10000
+mb.nChains	4
+mb.seed	1297732343
+mb.treePrior	clock:coalescence
+mb.mbRate	10.0
+mb.setToK2P	true
+mb.fixNucleotideFreq	false
+mb.set2nst	true
+mb.setJC	false
+mb.setGTRGammaI	false
+mb.setInv	false
+mb.fixGTRGammaPara	false
+mb.alpha	0.5
+mb.stationaryDistribution	[D@63c12fb0
+mb.subsRates	[D@b1a58a3
+mb.mb_trans2tranv	2.0
+mb.setstarttree	false
+mb.setFixCoalescentPr	false
+mb.fixtratioInMb	false
+mb.useNNI	true
+mb.setSSinMB	false
+mb.st	RNA
+mb.alignmentInputFile	
+prior.multiplicativeBranchFactor	2.0
+nc.deltaProposalRate	-1.0
+nc.useOptimal	false
+prop.multiplicativeBranchProposalScaling	2.0
+prop.useMultiplicativeBranchProposal	true
+prop.useGlobalMultiplicativeBranchProposal	true
+prop.useStochasticNearestNeighborInterchangeProposal	true
+prop.useStochasticNearestNeighborInterchangeProposalWithNbrsResampling	true
+prop.useSubtreePruningRegraftingProposal	true
+prop.useIndepBranchProp	false
+nj.dnadistPath	dnadist
+nj.neighborPath	/home/shijia57/bin/phylip-3.69/exe//neighbor
+exec.disableSaveJar	true
+exec.execName	
+exec.create	true
+exec.monitor	true
+exec.execDir	
+exec.execPoolDir	/project/6003576/shijia57/Cedar/exp1/CSMCBF_30/work/78/87a8539e6d003cb84ebecf734c5cca/state/execs
+exec.actualExecPoolDir	
+exec.overwriteExecDir	false
+exec.useStandardExecPoolDirStrategy	true
+exec.printOptionsAndExit	false
+exec.miscOptions	
+exec.addToView	
+exec.recordPath	
+exec.charEncoding	
+exec.jarFiles	
+exec.dontInitializeJars	false
+exec.initializeJarsAfterDirCreation	false
+exec.makeThunk	false
+exec.thunkAutoQueue	false
+exec.thunkPriority	0
+exec.thunkMainClassName	
+exec.thunkJavaOpts	
+exec.thunkUseScala	false
+exec.thunkReqMemory	1024
+exec.dontCatchExceptions	false
+mcmc.alignmentInputFile	
+mcmc.st	RNA
+mcmc.initTreeRandom	1
+mcmc.computeLogZUsingSteppingStone	false
+phylo.prior	EXP
+phylo.rand	1
+phylo.nIteration	1000
+phylo.logFrequency	100
+phylo.nTreesPerFile	100
+phylo.conditionAnneal	0.01

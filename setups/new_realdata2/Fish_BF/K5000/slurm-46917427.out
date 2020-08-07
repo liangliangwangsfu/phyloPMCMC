@@ -1,0 +1,102 @@
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+N E X T F L O W  ~  version 0.30.2
+Launching `prime.nf` [romantic_crick] - revision: fce5c79aa9
+WARN: It seems you never run this project before -- Option `-resume` is ignored
+[warm up] executor > local
+[warm up] executor > slurm
+[36/76e0fd] Submitted process > analysisCode
+[ce/70cce8] Submitted process > buildCode
+[35/6f7c34] Submitted process > summarizePipeline
+[8e/b51c13] Submitted process > run (1)
+[8a/625c03] Submitted process > run (2)
+[7a/c345e5] Submitted process > run (3)
+ERROR ~ Error executing process > 'run (1)'
+
+Caused by:
+  Process `run (1)` terminated with an error exit status (143)
+
+Command executed:
+
+  pwd  
+    mkdir state
+    mkdir state/execs
+  export LD_LIBRARY_PATH=/cvmfs/soft.computecanada.ca/nix/var/nix/profiles/16.09/lib:/opt/software/slurm/lib  
+  java   -cp 'code/lib/*' -Xmx80G   phyloPMCMC.PGSExperiments -useDataGenerator false    -nThousandIters 1      -dataFile /home/shijia57/projects/def-liang-ab/shijia57/phyloPMCMC/Realdata/fish.msf       -refTree /home/shijia57/projects/def-liang-ab/shijia57/phyloPMCMC/Realdata/consensus_fish.newick       -nTax 20       -treeRate 10     -mainRand 301       -len  1000      -sequenceType DNA      -generateDNAdata true      -nThreads 2      -sampleTrans2tranv true     -saveTreesFromPMCMC false      -iterScalings  5000     -methods  PGS4K2PBF       -useNonclock false      -useSlightNonclock false      -nParticlesEachStep 5000       -nReplica 1      -repPerDataPt  10      -neighborPath  '/home/shijia57/bin/phylip-3.69/exe//neighbor'      -gen.rand 13199
+       unset  LD_LIBRARY_PATH
+
+Command exit status:
+  143
+
+Command output:
+                                                                                                                                +------------------------+                                                                 
+                                                                                                                                |                        |                                
+                                                                                                                                Xenotilapia_sima:0.01065 Cardiopharynx_schoutedeni:0.01065
+                                                                                                                                                                                          
+                                                                                                                                                         
+  
+          Score for current block of repeats (Method=PGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+            Current PartitionMetric:14.0
+            Current RobinsonFouldsMetric:0.36524999999999996
+            Current KuhnerFelsenstein:0.0085807493
+          }
+        } [7h40m, cum. 7h40m]
+      } [7h40m, cum. 2d14h]
+      Current method:PGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+        Repeat 9/10 {
+           # particles: 5000; nMCMC:5000
+  internal6
+  |        
+  +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+  |                                                                                                                                                                                        |                                                                                                                                    |                
+  internal5:0.00105                                                                                                                                                                        internal7:0.01575                                                                                                                    internal0:0.05965
+  |                                                                                                                                                                                        |                                                                                                                                    |                
+  +-----------------------------------------------------------------+                                                                                                                      +------------------------------------------------------------------------------------------------+                                   +----------------------------------+
+  |                                                                 |                                                                                                                      |                                                                                                |                                   |                                  |                               
+  internal4:0.0219                                                  internal3:0.0319                                                                                                       internal8:0.01875                                                                                Neolamprologus_tetracanthus:0.08095 Ophthalmotilapia_ventralis:0.00505 Neolamprologus_brichardi:0.00505
+  |                                                                 |                                                                                                                      |                                                                                                                                                                                                       
+  +-----------------------------------+                             +------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                       
+  |                                   |                             |                              |                                                                                       |                                                               |                               
+  Lepidiolamprologus_elongatus:0.0424 Julidochromis_marlieri:0.0424 Xenotilapia_flavipinnus:0.0311 internal2:0.01365                                                                       internal9:0.02695                                               Telmatochromis_temporalis:0.0682
+                                                                                                   |                                                                                       |                                                                                               
+                                                                                                   +------------------------+                                                              +-------------------------------+                               
+                                                                                                   |                        |                                                              |                               |                              
+                                                                                                   Xenotilapia_sima:0.01745 internal1:0.0077                                               Chalinochromis_popeleni:0.04125 Lamprologus_callipterus:0.04125
+                                                                                                                            |                                                                                                                             
+                                                                                                                            +----------------------------+                                                                 
+                                                                                                                            |                            |                                
+                                                                                                                            Callochromis_macrops:0.00975 Cardiopharynx_schoutedeni:0.00975
+                                                                                                                                                                                          
+                                                                                                                                                         
+  
+          Score for current block of repeats (Method=PGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+            Current PartitionMetric:14.0
+            Current RobinsonFouldsMetric:0.3546499999999999
+            Current KuhnerFelsenstein:0.007779497500000001
+          }
+        } [7h40m, cum. 7h40m]
+      } [7h40m, cum. 2d21h]
+      Current method:PGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+        Repeat 10/10 {
+           # particles: 5000; nMCMC:5000
+
+Command error:
+  -- org.jblas INFO Deleting /tmp/jblas7747293964608174823/libjblas.so
+  -- org.jblas INFO Deleting /tmp/jblas7747293964608174823/libjblas_arch_flavor.so
+  -- org.jblas INFO Deleting /tmp/jblas7747293964608174823
+
+Work dir:
+  /project/6003576/shijia57/Cedar/new_realdata2/Fish_BF/work/8e/b51c13c92df8ac1d36aefb64bf8f75
+
+Tip: you can replicate the issue by changing to the process work dir and entering the command `bash .command.run`
+
+ -- Check '.nextflow.log' file for details
+WARN: Killing pending tasks (2)

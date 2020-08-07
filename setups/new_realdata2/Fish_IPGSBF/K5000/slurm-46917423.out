@@ -1,0 +1,208 @@
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+tput: terminal attributes: No such device or address
+
+N E X T F L O W  ~  version 0.30.2
+Launching `prime.nf` [amazing_goldwasser] - revision: 6323f37fbc
+WARN: It seems you never run this project before -- Option `-resume` is ignored
+[warm up] executor > local
+[warm up] executor > slurm
+[dd/88a30d] Submitted process > buildCode
+[e1/f18365] Submitted process > summarizePipeline
+[62/9dfb01] Submitted process > analysisCode
+[4a/8a47fc] Submitted process > run (2)
+[51/661768] Submitted process > run (3)
+[57/0772b9] Submitted process > run (1)
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/57/0772b9f43a87bb47eacf5d9c1e246d
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/57/0772b9f43a87bb47eacf5d9c1e246d/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/57/0772b9f43a87bb47eacf5d9c1e246d/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                         |                                                                                                                                    |                
+internal5:0.0086                                                                                                                                                                          internal7:0.01212                                                                                                                    internal0:0.01654
+|                                                                                                                                                                                         |                                                                                                                                    |                
++-------------------------------------------------------------------+                                                                                                                     +------------------------------------------------------------------------------------------------+                                   +-----------------------------------+
+|                                                                   |                                                                                                                     |                                                                                                |                                   |                                   |                            
+internal1:0.05004                                                   internal4:0.03175                                                                                                     internal8:0.01151                                                                                Neolamprologus_tetracanthus:0.07779 Lepidiolamprologus_elongatus:0.0485 Julidochromis_marlieri:0.0572
+|                                                                   |                                                                                                                     |                                                                                                                                                                                                     
++----------------------------------+                                +-------------------------------+                                                                                     +---------------------------------------------------------------+                                                                                                        
+|                                  |                                |                               |                                                                                     |                                                               |                               
+Ophthalmotilapia_ventralis:0.00355 Neolamprologus_brichardi:0.00355 Xenotilapia_flavipinnus:0.01967 internal3:0.00759                                                                     internal9:0.0283                                                Telmatochromis_temporalis:0.0667
+                                                                                                    |                                                                                     |                                                                                               
+                                                                                                    +------------------------+                                                            +-------------------------------+                               
+                                                                                                    |                        |                                                            |                               |                              
+                                                                                                    Xenotilapia_sima:0.01268 internal2:0.00222                                            Chalinochromis_popeleni:0.03205 Lamprologus_callipterus:0.02865
+                                                                                                                             |                                                                                                                           
+                                                                                                                             +---------------------------+                                                                
+                                                                                                                             |                           |                               
+                                                                                                                             Callochromis_macrops:0.0088 Cardiopharynx_schoutedeni:0.0095
+                                                                                                                                                                                         
+                                                                                                                                                         
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.3386
+          Current KuhnerFelsenstein:0.007352124600000002
+        }
+      } [15h16m, cum. 15h16m]
+    } [15h16m, cum. 15h16m]
+  } [15h16m, cum. 15h16m]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/57/0772b9f43a87bb47eacf5d9c1e246d/state/execs/0.exec
+} [15h16m]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/51/661768285ca8726d75e09a0347a113
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/51/661768285ca8726d75e09a0347a113/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/51/661768285ca8726d75e09a0347a113/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                          |                                                                                                                                    |                
+internal5:0.00873                                                                                                                                                                          internal7:0.012                                                                                                                      internal0:0.01628
+|                                                                                                                                                                                          |                                                                                                                                    |                
++-------------------------------------------------------------------+                                                                                                                      +-------------------------------------------------------------------------------------------------+                                  +------------------------------------+
+|                                                                   |                                                                                                                      |                                                                                                 |                                  |                                    |                             
+internal1:0.0502                                                    internal4:0.03163                                                                                                      internal8:0.01167                                                                                 Neolamprologus_tetracanthus:0.0777 Lepidiolamprologus_elongatus:0.04873 Julidochromis_marlieri:0.05767
+|                                                                   |                                                                                                                      |                                                                                                                                                                                                       
++----------------------------------+                                +-------------------------------+                                                                                      +---------------------------------------------------------------+                                                                                                         
+|                                  |                                |                               |                                                                                      |                                                               |                                
+Ophthalmotilapia_ventralis:0.00345 Neolamprologus_brichardi:0.00345 Xenotilapia_flavipinnus:0.01986 internal3:0.00761                                                                      internal9:0.02877                                               Telmatochromis_temporalis:0.06708
+                                                                                                    |                                                                                      |                                                                                                
+                                                                                                    +-----------------------+                                                              +-------------------------------+                               
+                                                                                                    |                       |                                                              |                               |                              
+                                                                                                    Xenotilapia_sima:0.0128 internal2:0.0024                                               Chalinochromis_popeleni:0.03153 Lamprologus_callipterus:0.02817
+                                                                                                                            |                                                                                                                             
+                                                                                                                            +----------------------------+                                                                 
+                                                                                                                            |                            |                                
+                                                                                                                            Callochromis_macrops:0.00853 Cardiopharynx_schoutedeni:0.00947
+                                                                                                                                                                                          
+                                                                                                                                                         
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.3394999999999999
+          Current KuhnerFelsenstein:0.0074136010000000006
+        }
+      } [15h51m, cum. 15h51m]
+    } [15h51m, cum. 15h51m]
+  } [15h51m, cum. 15h51m]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/51/661768285ca8726d75e09a0347a113/state/execs/0.exec
+} [15h51m]
+/project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/4a/8a47fc013bfcb605d5b2efa9d004f1
+main() {
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/4a/8a47fc013bfcb605d5b2efa9d004f1/state/execs/0.exec
+  Copying data to /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/4a/8a47fc013bfcb605d5b2efa9d004f1/state/execs/0.exec/output
+  
+  Current tree:fish.msf {
+    Current method:IPGS4K2PBF with iterScale=5000.0 (i.e. 5000000.0 iterations) {
+      Repeat 1/1 {
+         # particles: 1250; nMCMC:5000
+internal6
+|        
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                                                                                                                           |                                                                                                                                     |                
+internal5:0.00853                                                                                                                                                                           internal7:0.01177                                                                                                                     internal0:0.01658
+|                                                                                                                                                                                           |                                                                                                                                     |                
++-------------------------------------------------------------------+                                                                                                                       +-------------------------------------------------------------------------------------------------+                                   +------------------------------------+
+|                                                                   |                                                                                                                       |                                                                                                 |                                   |                                    |                             
+internal1:0.05012                                                   internal4:0.0317                                                                                                        internal8:0.01134                                                                                 Neolamprologus_tetracanthus:0.07779 Lepidiolamprologus_elongatus:0.04865 Julidochromis_marlieri:0.05725
+|                                                                   |                                                                                                                       |                                                                                                                                                                                                        
++----------------------------------+                                +-------------------------------+                                                                                       +---------------------------------------------------------------+                                                                                                          
+|                                  |                                |                               |                                                                                       |                                                               |                                
+Ophthalmotilapia_ventralis:0.00345 Neolamprologus_brichardi:0.00345 Xenotilapia_flavipinnus:0.01964 internal3:0.00742                                                                       internal9:0.02782                                               Telmatochromis_temporalis:0.06663
+                                                                                                    |                                                                                       |                                                                                                
+                                                                                                    +------------------------+                                                              +-------------------------------+                               
+                                                                                                    |                        |                                                              |                               |                              
+                                                                                                    Xenotilapia_sima:0.01289 internal2:0.00246                                              Chalinochromis_popeleni:0.03255 Lamprologus_callipterus:0.02875
+                                                                                                                             |                                                                                                                             
+                                                                                                                             +----------------------------+                                                                 
+                                                                                                                             |                            |                                
+                                                                                                                             Callochromis_macrops:0.00866 Cardiopharynx_schoutedeni:0.00964
+                                                                                                                                                                                           
+                                                                                                                                                          
+
+        WARNING: Fix bug (leaf branch lengths not taken into account
+        Score for current block of repeats (Method=IPGS4K2PBF,IterScale=5000.0,TreeName=fish.msf) {
+          Current PartitionMetric:14.0
+          Current RobinsonFouldsMetric:0.33728
+          Current KuhnerFelsenstein:0.007270357
+        }
+      } [17h40m, cum. 17h40m]
+    } [17h40m, cum. 17h40m]
+  } [17h40m, cum. 17h40m]
+  Execution directory: /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/4a/8a47fc013bfcb605d5b2efa9d004f1/state/execs/0.exec
+} [17h40m]
+[46/c318dd] Submitted process > aggregate
+ERROR ~ Error executing process > 'aggregate'
+
+Caused by:
+  Process `aggregate` terminated with an error exit status (2)
+
+Command executed:
+
+  ./code/bin/csv-aggregate     --experimentConfigs.managedExecutionFolder false     --experimentConfigs.saveStandardStreams false     --experimentConfigs.recordExecutionInfo false     --argumentFileName state/execs/0.exec/options.map     --argumentsKeys    gen.rand  PGSExperiments.iterScalings PGSExperiments.methods PGSExperiments.mainRand PGSExperiments.nParticlesEachStep    --dataPathInEachExecFolder state/execs/0.exec/results/logZout.csv     --outputFolderName aggregated
+
+Command exit status:
+  2
+
+Command output:
+  (empty)
+
+Command error:
+    --dataPathInEachExecFolder state/execs/0.exec/results/logZout.csv    # <String> (mandatory)
+  #   description: Comma separated value (cvs) file in each exec containing the data to be aggregated.
+  
+  # --execFoldersPrefix <String> (default value: exec_)
+  #   description: Prefix of the directories, each containing stored command line arguments stored in tab separated values as well data in csv format.
+  
+  # --experimentConfigs.configFile <File> (optional)
+  #   description: If set, use those arguments in provided file that do not appear in the provided arguments.
+  
+    --experimentConfigs.managedExecutionFolder false    # <boolean> (default value: true)
+  #   description: Automatically organize results into subdirectories of 'results/all'?
+  
+    --experimentConfigs.recordExecutionInfo false    # <boolean> (default value: true)
+  #   description: Record information such as timing, main class, code version, etc for this run?
+  
+    --experimentConfigs.saveStandardStreams false    # <boolean> (default value: true)
+  #   description: Save combined standard out and err into a file?
+  
+  # --keys <String> (mandatory)
+  #   description: Command line arguments stored in tab separated values for each exec. Syntax: comma separated list of (<key> [as <transformed-key>] )* from [optional] <tsv-file-in-each-exec>
+  # ! Did not instantiate <java.lang.String> because of missing input
+  
+    --outputFolderName aggregated    # <String> (default value: aggregated)
+  
+  ### Errors:
+  
+  #   error @ argumentFileName
+  # ! Unknown input
+  
+  #   error @ argumentsKeys
+  # ! Unknown input
+
+Work dir:
+  /project/6003576/shijia57/Cedar/new_realdata2/Fish_IPGSBF/work/46/c318dd23e26fa85f82b4b55dbca288
+
+Tip: you can replicate the issue by changing to the process work dir and entering the command `bash .command.run`
+
+ -- Check '.nextflow.log' file for details
