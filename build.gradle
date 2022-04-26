@@ -57,7 +57,7 @@ repositories {
     url "https://www.stat.ubc.ca/~bouchard/maven/"
   }
       maven {
-    url "http://people.stat.sfu.ca/~lwa68/maven/"
+    url "http://www.sfu.ca/~lwa68/maven/"
   }  
 }
 
